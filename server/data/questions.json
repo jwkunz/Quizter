@@ -1,7 +1,7 @@
 [
   {
     "id": "a813f886-7f06-4649-92f1-6c777e325b25",
-    "prompt": "What language is Quiztik server written in?",
+    "prompt": "What language is Quizter server written in?",
     "options": [
       "Go",
       "Rust",

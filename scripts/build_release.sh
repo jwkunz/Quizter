@@ -58,8 +58,8 @@ if [[ "$TARGET" == "local" ]]; then
   if [[ "$SKIP_SERVER_BUILD" != "1" ]]; then
     (cd server && cargo build --release)
   fi
-  if [[ -f server/target/release/quiztik-server ]]; then
-    cp server/target/release/quiztik-server "$STAGE_DIR/server/quiztik-server"
+  if [[ -f server/target/release/quizter-server ]]; then
+    cp server/target/release/quizter-server "$STAGE_DIR/server/quizter-server"
   else
     echo "Missing local server binary" > "$STAGE_DIR/server/README.txt"
   fi
@@ -68,12 +68,12 @@ else
     (cd server && cargo build --release --target "$TARGET")
   fi
 
-  BIN_PATH="server/target/$TARGET/release/quiztik-server"
-  BIN_PATH_WIN="server/target/$TARGET/release/quiztik-server.exe"
+  BIN_PATH="server/target/$TARGET/release/quizter-server"
+  BIN_PATH_WIN="server/target/$TARGET/release/quizter-server.exe"
   if [[ -f "$BIN_PATH" ]]; then
-    cp "$BIN_PATH" "$STAGE_DIR/server/quiztik-server"
+    cp "$BIN_PATH" "$STAGE_DIR/server/quizter-server"
   elif [[ -f "$BIN_PATH_WIN" ]]; then
-    cp "$BIN_PATH_WIN" "$STAGE_DIR/server/quiztik-server.exe"
+    cp "$BIN_PATH_WIN" "$STAGE_DIR/server/quizter-server.exe"
   else
     cat > "$STAGE_DIR/server/README.txt" <<TXT
 No server binary found for target '$TARGET'.
@@ -90,7 +90,7 @@ cp web/admin/admin.html "$STAGE_DIR/server/web/admin/admin.html"
 cp -R assets/images/. "$STAGE_DIR/server/assets/images/" 2>/dev/null || true
 cp -R assets/questions/. "$STAGE_DIR/server/assets/questions/" 2>/dev/null || true
 
-zip_dir "$STAGE_DIR/server" "$DIST_DIR/quiztik-server-${TARGET}-v${VERSION}.zip"
+zip_dir "$STAGE_DIR/server" "$DIST_DIR/quizter-server-${TARGET}-v${VERSION}.zip"
 
 rm -rf "$STAGE_DIR"
 ls -1 "$DIST_DIR"

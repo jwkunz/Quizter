@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Quiztik Admin</title>
+  <title>Quizter Admin</title>
   <style>
     :root {
       --bg: #050505;
@@ -142,8 +142,8 @@
   <div class="wrap">
     <div class="panel" id="authPanel">
       <div class="brand">
-        <img class="brand-logo" src="assets/images/Quiztik_logo.png" alt="Quiztik logo" />
-        <h1>Quiztik Admin Console</h1>
+        <img class="brand-logo" src="assets/images/Quizter_logo.png" alt="Quizter logo" />
+        <h1>Quizter Admin Console</h1>
       </div>
       <div class="qr-panel">
         <img id="joinQr" alt="Player join QR code" />
@@ -158,8 +158,8 @@
       </div>
       <div class="row">
         <label class="field-label">Server URL <input id="serverUrl" style="min-width:260px" /></label>
-        <label class="field-label">Room Code <input id="roomCode" value="QUIZTIK" placeholder="Room code" /></label>
-        <label class="field-label">Admin Passcode <input id="passcode" value="quiztik-admin" placeholder="Admin passcode" /></label>
+        <label class="field-label">Room Code <input id="roomCode" value="QUIZTER" placeholder="Room code" /></label>
+        <label class="field-label">Admin Passcode <input id="passcode" value="quizter-admin" placeholder="Admin passcode" /></label>
         <label class="field-label">Rounds <input id="rounds" type="number" min="1" value="10" style="max-width:110px" /></label>
         <button id="createRoomBtn">Create/Update Room</button>
         <button id="loginBtn">Admin Login</button>
@@ -490,7 +490,7 @@
       const blob = new Blob([payload], { type: "application/json" });
       const link = document.createElement("a");
       link.href = URL.createObjectURL(blob);
-      link.download = "quiztik-current-bank-pack.json";
+      link.download = "quizter-current-bank-pack.json";
       document.body.appendChild(link);
       link.click();
       link.remove();

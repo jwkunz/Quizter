@@ -20,9 +20,9 @@
   - Added single-file player and admin HTML app shells.
   - Upgraded build script to build local server and package role-specific artifacts.
 - Build artifacts:
-  - `quiztik-server-local-v0.1.0.zip`
-  - `quiztik-player-v0.1.0.zip`
-  - `quiztik-admin-v0.1.0.zip`
+  - `quizter-server-local-v0.1.0.zip`
+  - `quizter-player-v0.1.0.zip`
+  - `quizter-admin-v0.1.0.zip`
 - Test status:
   - `cargo build --release` passes for server.
 - Known issues:
@@ -38,9 +38,9 @@
   - Added player join tutorial wizard and admin guided manual question builder + JSON question import.
   - Fixed repository hygiene by removing tracked build output and strengthening ignore patterns.
 - Build artifacts:
-  - `quiztik-server-local-v0.2.0.zip`
-  - `quiztik-player-v0.2.0.zip`
-  - `quiztik-admin-v0.2.0.zip`
+  - `quizter-server-local-v0.2.0.zip`
+  - `quizter-player-v0.2.0.zip`
+  - `quizter-admin-v0.2.0.zip`
 - Test status:
   - `cargo check` passes.
 - Known issues:
@@ -55,9 +55,9 @@
   - Ensured build script always removes previous archives and outputs versioned zip names.
   - Added tracked asset directories for upcoming graphics/audio.
 - Build artifacts:
-  - `quiztik-server-local-v0.3.0.zip`
-  - `quiztik-player-v0.3.0.zip`
-  - `quiztik-admin-v0.3.0.zip`
+  - `quizter-server-local-v0.3.0.zip`
+  - `quizter-player-v0.3.0.zip`
+  - `quizter-admin-v0.3.0.zip`
 - Test status:
   - `cargo check` passes; local packaging run complete.
 - Known issues:
@@ -71,9 +71,9 @@
   - Added project README with local run and packaging instructions.
   - Kept release script/version flow aligned with commit-stage process.
 - Build artifacts:
-  - `quiztik-server-local-v0.4.0.zip`
-  - `quiztik-player-v0.4.0.zip`
-  - `quiztik-admin-v0.4.0.zip`
+  - `quizter-server-local-v0.4.0.zip`
+  - `quizter-player-v0.4.0.zip`
+  - `quizter-admin-v0.4.0.zip`
 - Test status:
   - `cargo test` passes.
 - Known issues:
@@ -86,9 +86,9 @@
   - Added archive verification script to validate versioned zip outputs and expected content.
   - Added acceptance checklist covering packaging, smoke tests, core rules, and CI matrix.
 - Build artifacts:
-  - `quiztik-server-local-v0.5.0.zip`
-  - `quiztik-player-v0.5.0.zip`
-  - `quiztik-admin-v0.5.0.zip`
+  - `quizter-server-local-v0.5.0.zip`
+  - `quizter-player-v0.5.0.zip`
+  - `quizter-admin-v0.5.0.zip`
 - Test status:
   - `scripts/verify_artifacts.sh` passes for local build.
 - Known issues:
@@ -101,9 +101,9 @@
   - Changed server startup behavior to always rebuild the runtime question bank from `assets/questions/*.json` first.
   - Persists rebuilt merged bank to `data/questions.json` after load.
 - Build artifacts:
-  - `quiztik-server-local-v0.6.0.zip`
-  - `quiztik-player-v0.6.0.zip`
-  - `quiztik-admin-v0.6.0.zip`
+  - `quizter-server-local-v0.6.0.zip`
+  - `quizter-player-v0.6.0.zip`
+  - `quizter-admin-v0.6.0.zip`
 - Test status:
   - `cargo check` passes.
 - Known issues:
@@ -118,9 +118,9 @@
   - Updated packaging so player/admin zips include images and admin zip includes question banks.
   - Added and committed current image and question-bank resources.
 - Build artifacts:
-  - `quiztik-server-local-v0.7.0.zip`
-  - `quiztik-player-v0.7.0.zip`
-  - `quiztik-admin-v0.7.0.zip`
+  - `quizter-server-local-v0.7.0.zip`
+  - `quizter-player-v0.7.0.zip`
+  - `quizter-admin-v0.7.0.zip`
 - Test status:
   - `cargo check` passes.
   - Packaging content verified for player/admin images and admin question banks.
@@ -136,9 +136,9 @@
   - Added host IP detection and env-configurable host/port for LAN URL generation.
   - Ensured phones can open `/player` directly from QR URL without manual web app download.
 - Build artifacts:
-  - `quiztik-server-local-v0.8.0.zip`
-  - `quiztik-player-v0.8.0.zip`
-  - `quiztik-admin-v0.8.0.zip`
+  - `quizter-server-local-v0.8.0.zip`
+  - `quizter-player-v0.8.0.zip`
+  - `quizter-admin-v0.8.0.zip`
 - Test status:
   - `cargo check` passes.
 - Known issues:
@@ -154,7 +154,7 @@
   - Made web server URL fields dynamic so they default to the running server address.
   - Removed `integration_test_launch.sh`.
 - Build artifacts:
-  - `quiztik-server-local-v0.9.0.zip`
+  - `quizter-server-local-v0.9.0.zip`
 - Test status:
   - `cargo check` passes.
   - `scripts/verify_artifacts.sh` passes for local build.
@@ -168,7 +168,7 @@
   - Rewrote README with verbose non-technical setup and hosting instructions for GitHub users.
   - Added step-by-step admin workflow, player onboarding, troubleshooting, and network guidance.
 - Build artifacts:
-  - `quiztik-server-local-v0.10.0.zip`
+  - `quizter-server-local-v0.10.0.zip`
 - Test status:
   - `scripts/verify_artifacts.sh` passes for local build.
 - Known issues:
@@ -182,7 +182,7 @@
   - Added GitHub release workflow that builds server artifacts for Linux, Windows, and macOS on version tags.
   - Workflow now creates a GitHub Release and attaches built zip assets.
 - Build artifacts:
-  - `quiztik-server-local-v1.0.0.zip`
+  - `quizter-server-local-v1.0.0.zip`
 - Test status:
   - `scripts/verify_artifacts.sh` passes for local build.
 - Known issues:
@@ -199,7 +199,7 @@
     - `assets/questions/us_states.json`
   - Validated all question bank JSON files.
 - Build artifacts:
-  - `quiztik-server-local-v1.0.2.zip`
+  - `quizter-server-local-v1.0.2.zip`
 - Test status:
   - `cargo check` passes.
   - `scripts/verify_artifacts.sh` passes for local build.
@@ -215,7 +215,7 @@
     - added Python-based zip creation fallback when `zip` is unavailable.
   - Updated release workflow to ensure Python is available on runners.
 - Build artifacts:
-  - `quiztik-server-local-v1.0.3.zip`
+  - `quizter-server-local-v1.0.3.zip`
 - Test status:
   - `cargo check` passes.
   - `scripts/verify_artifacts.sh` passes for local build.
@@ -230,7 +230,7 @@
   - Kept panel feedback as secondary while making the flash the primary end-of-round scoring signal.
   - De-emphasized player feed panel and kept it bottom-priority in layout.
 - Build artifacts:
-  - `quiztik-server-local-v1.1.0.zip`
+  - `quizter-server-local-v1.1.0.zip`
 - Test status:
   - Build and artifact verification scripts pass.
 - Known issues:
@@ -244,7 +244,7 @@
   - Added detailed power-up descriptions for all six power-ups.
   - Kept simple `Continue` and `Skip` actions with tutorial-seen persistence behavior.
 - Build artifacts:
-  - `quiztik-server-local-v1.2.0.zip`
+  - `quizter-server-local-v1.2.0.zip`
 - Test status:
   - Build and artifact verification scripts pass.
 - Known issues:
@@ -259,7 +259,7 @@
   - Added red top push-banner alerts in player UI for affected players.
   - Added affected-player alert coverage for Mix Master, Speed Searcher, Super Spliter, and Great Gambler.
 - Build artifacts:
-  - `quiztik-server-local-v1.3.0.zip`
+  - `quizter-server-local-v1.3.0.zip`
 - Test status:
   - `cargo check` passes.
   - Build and artifact verification scripts pass.
@@ -278,7 +278,7 @@
   - Added effective pool rebuild and future-round reflow logic so mid-game bank updates apply from next round onward.
   - Set first-run file-bank selection default to all-off.
 - Build artifacts:
-  - `quiztik-server-local-v1.4.0.zip`
+  - `quizter-server-local-v1.4.0.zip`
 - Test status:
   - `cargo check` passes.
   - Build and artifact verification scripts pass.
@@ -294,7 +294,7 @@
   - Added live selection updates to backend selection API.
   - Added selected-bank summary and empty-selection warning.
 - Build artifacts:
-  - `quiztik-server-local-v1.5.0.zip`
+  - `quizter-server-local-v1.5.0.zip`
 - Test status:
   - Build and artifact verification scripts pass.
 - Known issues:
@@ -309,7 +309,7 @@
   - Updated room creation round-limit handling for empty pools.
   - Removed built-in manual-question defaults to honor all-off file-bank start state.
 - Build artifacts:
-  - `quiztik-server-local-v1.6.0.zip`
+  - `quizter-server-local-v1.6.0.zip`
 - Test status:
   - `cargo check` passes.
   - Build and artifact verification scripts pass.
@@ -325,7 +325,7 @@
   - Extended bank-selection response with effective question count metadata.
   - Verified affected-player alert targeting remains scoped to players listed by server payload.
 - Build artifacts:
-  - `quiztik-server-local-v1.7.0.zip`
+  - `quizter-server-local-v1.7.0.zip`
 - Test status:
   - `cargo check` passes.
   - Build and artifact verification scripts pass.
@@ -354,7 +354,7 @@
   - Hardened round pipeline handling for live question-pool updates.
   - Expanded README with beginner GitHub Releases download instructions and updated gameplay/admin docs.
 - Build artifacts:
-  - `quiztik-server-local-v2.0.0.zip`
+  - `quizter-server-local-v2.0.0.zip`
 - Test status:
   - `cargo check` passes.
   - Build and artifact verification scripts pass.

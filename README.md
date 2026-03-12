@@ -1,20 +1,20 @@
-# Quiztik
+# Quizter
 
-Quiztik is a local-network (LAN) multiplayer quiz game.
+Quizter is a local-network (LAN) multiplayer quiz game.
 
 One person (the admin/host) runs the server on their computer. Everyone else joins from their phone or computer browser by scanning a QR code or opening a URL.
 
-## New to GitHub? How to Download Quiztik
+## New to GitHub? How to Download Quizter
 
 If you have never used GitHub before, follow these exact steps:
 
-1. Go to the Quiztik repository page in your browser.
+1. Go to the Quizter repository page in your browser.
 2. On the right side, find the **Releases** section and click the latest release version.
 3. Scroll to **Assets** and click to expand it.
 4. Download the zip that matches your computer:
-   - Windows: `quiztik-server-x86_64-pc-windows-msvc-vX.Y.Z.zip`
-   - macOS (Apple Silicon): `quiztik-server-aarch64-apple-darwin-vX.Y.Z.zip`
-   - Linux: `quiztik-server-x86_64-unknown-linux-gnu-vX.Y.Z.zip`
+   - Windows: `quizter-server-x86_64-pc-windows-msvc-vX.Y.Z.zip`
+   - macOS (Apple Silicon): `quizter-server-aarch64-apple-darwin-vX.Y.Z.zip`
+   - Linux: `quizter-server-x86_64-unknown-linux-gnu-vX.Y.Z.zip`
 5. Wait for download to finish, then unzip/extract the file.
 6. Open the extracted folder and run the server executable inside.
 
@@ -22,7 +22,7 @@ If you have never used GitHub before, follow these exact steps:
 
 You only need **one zip file**:
 
-- `quiztik-server-<your-platform>-vX.Y.Z.zip`
+- `quizter-server-<your-platform>-vX.Y.Z.zip`
 
 This server zip already includes:
 
@@ -36,11 +36,11 @@ No separate player or admin app download is needed.
 ## Quick Start (Non-Technical)
 
 1. Download the latest server zip from GitHub Releases.
-2. Extract/unzip it to a folder (for example: Desktop `Quiztik`).
+2. Extract/unzip it to a folder (for example: Desktop `Quizter`).
 3. Open that folder.
 4. Run the server executable:
-   - Windows: double-click `quiztik-server.exe`
-   - macOS/Linux: double-click `quiztik-server` (or run from terminal)
+   - Windows: double-click `quizter-server.exe`
+   - macOS/Linux: double-click `quizter-server` (or run from terminal)
 5. Your browser should open automatically to the admin page.
 6. In admin page:
    - create/update room
@@ -156,8 +156,8 @@ Then use the QR code at the top of admin page to let players join.
 
 Run with a different port:
 
-- `QUIZTIK_PORT=9090 ./quiztik-server` (macOS/Linux)
-- `set QUIZTIK_PORT=9090 && quiztik-server.exe` (Windows cmd)
+- `QUIZTER_PORT=9090 ./quizter-server` (macOS/Linux)
+- `set QUIZTER_PORT=9090 && quizter-server.exe` (Windows cmd)
 
 Then open `http://127.0.0.1:9090/admin`.
 

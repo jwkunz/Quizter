@@ -24,8 +24,8 @@ use tokio::sync::{mpsc, Mutex};
 use tower_http::services::ServeDir;
 use uuid::Uuid;
 
-const DEFAULT_ADMIN_PASSCODE: &str = "quiztik-admin";
-const DEFAULT_ROOM_CODE: &str = "QUIZTIK";
+const DEFAULT_ADMIN_PASSCODE: &str = "quizter-admin";
+const DEFAULT_ROOM_CODE: &str = "QUIZTER";
 
 #[derive(Clone)]
 struct AppState {
@@ -340,8 +340,8 @@ struct ExportPackQuery {
 async fn main() {
     tracing_subscriber::fmt().with_env_filter("info").init();
 
-    let host = env::var("QUIZTIK_HOST").unwrap_or_else(|_| "0.0.0.0".to_string());
-    let port = env::var("QUIZTIK_PORT")
+    let host = env::var("QUIZTER_HOST").unwrap_or_else(|_| "0.0.0.0".to_string());
+    let port = env::var("QUIZTER_PORT")
         .ok()
         .and_then(|v| v.parse::<u16>().ok())
         .unwrap_or(8080);
@@ -395,7 +395,7 @@ async fn main() {
         .nest_service("/assets", ServeDir::new(assets_dir))
         .with_state(state);
 
-    tracing::info!("Quiztik server listening on {}", addr);
+    tracing::info!("Quizter server listening on {}", addr);
     tracing::info!("Player join URL: http://{}:{}/player", detect_lan_ip().unwrap_or_else(|| "127.0.0.1".to_string()), port);
 
     let listener = tokio::net::TcpListener::bind(addr)
@@ -410,7 +410,7 @@ async fn main() {
 }
 
 async fn root() -> Json<Value> {
-    Json(json!({"service": "quiztik-server", "version": env!("CARGO_PKG_VERSION")}))
+    Json(json!({"service": "quizter-server", "version": env!("CARGO_PKG_VERSION")}))
 }
 
 async fn player_page(State(state): State<AppState>) -> Html<String> {
@@ -424,7 +424,7 @@ async fn admin_page(State(state): State<AppState>) -> Html<String> {
 async fn health() -> Json<HealthResponse> {
     Json(HealthResponse {
         status: "ok",
-        service: "quiztik-server",
+        service: "quizter-server",
         timestamp: Utc::now().to_rfc3339(),
     })
 }
@@ -1522,7 +1522,7 @@ fn read_web_html(runtime_root: &FsPath, role: &str) -> String {
 }
 
 fn maybe_open_admin_browser(port: u16) {
-    if env::var("QUIZTIK_OPEN_BROWSER")
+    if env::var("QUIZTER_OPEN_BROWSER")
         .map(|v| v == "0" || v.eq_ignore_ascii_case("false"))
         .unwrap_or(false)
     {
