@@ -317,3 +317,19 @@
   - Integration pass pending for full multi-scenario stability validation.
 - Next stage:
   - Integration hardening for mid-game bank updates and alert behavior.
+
+## v1.7.0 - 2026-03-11
+- Completed:
+  - Hardened round pipeline when live bank selection changes shrink/alter future queue.
+  - Added safe end-of-game fallback if the next round cannot resolve a valid question.
+  - Extended bank-selection response with effective question count metadata.
+  - Verified affected-player alert targeting remains scoped to players listed by server payload.
+- Build artifacts:
+  - `quiztik-server-local-v1.7.0.zip`
+- Test status:
+  - `cargo check` passes.
+  - Build and artifact verification scripts pass.
+- Known issues:
+  - None specific to this milestone.
+- Next stage:
+  - v2.0.0 release docs and finalization.

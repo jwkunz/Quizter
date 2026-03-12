@@ -607,6 +607,7 @@ async fn set_question_bank_selection(
         return (axum::http::StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
     }
 
+    let effective_count;
     {
         let mut game = state.game.lock().await;
         let available: HashSet<String> = game.available_bank_files().into_iter().collect();
@@ -619,12 +620,13 @@ async fn set_question_bank_selection(
         save_selected_bank_files(&state.data_dir, &game.selected_bank_files);
         game.rebuild_effective_question_pool();
         game.reflow_future_rounds_after_pool_change();
+        effective_count = game.questions.len();
     }
 
     broadcast_state(&state).await;
     (
         axum::http::StatusCode::OK,
-        Json(json!({"ok": true})),
+        Json(json!({"ok": true, "effective_question_count": effective_count})),
     )
 }
 
@@ -901,48 +903,58 @@ async fn activate_powerup(state: &AppState, client_id: &str, powerup: PowerUp) {
 
 async fn start_next_round(state: AppState) {
     let mut round_started = false;
+    let mut should_end_game = false;
     {
         let mut game = state.game.lock().await;
         if game.completed_rounds >= game.total_rounds || game.questions.is_empty() {
-            game.status = GameStatus::Ended;
-            game.current_round = None;
-            let history = HistoryEntry {
-                finished_at: Utc::now().to_rfc3339(),
-                rounds_played: game.completed_rounds,
-                leaderboard: game.leaderboard(),
-            };
-            append_history(&state.data_dir, history);
-            drop(game);
-            broadcast_state(&state).await;
-            return;
-        }
-
-        let next_id = game.shuffled_question_ids.get(game.completed_rounds).cloned();
-        if let Some(question_id) = next_id {
-            if let Some(question) = game.questions.iter().find(|q| q.id == question_id).cloned() {
-                let started_at = Instant::now();
-                let deadline = started_at + Duration::from_secs(15);
-                let mut option_order = vec![0, 1, 2, 3];
-                option_order.shuffle(&mut rand::thread_rng());
-                game.current_round = Some(RoundState {
-                    round_number: game.completed_rounds + 1,
-                    question,
-                    started_at,
-                    deadline,
-                    answer_window_secs: 15,
-                    answers: HashMap::new(),
-                    speed_searcher_owner: None,
-                    great_gambler_factor: None,
-                    double_downers: HashSet::new(),
-                    clone_commanders: HashSet::new(),
-                    super_spliter_targets: HashMap::new(),
-                    mix_master_owner: None,
-                    option_order,
-                });
-                game.status = GameStatus::InRound;
-                round_started = true;
+            should_end_game = true;
+        } else {
+            let next_id = game.shuffled_question_ids.get(game.completed_rounds).cloned();
+            if let Some(question_id) = next_id {
+                if let Some(question) = game.questions.iter().find(|q| q.id == question_id).cloned() {
+                    let started_at = Instant::now();
+                    let deadline = started_at + Duration::from_secs(15);
+                    let mut option_order = vec![0, 1, 2, 3];
+                    option_order.shuffle(&mut rand::thread_rng());
+                    game.current_round = Some(RoundState {
+                        round_number: game.completed_rounds + 1,
+                        question,
+                        started_at,
+                        deadline,
+                        answer_window_secs: 15,
+                        answers: HashMap::new(),
+                        speed_searcher_owner: None,
+                        great_gambler_factor: None,
+                        double_downers: HashSet::new(),
+                        clone_commanders: HashSet::new(),
+                        super_spliter_targets: HashMap::new(),
+                        mix_master_owner: None,
+                        option_order,
+                    });
+                    game.status = GameStatus::InRound;
+                    round_started = true;
+                } else {
+                    should_end_game = true;
+                }
+            } else {
+                should_end_game = true;
             }
         }
+    }
+
+    if should_end_game {
+        let mut game = state.game.lock().await;
+        game.status = GameStatus::Ended;
+        game.current_round = None;
+        let history = HistoryEntry {
+            finished_at: Utc::now().to_rfc3339(),
+            rounds_played: game.completed_rounds,
+            leaderboard: game.leaderboard(),
+        };
+        append_history(&state.data_dir, history);
+        drop(game);
+        broadcast_state(&state).await;
+        return;
     }
 
     if round_started {
