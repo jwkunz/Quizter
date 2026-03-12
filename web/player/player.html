@@ -133,6 +133,42 @@
     .hidden { display: none; }
     .leader-item { display: flex; justify-content: space-between; border-bottom: 1px solid #222; padding: 0.35rem 0; }
     .event-log { max-height: 180px; overflow: auto; font-size: .88rem; color: #cde6f6; }
+    #eventsPanel {
+      opacity: 0.8;
+      box-shadow: none;
+      border-color: #1f1f1f;
+    }
+    .result-flash {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(2, 2, 2, 0.9);
+    }
+    .result-flash .flash-card {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem 1.2rem;
+      border-radius: 14px;
+      border: 1px solid #333;
+      background: #111;
+      box-shadow: 0 0 26px #00f6ff44;
+    }
+    .result-flash img {
+      width: 88px;
+      height: 88px;
+      object-fit: contain;
+      border-radius: 10px;
+      border: 1px solid #2f2f2f;
+      background: #090909;
+    }
+    .flash-text {
+      font-size: 1.2rem;
+      font-weight: bold;
+    }
   </style>
 </head>
 <body>
@@ -193,6 +229,12 @@
       <div id="events" class="event-log"></div>
     </div>
   </div>
+  <div id="resultFlash" class="result-flash hidden">
+    <div class="flash-card">
+      <img id="resultFlashImage" alt="Round result graphic" />
+      <div class="flash-text" id="resultFlashText"></div>
+    </div>
+  </div>
 
   <script>
     const powerUps = [
@@ -218,6 +260,7 @@
     let playerId = null;
     let wizardIndex = 0;
     let mixedMode = false;
+    let resultFlashTimer = null;
 
     const el = (id) => document.getElementById(id);
     const log = (msg) => {
@@ -355,19 +398,31 @@
             const feedback = el("roundFeedback");
             const resultImage = el("resultImage");
             const resultText = el("resultText");
+            const flash = el("resultFlash");
+            const flashImage = el("resultFlashImage");
+            const flashText = el("resultFlashText");
             feedback.classList.remove("hidden");
             if (myResult) {
               if (myResult.is_correct) {
                 resultImage.src = "assets/images/Celebrate_Correct.png";
                 resultText.textContent = `Correct! +${myResult.score_delta} points this round.`;
+                flashImage.src = "assets/images/Celebrate_Correct.png";
+                flashText.textContent = "Correct!";
               } else {
                 resultImage.src = "assets/images/Dissappointed_Incorrect.png";
                 resultText.textContent = `Incorrect. +0 points this round.`;
+                flashImage.src = "assets/images/Dissappointed_Incorrect.png";
+                flashText.textContent = "Incorrect";
               }
             } else {
               resultImage.src = "assets/images/Dissappointed_Incorrect.png";
               resultText.textContent = "No answer submitted this round.";
+              flashImage.src = "assets/images/Dissappointed_Incorrect.png";
+              flashText.textContent = "No Answer";
             }
+            flash.classList.remove("hidden");
+            if (resultFlashTimer) clearTimeout(resultFlashTimer);
+            resultFlashTimer = setTimeout(() => flash.classList.add("hidden"), 1000);
           }
         } catch (_e) {}
       };

@@ -223,3 +223,17 @@
   - None specific to this patch.
 - Next stage:
   - Continue post-release reliability and UX improvements.
+
+## v1.1.0 - 2026-03-11
+- Completed:
+  - Added full-screen 1-second round result flash (Correct/Incorrect/No Answer) using result graphics.
+  - Kept panel feedback as secondary while making the flash the primary end-of-round scoring signal.
+  - De-emphasized player feed panel and kept it bottom-priority in layout.
+- Build artifacts:
+  - `quiztik-server-local-v1.1.0.zip`
+- Test status:
+  - Build and artifact verification scripts pass.
+- Known issues:
+  - None specific to this milestone.
+- Next stage:
+  - Single-page instruction overhaul with detailed power-up descriptions.
