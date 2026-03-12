@@ -1308,16 +1308,34 @@ fn append_history(data_dir: &PathBuf, entry: HistoryEntry) {
 }
 
 fn runtime_root_dir() -> PathBuf {
+    fn has_runtime_layout(dir: &FsPath) -> bool {
+        dir.join("web").exists() && dir.join("assets").exists()
+    }
+
+    fn first_matching_ancestor(start: &FsPath) -> Option<PathBuf> {
+        for dir in start.ancestors() {
+            if has_runtime_layout(dir) {
+                return Some(dir.to_path_buf());
+            }
+        }
+        None
+    }
+
     if let Ok(cwd) = env::current_dir() {
-        if cwd.join("web").exists() && cwd.join("assets").exists() {
-            return cwd;
+        if let Some(found) = first_matching_ancestor(&cwd) {
+            return found;
         }
     }
+
     if let Ok(exe) = env::current_exe() {
         if let Some(parent) = exe.parent() {
+            if let Some(found) = first_matching_ancestor(parent) {
+                return found;
+            }
             return parent.to_path_buf();
         }
     }
+
     PathBuf::from(".")
 }
 
