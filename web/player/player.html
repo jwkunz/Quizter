@@ -236,13 +236,6 @@
     async function refreshServerUrl() {
       const manual = el("serverUrl")?.value?.trim();
       serverUrl = manual || window.location.origin || serverUrl;
-      try {
-        const res = await fetch(`${serverUrl}/api/server_info`);
-        if (res.ok) {
-          const info = await res.json();
-          serverUrl = `http://${info.host_ip}:${info.port}`;
-        }
-      } catch (_e) {}
       el("serverUrl").value = serverUrl;
     }
 

@@ -189,3 +189,21 @@
   - None blocking v1.0.0 release.
 - Next stage:
   - Post-release maintenance and feature enhancements.
+
+## v1.0.2 - 2026-03-11
+- Completed:
+  - Fixed admin UI API-base handling to prevent create/update room request hangs.
+  - Fixed player UI server URL handling to avoid incorrect automatic endpoint rewrites.
+  - Replaced invalid empty question banks with valid JSON content for:
+    - `assets/questions/electronics.json`
+    - `assets/questions/us_states.json`
+  - Validated all question bank JSON files.
+- Build artifacts:
+  - `quiztik-server-local-v1.0.2.zip`
+- Test status:
+  - `cargo check` passes.
+  - `scripts/verify_artifacts.sh` passes for local build.
+- Known issues:
+  - None specific to this patch.
+- Next stage:
+  - Continue gameplay and UX improvements.

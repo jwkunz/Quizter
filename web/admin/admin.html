@@ -219,19 +219,16 @@
     async function refreshServerInfo() {
       try {
         const manual = el("serverUrl").value.trim();
-        if (manual) {
-          serverUrl = manual;
+        const apiBase = manual || window.location.origin || serverUrl;
+        serverUrl = apiBase;
+        if (!manual) {
+          el("serverUrl").value = apiBase;
         }
-        if (!el("serverUrl").value) {
-          el("serverUrl").value = serverUrl;
-        }
-        const res = await fetch(`${serverUrl}/api/server_info`);
+        const res = await fetch(`${apiBase}/api/server_info`);
         if (!res.ok) return;
         const info = await res.json();
-        serverUrl = `http://${info.host_ip}:${info.port}`;
-        el("serverUrl").value = serverUrl;
         el("joinUrl").value = info.player_url;
-        el("joinQr").src = `${serverUrl}/api/qr.svg?text=${encodeURIComponent(info.player_url)}`;
+        el("joinQr").src = `${apiBase}/api/qr.svg?text=${encodeURIComponent(info.player_url)}`;
       } catch (_e) {}
     }
 
