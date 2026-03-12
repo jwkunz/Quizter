@@ -7,6 +7,18 @@ cd "$ROOT_DIR"
 VERSION="${1:-$(cat VERSION)}"
 VERSION="${VERSION#v}"
 TARGET="${2:-local}"
+PYTHON_BIN="${PYTHON_BIN:-}"
+
+if [[ -z "$PYTHON_BIN" ]]; then
+  if command -v python3 >/dev/null 2>&1; then
+    PYTHON_BIN="python3"
+  elif command -v python >/dev/null 2>&1; then
+    PYTHON_BIN="python"
+  else
+    echo "python3/python is required for artifact verification."
+    exit 1
+  fi
+fi
 
 SERVER_ZIP="dist/quiztik-server-${TARGET}-v${VERSION}.zip"
 
@@ -17,24 +29,36 @@ for f in "$SERVER_ZIP"; do
   fi
 done
 
-if ! unzip -l "$SERVER_ZIP" | rg -q "quiztik-server|quiztik-server.exe|README.txt"; then
-  echo "server executable/readme missing from server zip"
-  exit 1
-fi
+"$PYTHON_BIN" - "$SERVER_ZIP" <<'PY'
+import sys
+import zipfile
 
-if ! unzip -l "$SERVER_ZIP" | rg -q "web/player/player.html"; then
-  echo "player html missing from server zip"
-  exit 1
-fi
+zip_path = sys.argv[1]
 
-if ! unzip -l "$SERVER_ZIP" | rg -q "web/admin/admin.html"; then
-  echo "admin html missing from server zip"
-  exit 1
-fi
+with zipfile.ZipFile(zip_path, "r") as zf:
+    names = zf.namelist()
 
-if ! unzip -l "$SERVER_ZIP" | rg -q "assets/questions/"; then
-  echo "question banks missing from server zip"
-  exit 1
-fi
+def has_any(*candidates):
+    return any(name in names for name in candidates)
+
+def has_prefix(prefix):
+    return any(name.startswith(prefix) for name in names)
+
+if not has_any("quiztik-server", "quiztik-server.exe", "README.txt"):
+    print("server executable/readme missing from server zip")
+    sys.exit(1)
+
+if "web/player/player.html" not in names:
+    print("player html missing from server zip")
+    sys.exit(1)
+
+if "web/admin/admin.html" not in names:
+    print("admin html missing from server zip")
+    sys.exit(1)
+
+if not has_prefix("assets/questions/"):
+    print("question banks missing from server zip")
+    sys.exit(1)
+PY
 
 echo "Artifacts verified for v${VERSION} target=${TARGET}"

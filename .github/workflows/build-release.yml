@@ -53,6 +53,10 @@ jobs:
         with:
           targets: ${{ matrix.target }}
 
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.x"
+
       - name: Build and package server artifact
         shell: bash
         run: |

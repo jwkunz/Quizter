@@ -10,6 +10,45 @@ TARGET="${2:-local}"
 DIST_DIR="$ROOT_DIR/dist"
 STAGE_DIR="$DIST_DIR/stage"
 SKIP_SERVER_BUILD="${SKIP_SERVER_BUILD:-0}"
+PYTHON_BIN="${PYTHON_BIN:-}"
+
+if [[ -z "$PYTHON_BIN" ]]; then
+  if command -v python3 >/dev/null 2>&1; then
+    PYTHON_BIN="python3"
+  elif command -v python >/dev/null 2>&1; then
+    PYTHON_BIN="python"
+  fi
+fi
+
+zip_dir() {
+  local src_dir="$1"
+  local out_zip="$2"
+  if command -v zip >/dev/null 2>&1; then
+    (cd "$src_dir" && zip -qr "$out_zip" .)
+    return
+  fi
+
+  if [[ -n "$PYTHON_BIN" ]]; then
+    "$PYTHON_BIN" - "$src_dir" "$out_zip" <<'PY'
+import os
+import sys
+import zipfile
+
+src = sys.argv[1]
+out = sys.argv[2]
+with zipfile.ZipFile(out, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+    for root, _, files in os.walk(src):
+        for name in files:
+            full_path = os.path.join(root, name)
+            arcname = os.path.relpath(full_path, src)
+            zf.write(full_path, arcname)
+PY
+    return
+  fi
+
+  echo "No zip tool found (zip/python3/python). Cannot package artifact."
+  exit 1
+}
 
 rm -rf "$DIST_DIR"
 mkdir -p "$DIST_DIR" "$STAGE_DIR/server"
@@ -51,7 +90,7 @@ cp web/admin/admin.html "$STAGE_DIR/server/web/admin/admin.html"
 cp -R assets/images/. "$STAGE_DIR/server/assets/images/" 2>/dev/null || true
 cp -R assets/questions/. "$STAGE_DIR/server/assets/questions/" 2>/dev/null || true
 
-(cd "$STAGE_DIR/server" && zip -qr "$DIST_DIR/quiztik-server-${TARGET}-v${VERSION}.zip" .)
+zip_dir "$STAGE_DIR/server" "$DIST_DIR/quiztik-server-${TARGET}-v${VERSION}.zip"
 
 rm -rf "$STAGE_DIR"
 ls -1 "$DIST_DIR"

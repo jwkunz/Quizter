@@ -207,3 +207,19 @@
   - None specific to this patch.
 - Next stage:
   - Continue gameplay and UX improvements.
+
+## v1.0.3 - 2026-03-11
+- Completed:
+  - Fixed CI portability issues in release scripts:
+    - removed `rg`/`unzip` dependency from artifact verification.
+    - added Python-based zip creation fallback when `zip` is unavailable.
+  - Updated release workflow to ensure Python is available on runners.
+- Build artifacts:
+  - `quiztik-server-local-v1.0.3.zip`
+- Test status:
+  - `cargo check` passes.
+  - `scripts/verify_artifacts.sh` passes for local build.
+- Known issues:
+  - None specific to this patch.
+- Next stage:
+  - Continue post-release reliability and UX improvements.
