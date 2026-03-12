@@ -301,3 +301,19 @@
   - Lobby top fields still need explicit labels and start-game guardrails.
 - Next stage:
   - Lobby labeling and empty-pool guardrails.
+
+## v1.6.0 - 2026-03-11
+- Completed:
+  - Added explicit labels to admin lobby fields: Server URL, Room Code, Admin Passcode, Rounds.
+  - Added start-game guardrail behavior when no playable questions are available.
+  - Updated room creation round-limit handling for empty pools.
+  - Removed built-in manual-question defaults to honor all-off file-bank start state.
+- Build artifacts:
+  - `quiztik-server-local-v1.6.0.zip`
+- Test status:
+  - `cargo check` passes.
+  - Build and artifact verification scripts pass.
+- Known issues:
+  - Integration pass pending for full multi-scenario stability validation.
+- Next stage:
+  - Integration hardening for mid-game bank updates and alert behavior.

@@ -88,6 +88,13 @@
     }
     .bank-item:last-child { border-bottom: none; }
     .warning { color: #ff6b6b; }
+    .field-label {
+      display: flex;
+      flex-direction: column;
+      gap: .25rem;
+      font-size: .86rem;
+      color: var(--muted);
+    }
     .icon-grid { display: grid; grid-template-columns: repeat(2, minmax(130px, 1fr)); gap: .55rem; }
     .icon-tile {
       display: flex;
@@ -150,10 +157,10 @@
         </div>
       </div>
       <div class="row">
-        <input id="serverUrl" style="min-width:260px" />
-        <input id="roomCode" value="QUIZTIK" placeholder="Room code" />
-        <input id="passcode" value="quiztik-admin" placeholder="Admin passcode" />
-        <input id="rounds" type="number" min="1" value="10" style="max-width:110px" />
+        <label class="field-label">Server URL <input id="serverUrl" style="min-width:260px" /></label>
+        <label class="field-label">Room Code <input id="roomCode" value="QUIZTIK" placeholder="Room code" /></label>
+        <label class="field-label">Admin Passcode <input id="passcode" value="quiztik-admin" placeholder="Admin passcode" /></label>
+        <label class="field-label">Rounds <input id="rounds" type="number" min="1" value="10" style="max-width:110px" /></label>
         <button id="createRoomBtn">Create/Update Room</button>
         <button id="loginBtn">Admin Login</button>
       </div>
@@ -236,6 +243,7 @@
     let serverUrl = window.location.origin || "http://localhost:8080";
     let adminId = null;
     let ws;
+    let latestQuestionCount = 0;
     let availableBanks = [];
     let selectedBanks = new Set();
 
@@ -314,6 +322,7 @@
           const msg = JSON.parse(ev.data);
           if (msg.event === "state") {
             const s = msg.payload;
+            latestQuestionCount = s.questions_available || 0;
             el("gameState").textContent = `Status: ${s.status} | Round ${s.completed_rounds}/${s.total_rounds} | Players: ${s.leaderboard.length} | Questions: ${s.questions_available}`;
             const lb = el("leaderboard");
             lb.innerHTML = "";
@@ -324,6 +333,7 @@
               lb.appendChild(row);
             });
             if (adminId) loadBanks();
+            el("startGameBtn").disabled = latestQuestionCount === 0;
           }
           if (msg.event === "powerup_activated") {
             feed(`${msg.payload.player_id} used ${msg.payload.powerup}`);
@@ -376,12 +386,21 @@
     }
 
     async function startGame() {
+      if (latestQuestionCount === 0) {
+        feed("Cannot start game: no playable questions available.");
+        return;
+      }
       const res = await fetch(`${serverUrl}/api/admin/start`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ admin_id: adminId, total_rounds: Number(el("rounds").value || "10") })
       });
-      if (res.ok) feed("Game started.");
+      if (res.ok) {
+        feed("Game started.");
+      } else {
+        const err = await res.json().catch(() => ({}));
+        feed(`Could not start game: ${err.error || "unknown_error"}`);
+      }
     }
 
     async function addQuestion() {

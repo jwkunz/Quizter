@@ -447,7 +447,11 @@ async fn create_room(
         }
     }
     if let Some(rounds) = req.total_rounds {
-        game.total_rounds = rounds.max(1).min(game.questions.len().max(1));
+        game.total_rounds = if game.questions.is_empty() {
+            0
+        } else {
+            rounds.max(1).min(game.questions.len())
+        };
     }
 
     Json(json!({
@@ -1183,26 +1187,7 @@ fn load_manual_questions(data_dir: &PathBuf) -> Vec<Question> {
             return questions;
         }
     }
-    let defaults = vec![
-        Question {
-            id: Uuid::new_v4().to_string(),
-            prompt: "What language is Quiztik server written in?".to_string(),
-            options: vec!["Go".to_string(), "Rust".to_string(), "Python".to_string(), "Java".to_string()],
-            correct_index: 1,
-            points: 100,
-            image_url: None,
-        },
-        Question {
-            id: Uuid::new_v4().to_string(),
-            prompt: "How many seconds is the default answer timeout?".to_string(),
-            options: vec!["10".to_string(), "15".to_string(), "20".to_string(), "30".to_string()],
-            correct_index: 1,
-            points: 100,
-            image_url: None,
-        },
-    ];
-    save_manual_questions(data_dir, &defaults);
-    defaults
+    Vec::new()
 }
 
 fn load_file_question_banks(runtime_root: &FsPath) -> HashMap<String, Vec<Question>> {
