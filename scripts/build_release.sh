@@ -13,26 +13,30 @@ STAGE_DIR="$DIST_DIR/stage"
 rm -rf "$DIST_DIR"
 mkdir -p "$DIST_DIR" "$STAGE_DIR/server" "$STAGE_DIR/player" "$STAGE_DIR/admin"
 
-if [[ -f server/target/release/quiztik-server ]]; then
-  cp server/target/release/quiztik-server "$STAGE_DIR/server/quiztik-server"
+if [[ "$TARGET" == "local" ]]; then
+  (cd server && cargo build --release)
+  if [[ -f server/target/release/quiztik-server ]]; then
+    cp server/target/release/quiztik-server "$STAGE_DIR/server/quiztik-server"
+  fi
 else
-  cat > "$STAGE_DIR/server/README.txt" <<TXT
-No server binary present for target '$TARGET'.
-Build server first, then rerun this script.
+  BIN_PATH="server/target/$TARGET/release/quiztik-server"
+  BIN_PATH_WIN="server/target/$TARGET/release/quiztik-server.exe"
+  if [[ -f "$BIN_PATH" ]]; then
+    cp "$BIN_PATH" "$STAGE_DIR/server/quiztik-server"
+  elif [[ -f "$BIN_PATH_WIN" ]]; then
+    cp "$BIN_PATH_WIN" "$STAGE_DIR/server/quiztik-server.exe"
+  else
+    cat > "$STAGE_DIR/server/README.txt" <<TXT
+No server binary found for target '$TARGET'.
+Expected one of:
+- $BIN_PATH
+- $BIN_PATH_WIN
 TXT
+  fi
 fi
 
-if [[ -f web/player/player.html ]]; then
-  cp web/player/player.html "$STAGE_DIR/player/player.html"
-else
-  echo "Missing player.html" > "$STAGE_DIR/player/README.txt"
-fi
-
-if [[ -f web/admin/admin.html ]]; then
-  cp web/admin/admin.html "$STAGE_DIR/admin/admin.html"
-else
-  echo "Missing admin.html" > "$STAGE_DIR/admin/README.txt"
-fi
+cp web/player/player.html "$STAGE_DIR/player/player.html"
+cp web/admin/admin.html "$STAGE_DIR/admin/admin.html"
 
 (cd "$STAGE_DIR/server" && zip -qr "$DIST_DIR/quiztik-server-${TARGET}-v${VERSION}.zip" .)
 (cd "$STAGE_DIR/player" && zip -qr "$DIST_DIR/quiztik-player-v${VERSION}.zip" .)
