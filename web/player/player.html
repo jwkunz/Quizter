@@ -94,7 +94,7 @@
       box-shadow: 0 0 10px #ff2d9522;
     }
     .option.correct { border-color: #b6ff0088; }
-    .powerups { display: grid; grid-template-columns: repeat(auto-fit, minmax(145px, 1fr)); gap: 0.5rem; }
+    .powerups { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem; }
     .power {
       width: 100%;
       display: flex;
@@ -102,6 +102,16 @@
       gap: 0.45rem;
       justify-content: flex-start;
       min-height: 58px;
+    }
+    .power-label {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      line-height: 1.15;
+    }
+    .power-note {
+      color: var(--muted);
+      font-size: 0.78rem;
     }
     .power img {
       width: 28px;
@@ -138,6 +148,16 @@
     .guide-list li { margin-bottom: 0.25rem; }
     .hidden { display: none; }
     .leader-item { display: flex; justify-content: space-between; border-bottom: 1px solid #222; padding: 0.35rem 0; }
+    .ticker-up { color: #7cff6a; }
+    .ticker-down { color: #ff6a6a; }
+    .page-actions {
+      display: flex;
+      justify-content: center;
+      margin: 1rem 0 0.35rem;
+    }
+    @media (max-width: 540px) {
+      .powerups { grid-template-columns: 1fr; }
+    }
     .event-log { max-height: 180px; overflow: auto; font-size: .88rem; color: #cde6f6; }
     #eventsPanel {
       opacity: 0.8;
@@ -208,7 +228,7 @@
         <button id="joinBtn">Join Game</button>
       </div>
       <p class="status" id="joinStatus">Join with room code and your display name.</p>
-      <button id="openTutorialBtn">View How-To Wizard</button>
+      <button id="openTutorialBtn">View Help</button>
     </div>
 
     <div class="panel hidden" id="wizardPanel">
@@ -233,8 +253,7 @@
         </ul>
       </div>
       <div class="row">
-        <button id="wizardNext">Continue</button>
-        <button id="wizardSkip">Skip</button>
+        <button id="closeHelpBtn">Close</button>
       </div>
     </div>
 
@@ -269,6 +288,9 @@
       <div id="events" class="event-log"></div>
     </div>
   </div>
+  <div class="page-actions hidden" id="helpFooterWrap">
+    <button id="reopenHelpBtn">Help</button>
+  </div>
   <div id="resultFlash" class="result-flash hidden">
     <div class="flash-card">
       <img id="resultFlashImage" alt="Round result graphic" />
@@ -279,12 +301,12 @@
 
   <script>
     const powerUps = [
-      { id: "mix_master", label: "🌀 Mix Master", image: "assets/images/Mix_Master.png" },
-      { id: "speed_searcher", label: "🔒 Speed Searcher", image: "assets/images/Speed_Searcher.png" },
-      { id: "double_downer", label: "💥 Double Downer", image: "assets/images/Double_Downer.png" },
-      { id: "clone_commander", label: "🧬 Clone Commander", image: "assets/images/Clone_Commander.png" },
-      { id: "super_spliter", label: "✂️ Super Spliter", image: "assets/images/Super_Splitter.png" },
-      { id: "great_gambler", label: "🎲 Great Gambler", image: "assets/images/Great_Gambler.png" }
+      { id: "mix_master", label: "Mix Master", image: "assets/images/Mix_Master.png" },
+      { id: "speed_searcher", label: "Speed Searcher", image: "assets/images/Speed_Searcher.png" },
+      { id: "double_downer", label: "Double Downer", image: "assets/images/Double_Downer.png" },
+      { id: "clone_commander", label: "Clone Commander", image: "assets/images/Clone_Commander.png" },
+      { id: "super_spliter", label: "Super Spliter", image: "assets/images/Super_Splitter.png" },
+      { id: "great_gambler", label: "Great Gambler", image: "assets/images/Great_Gambler.png" }
     ];
 
     let ws;
@@ -314,18 +336,23 @@
       el("powerupPanel").classList.toggle("hidden", !isJoined);
       el("leaderboardPanel").classList.toggle("hidden", !isJoined);
       el("eventsPanel").classList.toggle("hidden", !isJoined);
+      el("helpFooterWrap").classList.toggle("hidden", !isJoined);
     }
 
     function renderPowerups() {
       const used = new Set(state?.you?.used_powerups || []);
+      const pending = state?.you?.pending_powerup || null;
       const wrap = el("powerups");
       wrap.innerHTML = "";
       powerUps.forEach((p) => {
         const b = document.createElement("button");
         b.className = "power";
         const icon = p.image ? `<img src="${p.image}" alt="${p.label}" onerror="this.style.display='none'"/>` : "";
-        b.innerHTML = `${icon}<span>${p.label}</span>`;
-        b.disabled = used.has(p.id);
+        const isQueued = pending === p.id;
+        const hasPending = Boolean(pending);
+        const note = isQueued ? "Locked for next round" : (used.has(p.id) ? "Used" : (state?.status === "in_round" ? "Ready now" : "Lock for next round"));
+        b.innerHTML = `${icon}<span class="power-label"><span>${p.label}</span><span class="power-note">${note}</span></span>`;
+        b.disabled = used.has(p.id) || (hasPending && !isQueued && state?.status !== "in_round");
         b.onclick = () => {
           ws?.send(JSON.stringify({ action: "activate_powerup", powerup: p.id }));
         };
@@ -391,7 +418,14 @@
       (state?.leaderboard || []).forEach((p, idx) => {
         const line = document.createElement("div");
         line.className = "leader-item";
-        line.innerHTML = `<span>${idx + 1}. ${p.name}</span><strong>${p.score.toFixed(2)}</strong>`;
+        const delta = Number(p.last_delta || 0);
+        let ticker = "";
+        if (delta > 0) {
+          ticker = ` <span class="ticker-up">(+${delta.toFixed(2)})</span>`;
+        } else if (delta < 0) {
+          ticker = ` <span class="ticker-down">(${delta.toFixed(2)})</span>`;
+        }
+        line.innerHTML = `<span>${idx + 1}. ${p.name}</span><strong>${p.score.toFixed(2)}${ticker}</strong>`;
         lb.appendChild(line);
       });
     }
@@ -423,6 +457,10 @@
               banner.classList.remove("hidden");
               if (impactAlertTimer) clearTimeout(impactAlertTimer);
               impactAlertTimer = setTimeout(() => banner.classList.add("hidden"), 2400);
+            }
+          } else if (msg.event === "powerup_queued") {
+            if (msg.payload?.player_id === playerId) {
+              log(`Locked in ${msg.payload.powerup} for the next round.`);
             }
           } else if (msg.event === "round_result") {
             log(`Round ${msg.payload.round_number} complete. Correct answer index: ${msg.payload.correct_index}`);
@@ -497,11 +535,8 @@
     el("joinBtn").onclick = joinGame;
     el("serverUrl").onchange = () => { serverUrl = el("serverUrl").value.trim(); };
     el("openTutorialBtn").onclick = () => { el("wizardPanel").classList.remove("hidden"); };
-    el("wizardNext").onclick = () => {
-      el("wizardPanel").classList.add("hidden");
-      ws?.send(JSON.stringify({ action: "tutorial_seen", tutorial_seen: true }));
-    };
-    el("wizardSkip").onclick = () => {
+    el("reopenHelpBtn").onclick = () => { el("wizardPanel").classList.remove("hidden"); };
+    el("closeHelpBtn").onclick = () => {
       el("wizardPanel").classList.add("hidden");
       ws?.send(JSON.stringify({ action: "tutorial_seen", tutorial_seen: true }));
     };

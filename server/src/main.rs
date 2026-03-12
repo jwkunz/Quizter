@@ -87,6 +87,7 @@ struct LeaderboardEntry {
     player_id: String,
     name: String,
     score: f64,
+    last_delta: f64,
 }
 
 #[derive(Debug, Clone)]
@@ -94,8 +95,10 @@ struct PlayerState {
     id: String,
     name: String,
     score: f64,
+    last_score_delta: f64,
     connected: bool,
     used_powerups: HashSet<PowerUp>,
+    pending_powerup: Option<PowerUp>,
     tutorial_seen: bool,
 }
 
@@ -233,6 +236,7 @@ impl GameState {
                 player_id: p.id.clone(),
                 name: p.name.clone(),
                 score: (p.score * 100.0).round() / 100.0,
+                last_delta: (p.last_score_delta * 100.0).round() / 100.0,
             })
             .collect();
         entries.sort_by(|a, b| {
@@ -520,8 +524,10 @@ async fn join_room(State(state): State<AppState>, Json(req): Json<JoinRequest>) 
                 id: id.clone(),
                 name: req.display_name.trim().to_string(),
                 score: 0.0,
+                last_score_delta: 0.0,
                 connected: true,
                 used_powerups: HashSet::new(),
+                pending_powerup: None,
                 tutorial_seen: false,
             },
         );
@@ -751,7 +757,9 @@ async fn start_game(
         game.current_round = None;
         for player in game.players.values_mut() {
             player.score = 0.0;
+            player.last_score_delta = 0.0;
             player.used_powerups.clear();
+            player.pending_powerup = None;
         }
 
         game.shuffled_question_ids = game.questions.iter().map(|q| q.id.clone()).collect();
@@ -893,16 +901,12 @@ async fn submit_answer(state: &AppState, client_id: &str, choice_index: usize) {
 }
 
 async fn activate_powerup(state: &AppState, client_id: &str, powerup: PowerUp) {
-    let (notify, powerup_payload);
-    let mut affected_players: Vec<String> = Vec::new();
-    let mut alert_message: Option<String> = None;
+    let mut activation_message = None;
+    let mut queued = false;
 
     {
         let mut game = state.game.lock().await;
-        if game.status != GameStatus::InRound {
-            return;
-        }
-
+        let status = game.status.clone();
         let player = match game.players.get_mut(client_id) {
             Some(p) => p,
             None => return,
@@ -912,99 +916,126 @@ async fn activate_powerup(state: &AppState, client_id: &str, powerup: PowerUp) {
             return;
         }
 
-        player.used_powerups.insert(powerup.clone());
-
-        let connected_other_players: Vec<String> = game
-            .players
-            .values()
-            .filter(|p| p.connected && p.id != client_id)
-            .map(|p| p.id.clone())
-            .collect();
-
-        let round = match game.current_round.as_mut() {
-            Some(r) => r,
-            None => return,
-        };
-
-        match powerup {
-            PowerUp::MixMaster => {
-                round.mix_master_owner = Some(client_id.to_string());
-                powerup_payload = Some(json!({"active": true}));
-                affected_players = connected_other_players;
-                alert_message = Some("Mix Master is active: your answer text/order may be scrambled.".to_string());
-            }
-            PowerUp::SpeedSearcher => {
-                round.speed_searcher_owner = Some(client_id.to_string());
-                round.answer_window_secs = 60;
-                round.started_at = Instant::now();
-                round.deadline = round.started_at + Duration::from_secs(60);
-                powerup_payload = Some(json!({"owner": client_id, "seconds": 60}));
-                affected_players = connected_other_players;
-                alert_message = Some("Speed Searcher activated: you are locked out until the 60s window ends.".to_string());
-            }
-            PowerUp::DoubleDowner => {
-                round.double_downers.insert(client_id.to_string());
-                powerup_payload = Some(json!({"active": true}));
-            }
-            PowerUp::CloneCommander => {
-                round.clone_commanders.insert(client_id.to_string());
-                powerup_payload = Some(json!({"active": true}));
-            }
-            PowerUp::SuperSpliter => {
-                let mut rng = rand::thread_rng();
-                let incorrects: Vec<usize> = (0..4)
-                    .filter(|i| *i != round.question.correct_index)
-                    .collect();
-                let random_incorrect = *incorrects.choose(&mut rng).unwrap_or(&incorrects[0]);
-                for target_id in &connected_other_players {
-                    round
-                        .super_spliter_targets
-                        .insert(target_id.clone(), (round.question.correct_index, random_incorrect));
-                }
-                powerup_payload = Some(json!({"targets": connected_other_players}));
-                affected_players = game
-                    .players
-                    .values()
-                    .filter(|p| p.connected && p.id != client_id)
-                    .map(|p| p.id.clone())
-                    .collect();
-                alert_message = Some("Super Spliter activated: your choices were reduced this round.".to_string());
-            }
-            PowerUp::GreatGambler => {
-                if round.great_gambler_factor.is_none() {
-                    let mut rng = rand::thread_rng();
-                    let factor = rng.gen_range(-1.0f64..=3.0f64);
-                    round.great_gambler_factor = Some(factor);
-                }
-                powerup_payload = Some(json!({"factor": round.great_gambler_factor}));
-                affected_players = connected_other_players;
-                alert_message = Some("Great Gambler activated: round scoring will be multiplied.".to_string());
-            }
+        if status == GameStatus::Ended {
+            return;
         }
 
-        notify = true;
+        if status != GameStatus::InRound {
+            if player.pending_powerup.is_some() {
+                return;
+            }
+            player.used_powerups.insert(powerup.clone());
+            player.pending_powerup = Some(powerup.clone());
+            queued = true;
+        } else {
+            player.used_powerups.insert(powerup.clone());
+            player.pending_powerup = None;
+            activation_message = apply_powerup_to_current_round(&mut game, client_id, powerup.clone());
+        }
     }
 
-    if notify {
-        let message = json!({
-            "event": "powerup_activated",
+    if let Some(message) = activation_message {
+        broadcast_json(state, message).await;
+    }
+
+    if queued {
+        let queued_notice = json!({
+            "event": "powerup_queued",
             "payload": {
                 "player_id": client_id,
-                "powerup": powerup,
-                "details": powerup_payload,
-                "affected_players": affected_players,
-                "alert_message": alert_message
+                "powerup": powerup
             }
         });
-        broadcast_json(state, message).await;
+        let _ = send_to_client(state, client_id, queued_notice).await;
     }
 
     broadcast_state(state).await;
 }
 
+fn apply_powerup_to_current_round(
+    game: &mut GameState,
+    client_id: &str,
+    powerup: PowerUp,
+) -> Option<Value> {
+    let connected_other_players: Vec<String> = game
+        .players
+        .values()
+        .filter(|p| p.connected && p.id != client_id)
+        .map(|p| p.id.clone())
+        .collect();
+
+    let mut affected_players: Vec<String> = Vec::new();
+    let mut alert_message: Option<String> = None;
+    let powerup_payload;
+
+    let round = game.current_round.as_mut()?;
+    match powerup {
+        PowerUp::MixMaster => {
+            round.mix_master_owner = Some(client_id.to_string());
+            powerup_payload = Some(json!({"active": true}));
+            affected_players = connected_other_players;
+            alert_message = Some("Mix Master is active: your answer text/order may be scrambled.".to_string());
+        }
+        PowerUp::SpeedSearcher => {
+            round.speed_searcher_owner = Some(client_id.to_string());
+            round.answer_window_secs = 60;
+            round.started_at = Instant::now();
+            round.deadline = round.started_at + Duration::from_secs(60);
+            powerup_payload = Some(json!({"owner": client_id, "seconds": 60}));
+            affected_players = connected_other_players;
+            alert_message = Some("Speed Searcher activated: you are locked out until the 60s window ends.".to_string());
+        }
+        PowerUp::DoubleDowner => {
+            round.double_downers.insert(client_id.to_string());
+            powerup_payload = Some(json!({"active": true}));
+        }
+        PowerUp::CloneCommander => {
+            round.clone_commanders.insert(client_id.to_string());
+            powerup_payload = Some(json!({"active": true}));
+        }
+        PowerUp::SuperSpliter => {
+            let mut rng = rand::thread_rng();
+            let incorrects: Vec<usize> = (0..4)
+                .filter(|i| *i != round.question.correct_index)
+                .collect();
+            let random_incorrect = *incorrects.choose(&mut rng).unwrap_or(&incorrects[0]);
+            for target_id in &connected_other_players {
+                round
+                    .super_spliter_targets
+                    .insert(target_id.clone(), (round.question.correct_index, random_incorrect));
+            }
+            powerup_payload = Some(json!({"targets": connected_other_players}));
+            affected_players = connected_other_players;
+            alert_message = Some("Super Spliter activated: your choices were reduced this round.".to_string());
+        }
+        PowerUp::GreatGambler => {
+            if round.great_gambler_factor.is_none() {
+                let mut rng = rand::thread_rng();
+                let factor = rng.gen_range(-1.0f64..=3.0f64);
+                round.great_gambler_factor = Some(factor);
+            }
+            powerup_payload = Some(json!({"factor": round.great_gambler_factor}));
+            affected_players = connected_other_players;
+            alert_message = Some("Great Gambler activated: round scoring will be multiplied.".to_string());
+        }
+    }
+
+    Some(json!({
+        "event": "powerup_activated",
+        "payload": {
+            "player_id": client_id,
+            "powerup": powerup,
+            "details": powerup_payload,
+            "affected_players": affected_players,
+            "alert_message": alert_message
+        }
+    }))
+}
+
 async fn start_next_round(state: AppState) {
     let mut round_started = false;
     let mut should_end_game = false;
+    let mut queued_activations = Vec::new();
     {
         let mut game = state.game.lock().await;
         if game.completed_rounds >= game.total_rounds || game.questions.is_empty() {
@@ -1032,6 +1063,26 @@ async fn start_next_round(state: AppState) {
                         mix_master_owner: None,
                         option_order,
                     });
+                    let queued: Vec<(String, PowerUp)> = game
+                        .players
+                        .iter()
+                        .filter_map(|(player_id, player)| {
+                            player
+                                .pending_powerup
+                                .clone()
+                                .map(|powerup| (player_id.clone(), powerup))
+                        })
+                        .collect();
+                    for (player_id, powerup) in queued {
+                        if let Some(player) = game.players.get_mut(&player_id) {
+                            player.pending_powerup = None;
+                        }
+                        if let Some(message) =
+                            apply_powerup_to_current_round(&mut game, &player_id, powerup)
+                        {
+                            queued_activations.push(message);
+                        }
+                    }
                     game.status = GameStatus::InRound;
                     round_started = true;
                 } else {
@@ -1060,6 +1111,9 @@ async fn start_next_round(state: AppState) {
 
     if round_started {
         broadcast_state(&state).await;
+        for message in queued_activations {
+            broadcast_json(&state, message).await;
+        }
         spawn_round_timer(state).await;
     }
 }
@@ -1114,6 +1168,9 @@ async fn finalize_round(state: AppState) {
         };
 
         let mut round_scores: HashMap<String, f64> = HashMap::new();
+        for player in game.players.values_mut() {
+            player.last_score_delta = 0.0;
+        }
         for (player_id, ans) in &round.answers {
             let mut score = 0.0;
             let is_correct = ans.choice_index == round.question.correct_index;
@@ -1148,6 +1205,7 @@ async fn finalize_round(state: AppState) {
         for (player_id, gain) in &round_scores {
             if let Some(player) = game.players.get_mut(player_id) {
                 player.score += gain;
+                player.last_score_delta = *gain;
             }
         }
 
@@ -1246,6 +1304,7 @@ async fn build_state_snapshot(state: &AppState, client_id: &str) -> Value {
             "name": p.name,
             "score": (p.score * 100.0).round() / 100.0,
             "used_powerups": p.used_powerups,
+            "pending_powerup": p.pending_powerup,
             "tutorial_seen": p.tutorial_seen,
         })
     });
