@@ -162,3 +162,16 @@
   - None specific to this stage.
 - Next stage:
   - Documentation expansion for non-technical server admins.
+
+## v0.10.0 - 2026-03-11
+- Completed:
+  - Rewrote README with verbose non-technical setup and hosting instructions for GitHub users.
+  - Added step-by-step admin workflow, player onboarding, troubleshooting, and network guidance.
+- Build artifacts:
+  - `quiztik-server-local-v0.10.0.zip`
+- Test status:
+  - `scripts/verify_artifacts.sh` passes for local build.
+- Known issues:
+  - None specific to documentation stage.
+- Next stage:
+  - Optional UX/tutorial enhancements and production polish.
