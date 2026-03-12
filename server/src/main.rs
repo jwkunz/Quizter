@@ -768,13 +768,12 @@ async fn finalize_round(state: AppState) {
             let is_correct = ans.choice_index == round.question.correct_index;
             if is_correct {
                 let elapsed_secs = ans.submitted_at.duration_since(round.started_at).as_secs_f64();
-                let total_secs = round.answer_window_secs as f64;
-                let speed_factor = ((total_secs - elapsed_secs) / total_secs).clamp(0.0, 1.0);
-                let speed_bonus = round.question.points as f64 * 0.5 * speed_factor;
-                score = round.question.points as f64 + speed_bonus;
-                if round.double_downers.contains(player_id) {
-                    score *= 2.0;
-                }
+                score = calculate_correct_score(
+                    round.question.points,
+                    elapsed_secs,
+                    round.answer_window_secs as f64,
+                    round.double_downers.contains(player_id),
+                );
             }
             round_scores.insert(player_id.clone(), score);
         }
@@ -989,5 +988,38 @@ fn append_history(data_dir: &PathBuf, entry: HistoryEntry) {
     history.push(entry);
     if let Ok(serialized) = serde_json::to_string_pretty(&history) {
         let _ = fs::write(path, serialized);
+    }
+}
+
+fn calculate_correct_score(points: u32, elapsed_secs: f64, total_secs: f64, doubled: bool) -> f64 {
+    let speed_factor = ((total_secs - elapsed_secs) / total_secs).clamp(0.0, 1.0);
+    let speed_bonus = points as f64 * 0.5 * speed_factor;
+    let mut score = points as f64 + speed_bonus;
+    if doubled {
+        score *= 2.0;
+    }
+    score
+}
+
+#[cfg(test)]
+mod tests {
+    use super::calculate_correct_score;
+
+    #[test]
+    fn score_is_max_at_zero_elapsed() {
+        let score = calculate_correct_score(100, 0.0, 15.0, false);
+        assert!((score - 150.0).abs() < 0.0001);
+    }
+
+    #[test]
+    fn score_is_base_at_timeout_boundary() {
+        let score = calculate_correct_score(100, 15.0, 15.0, false);
+        assert!((score - 100.0).abs() < 0.0001);
+    }
+
+    #[test]
+    fn score_doubles_when_double_downer_is_active() {
+        let score = calculate_correct_score(100, 3.0, 15.0, true);
+        assert!(score > 200.0);
     }
 }

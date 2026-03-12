@@ -64,3 +64,19 @@
   - No automated integration tests yet; current validation is manual and compile-time.
 - Next stage:
   - v0.4.0 test harness and release-quality cleanup.
+
+## v0.4.0 - 2026-03-11
+- Completed:
+  - Added scoring unit tests for base + speed bonus and double-down behavior.
+  - Added project README with local run and packaging instructions.
+  - Kept release script/version flow aligned with commit-stage process.
+- Build artifacts:
+  - `quiztik-server-local-v0.4.0.zip`
+  - `quiztik-player-v0.4.0.zip`
+  - `quiztik-admin-v0.4.0.zip`
+- Test status:
+  - `cargo test` passes.
+- Known issues:
+  - Full end-to-end browser automation tests are not yet included.
+- Next stage:
+  - v0.5.0 final polish and acceptance checklist updates.
