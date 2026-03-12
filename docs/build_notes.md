@@ -286,3 +286,18 @@
   - Admin UI for selecting banks is pending next milestone.
 - Next stage:
   - Admin bank selector checklist UI and live controls.
+
+## v1.5.0 - 2026-03-11
+- Completed:
+  - Added admin question-bank selector UI with alphabetical checklist.
+  - Added `Add All Banks` and `Clear All Banks` controls.
+  - Added live selection updates to backend selection API.
+  - Added selected-bank summary and empty-selection warning.
+- Build artifacts:
+  - `quiztik-server-local-v1.5.0.zip`
+- Test status:
+  - Build and artifact verification scripts pass.
+- Known issues:
+  - Lobby top fields still need explicit labels and start-game guardrails.
+- Next stage:
+  - Lobby labeling and empty-pool guardrails.

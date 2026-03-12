@@ -70,6 +70,24 @@
     .leader-item { display:flex; justify-content:space-between; border-bottom:1px solid #232323; padding:.35rem 0; }
     .hidden { display:none; }
     .wizard-step { border-left: 3px solid var(--neon-pink); padding-left: .7rem; margin: .5rem 0; }
+    .bank-list {
+      max-height: 280px;
+      overflow: auto;
+      border: 1px solid #2a2a2a;
+      border-radius: 10px;
+      padding: .5rem;
+      background: #0f0f0f;
+    }
+    .bank-item {
+      display: flex;
+      align-items: center;
+      gap: .45rem;
+      padding: .2rem 0;
+      border-bottom: 1px solid #1e1e1e;
+      font-size: .9rem;
+    }
+    .bank-item:last-child { border-bottom: none; }
+    .warning { color: #ff6b6b; }
     .icon-grid { display: grid; grid-template-columns: repeat(2, minmax(130px, 1fr)); gap: .55rem; }
     .icon-tile {
       display: flex;
@@ -178,6 +196,16 @@
           </div>
           <button id="importBtn">Import Pack</button>
         </div>
+        <div class="panel">
+          <h2>Question Bank Files</h2>
+          <div class="row" style="margin-bottom:.5rem;">
+            <button id="addAllBanksBtn">Add All Banks</button>
+            <button id="clearAllBanksBtn">Clear All Banks</button>
+          </div>
+          <div id="bankList" class="bank-list"></div>
+          <p class="status" id="bankSummary"></p>
+          <p class="status warning" id="bankWarning"></p>
+        </div>
       </div>
 
       <div>
@@ -208,6 +236,8 @@
     let serverUrl = window.location.origin || "http://localhost:8080";
     let adminId = null;
     let ws;
+    let availableBanks = [];
+    let selectedBanks = new Set();
 
     const el = (id) => document.getElementById(id);
     const feed = (msg) => {
@@ -232,6 +262,51 @@
       } catch (_e) {}
     }
 
+    function renderBankList() {
+      const list = el("bankList");
+      list.innerHTML = "";
+      availableBanks.forEach((file) => {
+        const row = document.createElement("label");
+        row.className = "bank-item";
+        row.innerHTML = `<input type="checkbox" data-bank="${file}" ${selectedBanks.has(file) ? "checked" : ""} /> <span>${file}</span>`;
+        list.appendChild(row);
+      });
+      const selectedCount = [...selectedBanks].length;
+      el("bankSummary").textContent = `${selectedCount} bank(s) selected.`;
+      el("bankWarning").textContent = selectedCount === 0 ? "No bank files selected. File-based pool will be empty." : "";
+      list.querySelectorAll("input[type='checkbox']").forEach((cb) => {
+        cb.onchange = () => {
+          const file = cb.getAttribute("data-bank");
+          if (cb.checked) selectedBanks.add(file);
+          else selectedBanks.delete(file);
+          pushBankSelection();
+          renderBankList();
+        };
+      });
+    }
+
+    async function loadBanks() {
+      if (!adminId) return;
+      const res = await fetch(`${serverUrl}/api/admin/question_banks`);
+      if (!res.ok) return;
+      const data = await res.json();
+      availableBanks = data.available_files || [];
+      selectedBanks = new Set(data.selected_files || []);
+      renderBankList();
+    }
+
+    async function pushBankSelection() {
+      if (!adminId) return;
+      await fetch(`${serverUrl}/api/admin/question_banks/selection`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          admin_id: adminId,
+          selected_files: [...selectedBanks].sort()
+        })
+      });
+    }
+
     function connectWs() {
       ws = new WebSocket(serverUrl.replace("http", "ws") + `/ws/${adminId}`);
       ws.onmessage = (ev) => {
@@ -248,6 +323,7 @@
               row.innerHTML = `<span>${i+1}. ${p.name}</span><strong>${p.score.toFixed(2)}</strong>`;
               lb.appendChild(row);
             });
+            if (adminId) loadBanks();
           }
           if (msg.event === "powerup_activated") {
             feed(`${msg.payload.player_id} used ${msg.payload.powerup}`);
@@ -296,6 +372,7 @@
       el("mainPanel").classList.remove("hidden");
       el("adminSplit").classList.remove("hidden");
       connectWs();
+      loadBanks();
     }
 
     async function startGame() {
@@ -345,6 +422,18 @@
     el("nextRoundBtn").onclick = () => ws?.send(JSON.stringify({ action: "admin_next_round" }));
     el("addQuestionBtn").onclick = addQuestion;
     el("importBtn").onclick = importPack;
+    el("addAllBanksBtn").onclick = async () => {
+      selectedBanks = new Set(availableBanks);
+      await pushBankSelection();
+      renderBankList();
+      feed("Selected all question banks.");
+    };
+    el("clearAllBanksBtn").onclick = async () => {
+      selectedBanks = new Set();
+      await pushBankSelection();
+      renderBankList();
+      feed("Cleared all question banks.");
+    };
     el("serverUrl").onchange = refreshServerInfo;
     el("copyJoinUrlBtn").onclick = async () => {
       const text = el("joinUrl").value.trim();
