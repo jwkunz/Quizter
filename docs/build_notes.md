@@ -449,3 +449,16 @@
   - Manual round issue remains available even when automatic issue is enabled, which allows an admin to issue the next question early if desired.
 - Next stage:
   - Optional release build and more advanced admin orchestration polish.
+
+## v2.5.0 - 2026-03-12
+- Completed:
+  - Increased displayed PNG art sizing across admin/player UI while leaving the QR code unchanged.
+  - Doubled the full-screen round-result flash duration from 1 second to 2 seconds.
+- Build artifacts:
+  - Not run for this milestone.
+- Test status:
+  - UI-only change; no server logic changes required.
+- Known issues:
+  - Additional local question-pack edits remain outside this milestone.
+- Next stage:
+  - Optional build, art polish, and question-pack updates.

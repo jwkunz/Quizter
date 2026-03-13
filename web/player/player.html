@@ -44,8 +44,8 @@
       margin-bottom: 0.6rem;
     }
     .brand-logo {
-      width: 58px;
-      height: 58px;
+      width: min(348px, 72vw);
+      height: min(348px, 72vw);
       object-fit: contain;
       filter: drop-shadow(0 0 10px #00f6ffaa);
       border-radius: 10px;
@@ -126,8 +126,8 @@
       font-size: 0.78rem;
     }
     .power img {
-      width: 28px;
-      height: 28px;
+      width: min(168px, 28vw);
+      height: min(168px, 28vw);
       object-fit: contain;
       border-radius: 6px;
       border: 1px solid #2c2c2c;
@@ -144,8 +144,8 @@
       background: #101010;
     }
     .round-feedback img {
-      width: 54px;
-      height: 54px;
+      width: min(324px, 60vw);
+      height: min(324px, 60vw);
       object-fit: contain;
       border-radius: 8px;
       border: 1px solid #2f2f2f;
@@ -196,8 +196,8 @@
       box-shadow: 0 0 26px #00f6ff44;
     }
     .result-flash img {
-      width: 88px;
-      height: 88px;
+      width: min(528px, 74vw);
+      height: min(528px, 74vw);
       object-fit: contain;
       border-radius: 10px;
       border: 1px solid #2f2f2f;
@@ -521,7 +521,7 @@
             }
             flash.classList.remove("hidden");
             if (resultFlashTimer) clearTimeout(resultFlashTimer);
-            resultFlashTimer = setTimeout(() => flash.classList.add("hidden"), 1000);
+            resultFlashTimer = setTimeout(() => flash.classList.add("hidden"), 2000);
           }
         } catch (_e) {}
       };
