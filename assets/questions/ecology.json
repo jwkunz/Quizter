@@ -1,262 +1,245 @@
-[
-  {
-    "prompt": "What is ecology the study of?",
-    "options": [
-      "The structure of atoms",
-      "The interactions between organisms and their environment",
-      "The motion of planets",
-      "Human anatomy"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What term describes all the living organisms in a particular area?",
-    "options": [
-      "Population",
-      "Community",
-      "Ecosystem",
-      "Biome"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is the role of producers in an ecosystem?",
-    "options": [
-      "They consume other organisms",
-      "They break down waste",
-      "They produce their own food using sunlight",
-      "They hunt predators"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which organisms break down dead organic matter and recycle nutrients?",
-    "options": [
-      "Producers",
-      "Consumers",
-      "Decomposers",
-      "Predators"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is a food chain?",
-    "options": [
-      "A series of organisms linked by energy transfer through eating",
-      "A group of animals living together",
-      "A collection of plants in a forest",
-      "A type of ecological experiment"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which biome is characterized by very low rainfall and sparse vegetation?",
-    "options": [
-      "Tropical rainforest",
-      "Desert",
-      "Grassland",
-      "Taiga"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What term describes a group of individuals of the same species living in a specific area?",
-    "options": [
-      "Community",
-      "Population",
-      "Ecosystem",
-      "Biome"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is biodiversity?",
-    "options": [
-      "The number of ecosystems on Earth",
-      "The variety of life in a particular habitat or on Earth",
-      "The number of animals in a forest",
-      "The amount of water in an ecosystem"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which process do plants use to convert sunlight into energy?",
-    "options": [
-      "Respiration",
-      "Photosynthesis",
-      "Fermentation",
-      "Transpiration"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What term describes an organism that eats plants?",
-    "options": [
-      "Carnivore",
-      "Herbivore",
-      "Omnivore",
-      "Decomposer"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which gas is removed from the atmosphere during photosynthesis?",
-    "options": [
-      "Oxygen",
-      "Nitrogen",
-      "Carbon dioxide",
-      "Methane"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is an ecosystem?",
-    "options": [
-      "A group of animals living together",
-      "A community of organisms and their physical environment",
-      "Only the plants in an area",
-      "A collection of mountains and rivers"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What type of consumer eats both plants and animals?",
-    "options": [
-      "Herbivore",
-      "Carnivore",
-      "Omnivore",
-      "Decomposer"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which biome contains dense forests, high rainfall, and high biodiversity?",
-    "options": [
-      "Tundra",
-      "Savanna",
-      "Tropical rainforest",
-      "Desert"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is the primary source of energy for most ecosystems on Earth?",
-    "options": [
-      "The Moon",
-      "The Sun",
-      "Volcanoes",
-      "Ocean currents"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What term describes a species that has a disproportionately large impact on its ecosystem?",
-    "options": [
-      "Indicator species",
-      "Keystone species",
-      "Endangered species",
-      "Native species"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is the role of a predator in an ecosystem?",
-    "options": [
-      "To produce oxygen",
-      "To control prey populations",
-      "To create nutrients from sunlight",
-      "To decompose dead matter"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What term describes the gradual change in species composition in an ecosystem over time?",
-    "options": [
-      "Evolution",
-      "Succession",
-      "Migration",
-      "Adaptation"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which layer of the ocean receives the most sunlight and supports most marine life?",
-    "options": [
-      "Abyssal zone",
-      "Midnight zone",
-      "Photic zone",
-      "Hadopelagic zone"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What term describes non-living components of an ecosystem such as water, sunlight, and temperature?",
-    "options": [
-      "Biotic factors",
-      "Abiotic factors",
-      "Predators",
-      "Consumers"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  }
-]
+{
+  "category": "STEM",
+  "questions": [
+    {
+      "prompt": "What is ecology the study of?",
+      "options": [
+        "The structure of atoms",
+        "The interactions between organisms and their environment",
+        "The motion of planets",
+        "Human anatomy"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What term describes all the living organisms in a particular area?",
+      "options": [
+        "Population",
+        "Community",
+        "Ecosystem",
+        "Biome"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the role of producers in an ecosystem?",
+      "options": [
+        "They consume other organisms",
+        "They break down waste",
+        "They produce their own food using sunlight",
+        "They hunt predators"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which organisms break down dead organic matter and recycle nutrients?",
+      "options": [
+        "Producers",
+        "Consumers",
+        "Decomposers",
+        "Predators"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is a food chain?",
+      "options": [
+        "A series of organisms linked by energy transfer through eating",
+        "A group of animals living together",
+        "A collection of plants in a forest",
+        "A type of ecological experiment"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which biome is characterized by very low rainfall and sparse vegetation?",
+      "options": [
+        "Tropical rainforest",
+        "Desert",
+        "Grassland",
+        "Taiga"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What term describes a group of individuals of the same species living in a specific area?",
+      "options": [
+        "Community",
+        "Population",
+        "Ecosystem",
+        "Biome"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is biodiversity?",
+      "options": [
+        "The number of ecosystems on Earth",
+        "The variety of life in a particular habitat or on Earth",
+        "The number of animals in a forest",
+        "The amount of water in an ecosystem"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which process do plants use to convert sunlight into energy?",
+      "options": [
+        "Respiration",
+        "Photosynthesis",
+        "Fermentation",
+        "Transpiration"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What term describes an organism that eats plants?",
+      "options": [
+        "Carnivore",
+        "Herbivore",
+        "Omnivore",
+        "Decomposer"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which gas is removed from the atmosphere during photosynthesis?",
+      "options": [
+        "Oxygen",
+        "Nitrogen",
+        "Carbon dioxide",
+        "Methane"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is an ecosystem?",
+      "options": [
+        "A group of animals living together",
+        "A community of organisms and their physical environment",
+        "Only the plants in an area",
+        "A collection of mountains and rivers"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What type of consumer eats both plants and animals?",
+      "options": [
+        "Herbivore",
+        "Carnivore",
+        "Omnivore",
+        "Decomposer"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which biome contains dense forests, high rainfall, and high biodiversity?",
+      "options": [
+        "Tundra",
+        "Savanna",
+        "Tropical rainforest",
+        "Desert"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the primary source of energy for most ecosystems on Earth?",
+      "options": [
+        "The Moon",
+        "The Sun",
+        "Volcanoes",
+        "Ocean currents"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What term describes a species that has a disproportionately large impact on its ecosystem?",
+      "options": [
+        "Indicator species",
+        "Keystone species",
+        "Endangered species",
+        "Native species"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the role of a predator in an ecosystem?",
+      "options": [
+        "To produce oxygen",
+        "To control prey populations",
+        "To create nutrients from sunlight",
+        "To decompose dead matter"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What term describes the gradual change in species composition in an ecosystem over time?",
+      "options": [
+        "Evolution",
+        "Succession",
+        "Migration",
+        "Adaptation"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which layer of the ocean receives the most sunlight and supports most marine life?",
+      "options": [
+        "Abyssal zone",
+        "Midnight zone",
+        "Photic zone",
+        "Hadopelagic zone"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What term describes non-living components of an ecosystem such as water, sunlight, and temperature?",
+      "options": [
+        "Biotic factors",
+        "Abiotic factors",
+        "Predators",
+        "Consumers"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}

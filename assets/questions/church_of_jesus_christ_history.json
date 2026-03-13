@@ -1,262 +1,245 @@
-[
-  {
-    "prompt": "In what year was the Church of Jesus Christ of Latter-day Saints officially organized?",
-    "options": [
-      "1820",
-      "1830",
-      "1844",
-      "1857"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Where was the Church officially organized on April 6, 1830?",
-    "options": [
-      "Palmyra, New York",
-      "Fayette, New York",
-      "Kirtland, Ohio",
-      "Nauvoo, Illinois"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Who was the first President of the Church of Jesus Christ of Latter-day Saints?",
-    "options": [
-      "Brigham Young",
-      "Joseph Smith",
-      "Oliver Cowdery",
-      "Sidney Rigdon"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which angel is said to have appeared to Joseph Smith and directed him to the gold plates?",
-    "options": [
-      "Gabriel",
-      "Michael",
-      "Moroni",
-      "Raphael"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "In which state did the Saints build the city of Nauvoo?",
-    "options": [
-      "Missouri",
-      "Illinois",
-      "Ohio",
-      "Utah"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Who succeeded Joseph Smith as the leader of the main body of the Saints after his death in 1844?",
-    "options": [
-      "John Taylor",
-      "Brigham Young",
-      "Wilford Woodruff",
-      "Heber C. Kimball"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which location became the headquarters of the Church after the pioneer migration west?",
-    "options": [
-      "Independence, Missouri",
-      "Salt Lake City, Utah",
-      "Winter Quarters, Nebraska",
-      "Kirtland, Ohio"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "What year did the Latter-day Saint pioneers arrive in the Salt Lake Valley?",
-    "options": [
-      "1847",
-      "1850",
-      "1838",
-      "1865"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which temple was the first built by the Church in this dispensation?",
-    "options": [
-      "Nauvoo Temple",
-      "Kirtland Temple",
-      "Salt Lake Temple",
-      "St. George Temple"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Where were Joseph Smith and his brother Hyrum killed in 1844?",
-    "options": [
-      "Nauvoo Jail",
-      "Carthage Jail",
-      "Liberty Jail",
-      "Independence Jail"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which early leader served as Joseph Smith\u2019s scribe during the translation of the Book of Mormon?",
-    "options": [
-      "Brigham Young",
-      "Oliver Cowdery",
-      "Parley P. Pratt",
-      "Orson Hyde"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which jail in Missouri held Joseph Smith during the winter of 1838\u20131839?",
-    "options": [
-      "Carthage Jail",
-      "Liberty Jail",
-      "Independence Jail",
-      "Far West Jail"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which group traveled west to the Salt Lake Valley following Brigham Young in 1847?",
-    "options": [
-      "The Zion Company",
-      "The Pioneer Company",
-      "The Mormon Battalion",
-      "The First Pioneer Company"
-    ],
-    "correct_index": 3,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which early settlement in Missouri was intended to be the center place of Zion?",
-    "options": [
-      "Far West",
-      "Independence",
-      "Adam-ondi-Ahman",
-      "Liberty"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "What organization of women in the Church was founded in 1842 in Nauvoo?",
-    "options": [
-      "Primary",
-      "Young Women",
-      "Relief Society",
-      "Sunday School"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which president of the Church announced the Manifesto in 1890 ending the practice of plural marriage?",
-    "options": [
-      "John Taylor",
-      "Wilford Woodruff",
-      "Lorenzo Snow",
-      "Joseph F. Smith"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "What was the name of the group of Latter-day Saints who served in the U.S. Army during the Mexican-American War?",
-    "options": [
-      "The Pioneer Battalion",
-      "The Mormon Battalion",
-      "The Zion Battalion",
-      "The Utah Battalion"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which early apostle led many missionary efforts in Europe in the 1830s and 1840s?",
-    "options": [
-      "Heber C. Kimball",
-      "Orson Pratt",
-      "Parley P. Pratt",
-      "All of the above"
-    ],
-    "correct_index": 3,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which prophet dedicated the Salt Lake Temple in 1893?",
-    "options": [
-      "Brigham Young",
-      "Wilford Woodruff",
-      "John Taylor",
-      "Lorenzo Snow"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which early Church location in Ohio served as a headquarters for several years in the 1830s?",
-    "options": [
-      "Columbus",
-      "Kirtland",
-      "Cleveland",
-      "Cincinnati"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  }
-]
+{
+  "category": "History",
+  "questions": [
+    {
+      "prompt": "In what year was the Church of Jesus Christ of Latter-day Saints officially organized?",
+      "options": [
+        "1820",
+        "1830",
+        "1844",
+        "1857"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Where was the Church officially organized on April 6, 1830?",
+      "options": [
+        "Palmyra, New York",
+        "Fayette, New York",
+        "Kirtland, Ohio",
+        "Nauvoo, Illinois"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who was the first President of the Church of Jesus Christ of Latter-day Saints?",
+      "options": [
+        "Brigham Young",
+        "Joseph Smith",
+        "Oliver Cowdery",
+        "Sidney Rigdon"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which angel is said to have appeared to Joseph Smith and directed him to the gold plates?",
+      "options": [
+        "Gabriel",
+        "Michael",
+        "Moroni",
+        "Raphael"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "In which state did the Saints build the city of Nauvoo?",
+      "options": [
+        "Missouri",
+        "Illinois",
+        "Ohio",
+        "Utah"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who succeeded Joseph Smith as the leader of the main body of the Saints after his death in 1844?",
+      "options": [
+        "John Taylor",
+        "Brigham Young",
+        "Wilford Woodruff",
+        "Heber C. Kimball"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which location became the headquarters of the Church after the pioneer migration west?",
+      "options": [
+        "Independence, Missouri",
+        "Salt Lake City, Utah",
+        "Winter Quarters, Nebraska",
+        "Kirtland, Ohio"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What year did the Latter-day Saint pioneers arrive in the Salt Lake Valley?",
+      "options": [
+        "1847",
+        "1850",
+        "1838",
+        "1865"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which temple was the first built by the Church in this dispensation?",
+      "options": [
+        "Nauvoo Temple",
+        "Kirtland Temple",
+        "Salt Lake Temple",
+        "St. George Temple"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Where were Joseph Smith and his brother Hyrum killed in 1844?",
+      "options": [
+        "Nauvoo Jail",
+        "Carthage Jail",
+        "Liberty Jail",
+        "Independence Jail"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which early leader served as Joseph Smith\u2019s scribe during the translation of the Book of Mormon?",
+      "options": [
+        "Brigham Young",
+        "Oliver Cowdery",
+        "Parley P. Pratt",
+        "Orson Hyde"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which jail in Missouri held Joseph Smith during the winter of 1838\u20131839?",
+      "options": [
+        "Carthage Jail",
+        "Liberty Jail",
+        "Independence Jail",
+        "Far West Jail"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which group traveled west to the Salt Lake Valley following Brigham Young in 1847?",
+      "options": [
+        "The Zion Company",
+        "The Pioneer Company",
+        "The Mormon Battalion",
+        "The First Pioneer Company"
+      ],
+      "correct_index": 3,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which early settlement in Missouri was intended to be the center place of Zion?",
+      "options": [
+        "Far West",
+        "Independence",
+        "Adam-ondi-Ahman",
+        "Liberty"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What organization of women in the Church was founded in 1842 in Nauvoo?",
+      "options": [
+        "Primary",
+        "Young Women",
+        "Relief Society",
+        "Sunday School"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which president of the Church announced the Manifesto in 1890 ending the practice of plural marriage?",
+      "options": [
+        "John Taylor",
+        "Wilford Woodruff",
+        "Lorenzo Snow",
+        "Joseph F. Smith"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What was the name of the group of Latter-day Saints who served in the U.S. Army during the Mexican-American War?",
+      "options": [
+        "The Pioneer Battalion",
+        "The Mormon Battalion",
+        "The Zion Battalion",
+        "The Utah Battalion"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which early apostle led many missionary efforts in Europe in the 1830s and 1840s?",
+      "options": [
+        "Heber C. Kimball",
+        "Orson Pratt",
+        "Parley P. Pratt",
+        "All of the above"
+      ],
+      "correct_index": 3,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which prophet dedicated the Salt Lake Temple in 1893?",
+      "options": [
+        "Brigham Young",
+        "Wilford Woodruff",
+        "John Taylor",
+        "Lorenzo Snow"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which early Church location in Ohio served as a headquarters for several years in the 1830s?",
+      "options": [
+        "Columbus",
+        "Kirtland",
+        "Cleveland",
+        "Cincinnati"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}

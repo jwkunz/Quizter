@@ -1,262 +1,245 @@
-[
-  {
-    "prompt": "What is the primary purpose of missionaries as taught in Preach My Gospel?",
-    "options": [
-      "To travel and learn about other cultures",
-      "To invite others to come unto Christ",
-      "To build churches in new areas",
-      "To translate scripture"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which chapter of Preach My Gospel teaches missionaries how to study effectively and prepare spiritually?",
-    "options": [
-      "Chapter 2",
-      "Chapter 3",
-      "Chapter 6",
-      "Chapter 9"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which chapter of Preach My Gospel focuses on developing Christlike attributes?",
-    "options": [
-      "Chapter 5",
-      "Chapter 6",
-      "Chapter 7",
-      "Chapter 8"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "According to Preach My Gospel, what is the first principle of the gospel of Jesus Christ?",
-    "options": [
-      "Faith in Jesus Christ",
-      "Repentance",
-      "Baptism",
-      "Receiving the Holy Ghost"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which chapter teaches missionaries how to find people to teach?",
-    "options": [
-      "Chapter 2",
-      "Chapter 6",
-      "Chapter 9",
-      "Chapter 11"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What is the name of the daily planning process missionaries use to organize their work?",
-    "options": [
-      "Mission Planning",
-      "Daily Planning",
-      "Companion Study",
-      "Area Planning"
-    ],
-    "correct_index": 3,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which chapter of Preach My Gospel explains the lessons missionaries teach about the doctrine of Christ?",
-    "options": [
-      "Chapter 1",
-      "Chapter 3",
-      "Chapter 6",
-      "Chapter 8"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "According to Preach My Gospel, what role does the Holy Ghost play in missionary work?",
-    "options": [
-      "It replaces the need for preparation",
-      "It confirms truth and teaches hearts",
-      "It removes the need for scriptures",
-      "It replaces the need for teaching"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which Christlike attribute listed in Preach My Gospel helps missionaries persist despite challenges?",
-    "options": [
-      "Diligence",
-      "Hope",
-      "Virtue",
-      "Knowledge"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What principle helps missionaries teach more effectively by focusing on people rather than memorized presentations?",
-    "options": [
-      "Teaching by the Spirit",
-      "Teaching from memory",
-      "Teaching from notes",
-      "Teaching with outlines only"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What ordinance follows faith and repentance in the gospel of Jesus Christ according to Preach My Gospel?",
-    "options": [
-      "Baptism",
-      "Confirmation",
-      "Sacrament",
-      "Ordination"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which chapter focuses on using time wisely and planning missionary activities?",
-    "options": [
-      "Chapter 6",
-      "Chapter 8",
-      "Chapter 13",
-      "Chapter 4"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "According to Preach My Gospel, why should missionaries ask inspired questions when teaching?",
-    "options": [
-      "To fill time in lessons",
-      "To help people think and feel the Spirit",
-      "To test knowledge of investigators",
-      "To avoid teaching doctrine"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which chapter helps missionaries understand how to work with members and leaders in the Church?",
-    "options": [
-      "Chapter 9",
-      "Chapter 13",
-      "Chapter 2",
-      "Chapter 5"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What is the purpose of invitations in missionary teaching according to Preach My Gospel?",
-    "options": [
-      "To encourage people to act on faith and commitments",
-      "To test investigators",
-      "To shorten lessons",
-      "To memorize scriptures"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which Christlike attribute helps missionaries rely on God and trust in His promises?",
-    "options": [
-      "Faith",
-      "Knowledge",
-      "Virtue",
-      "Diligence"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "According to Preach My Gospel, why is personal scripture study important for missionaries?",
-    "options": [
-      "It increases teaching hours",
-      "It strengthens faith and understanding of doctrine",
-      "It replaces companionship study",
-      "It reduces preparation time"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What does Preach My Gospel teach about the role of prayer in missionary work?",
-    "options": [
-      "It should only be done privately",
-      "It invites guidance and help from God",
-      "It replaces planning",
-      "It is optional"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which principle helps missionaries become more effective teachers by understanding people\u2019s needs?",
-    "options": [
-      "Listening carefully",
-      "Memorizing lessons",
-      "Speaking quickly",
-      "Reading longer passages"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What does Preach My Gospel emphasize about missionary work and personal conversion?",
-    "options": [
-      "Missionaries must be converted themselves to teach effectively",
-      "Missionaries should focus only on teaching skills",
-      "Conversion happens automatically",
-      "Only leaders need strong testimonies"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  }
-]
+{
+  "category": "Religion",
+  "questions": [
+    {
+      "prompt": "What is the primary purpose of missionaries as taught in Preach My Gospel?",
+      "options": [
+        "To travel and learn about other cultures",
+        "To invite others to come unto Christ",
+        "To build churches in new areas",
+        "To translate scripture"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which chapter of Preach My Gospel teaches missionaries how to study effectively and prepare spiritually?",
+      "options": [
+        "Chapter 2",
+        "Chapter 3",
+        "Chapter 6",
+        "Chapter 9"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which chapter of Preach My Gospel focuses on developing Christlike attributes?",
+      "options": [
+        "Chapter 5",
+        "Chapter 6",
+        "Chapter 7",
+        "Chapter 8"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "According to Preach My Gospel, what is the first principle of the gospel of Jesus Christ?",
+      "options": [
+        "Faith in Jesus Christ",
+        "Repentance",
+        "Baptism",
+        "Receiving the Holy Ghost"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which chapter teaches missionaries how to find people to teach?",
+      "options": [
+        "Chapter 2",
+        "Chapter 6",
+        "Chapter 9",
+        "Chapter 11"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the name of the daily planning process missionaries use to organize their work?",
+      "options": [
+        "Mission Planning",
+        "Daily Planning",
+        "Companion Study",
+        "Area Planning"
+      ],
+      "correct_index": 3,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which chapter of Preach My Gospel explains the lessons missionaries teach about the doctrine of Christ?",
+      "options": [
+        "Chapter 1",
+        "Chapter 3",
+        "Chapter 6",
+        "Chapter 8"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "According to Preach My Gospel, what role does the Holy Ghost play in missionary work?",
+      "options": [
+        "It replaces the need for preparation",
+        "It confirms truth and teaches hearts",
+        "It removes the need for scriptures",
+        "It replaces the need for teaching"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which Christlike attribute listed in Preach My Gospel helps missionaries persist despite challenges?",
+      "options": [
+        "Diligence",
+        "Hope",
+        "Virtue",
+        "Knowledge"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What principle helps missionaries teach more effectively by focusing on people rather than memorized presentations?",
+      "options": [
+        "Teaching by the Spirit",
+        "Teaching from memory",
+        "Teaching from notes",
+        "Teaching with outlines only"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What ordinance follows faith and repentance in the gospel of Jesus Christ according to Preach My Gospel?",
+      "options": [
+        "Baptism",
+        "Confirmation",
+        "Sacrament",
+        "Ordination"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which chapter focuses on using time wisely and planning missionary activities?",
+      "options": [
+        "Chapter 6",
+        "Chapter 8",
+        "Chapter 13",
+        "Chapter 4"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "According to Preach My Gospel, why should missionaries ask inspired questions when teaching?",
+      "options": [
+        "To fill time in lessons",
+        "To help people think and feel the Spirit",
+        "To test knowledge of investigators",
+        "To avoid teaching doctrine"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which chapter helps missionaries understand how to work with members and leaders in the Church?",
+      "options": [
+        "Chapter 9",
+        "Chapter 13",
+        "Chapter 2",
+        "Chapter 5"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the purpose of invitations in missionary teaching according to Preach My Gospel?",
+      "options": [
+        "To encourage people to act on faith and commitments",
+        "To test investigators",
+        "To shorten lessons",
+        "To memorize scriptures"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which Christlike attribute helps missionaries rely on God and trust in His promises?",
+      "options": [
+        "Faith",
+        "Knowledge",
+        "Virtue",
+        "Diligence"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "According to Preach My Gospel, why is personal scripture study important for missionaries?",
+      "options": [
+        "It increases teaching hours",
+        "It strengthens faith and understanding of doctrine",
+        "It replaces companionship study",
+        "It reduces preparation time"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel teach about the role of prayer in missionary work?",
+      "options": [
+        "It should only be done privately",
+        "It invites guidance and help from God",
+        "It replaces planning",
+        "It is optional"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which principle helps missionaries become more effective teachers by understanding people\u2019s needs?",
+      "options": [
+        "Listening carefully",
+        "Memorizing lessons",
+        "Speaking quickly",
+        "Reading longer passages"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does Preach My Gospel emphasize about missionary work and personal conversion?",
+      "options": [
+        "Missionaries must be converted themselves to teach effectively",
+        "Missionaries should focus only on teaching skills",
+        "Conversion happens automatically",
+        "Only leaders need strong testimonies"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}

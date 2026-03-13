@@ -1,262 +1,245 @@
-[
-  {
-    "prompt": "Which book of the New Testament tells the story of the early Christian church after Jesus\u2019 ascension?",
-    "options": [
-      "Acts",
-      "Romans",
-      "Hebrews",
-      "Revelation"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Who is traditionally believed to have written the Gospel of Luke?",
-    "options": [
-      "Luke the physician",
-      "Peter the apostle",
-      "James the brother of Jesus",
-      "Barnabas"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which apostle is known for denying Jesus three times before the crucifixion?",
-    "options": [
-      "John",
-      "Peter",
-      "Andrew",
-      "Thomas"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What is the first book of the New Testament?",
-    "options": [
-      "Matthew",
-      "Mark",
-      "Luke",
-      "John"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which disciple is often referred to as 'the doubter' because he questioned Jesus\u2019 resurrection?",
-    "options": [
-      "Philip",
-      "Thomas",
-      "Bartholomew",
-      "Matthew"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Who baptized Jesus in the Jordan River?",
-    "options": [
-      "Peter",
-      "John the Baptist",
-      "James",
-      "Andrew"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which New Testament book contains the Beatitudes?",
-    "options": [
-      "Matthew",
-      "Romans",
-      "Acts",
-      "Galatians"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What was the profession of Matthew before he became a disciple of Jesus?",
-    "options": [
-      "Fisherman",
-      "Carpenter",
-      "Tax collector",
-      "Tentmaker"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Who wrote many of the letters (epistles) in the New Testament to early Christian churches?",
-    "options": [
-      "Paul",
-      "John",
-      "Peter",
-      "Stephen"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which New Testament book describes visions of the end times and the final victory of God?",
-    "options": [
-      "Jude",
-      "Revelation",
-      "Hebrews",
-      "2 Timothy"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What miracle did Jesus perform at the wedding in Cana?",
-    "options": [
-      "Healing a blind man",
-      "Feeding the 5,000",
-      "Turning water into wine",
-      "Walking on water"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which apostle was known as a missionary to the Gentiles?",
-    "options": [
-      "Paul",
-      "James",
-      "Peter",
-      "Matthew"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "How many Gospels are included in the New Testament?",
-    "options": [
-      "3",
-      "4",
-      "5",
-      "6"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which Gospel begins with the words 'In the beginning was the Word'?",
-    "options": [
-      "Matthew",
-      "Mark",
-      "Luke",
-      "John"
-    ],
-    "correct_index": 3,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What event marks the descent of the Holy Spirit upon the apostles in Acts?",
-    "options": [
-      "Passover",
-      "Pentecost",
-      "Ascension",
-      "Transfiguration"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which apostle is traditionally believed to have written the book of Revelation?",
-    "options": [
-      "John",
-      "Peter",
-      "Paul",
-      "James"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Where was Jesus born according to the Gospels?",
-    "options": [
-      "Nazareth",
-      "Jerusalem",
-      "Bethlehem",
-      "Capernaum"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Who betrayed Jesus for thirty pieces of silver?",
-    "options": [
-      "Judas Iscariot",
-      "Simon the Zealot",
-      "James",
-      "Andrew"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which New Testament letter begins with a discussion of faith and works?",
-    "options": [
-      "James",
-      "Romans",
-      "Ephesians",
-      "Colossians"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What event in the New Testament marks Jesus rising from the dead?",
-    "options": [
-      "The Ascension",
-      "The Resurrection",
-      "The Transfiguration",
-      "The Annunciation"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  }
-]
+{
+  "category": "Religion",
+  "questions": [
+    {
+      "prompt": "Which book of the New Testament tells the story of the early Christian church after Jesus\u2019 ascension?",
+      "options": [
+        "Acts",
+        "Romans",
+        "Hebrews",
+        "Revelation"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who is traditionally believed to have written the Gospel of Luke?",
+      "options": [
+        "Luke the physician",
+        "Peter the apostle",
+        "James the brother of Jesus",
+        "Barnabas"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which apostle is known for denying Jesus three times before the crucifixion?",
+      "options": [
+        "John",
+        "Peter",
+        "Andrew",
+        "Thomas"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the first book of the New Testament?",
+      "options": [
+        "Matthew",
+        "Mark",
+        "Luke",
+        "John"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which disciple is often referred to as 'the doubter' because he questioned Jesus\u2019 resurrection?",
+      "options": [
+        "Philip",
+        "Thomas",
+        "Bartholomew",
+        "Matthew"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who baptized Jesus in the Jordan River?",
+      "options": [
+        "Peter",
+        "John the Baptist",
+        "James",
+        "Andrew"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which New Testament book contains the Beatitudes?",
+      "options": [
+        "Matthew",
+        "Romans",
+        "Acts",
+        "Galatians"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What was the profession of Matthew before he became a disciple of Jesus?",
+      "options": [
+        "Fisherman",
+        "Carpenter",
+        "Tax collector",
+        "Tentmaker"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who wrote many of the letters (epistles) in the New Testament to early Christian churches?",
+      "options": [
+        "Paul",
+        "John",
+        "Peter",
+        "Stephen"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which New Testament book describes visions of the end times and the final victory of God?",
+      "options": [
+        "Jude",
+        "Revelation",
+        "Hebrews",
+        "2 Timothy"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What miracle did Jesus perform at the wedding in Cana?",
+      "options": [
+        "Healing a blind man",
+        "Feeding the 5,000",
+        "Turning water into wine",
+        "Walking on water"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which apostle was known as a missionary to the Gentiles?",
+      "options": [
+        "Paul",
+        "James",
+        "Peter",
+        "Matthew"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "How many Gospels are included in the New Testament?",
+      "options": [
+        "3",
+        "4",
+        "5",
+        "6"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which Gospel begins with the words 'In the beginning was the Word'?",
+      "options": [
+        "Matthew",
+        "Mark",
+        "Luke",
+        "John"
+      ],
+      "correct_index": 3,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What event marks the descent of the Holy Spirit upon the apostles in Acts?",
+      "options": [
+        "Passover",
+        "Pentecost",
+        "Ascension",
+        "Transfiguration"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which apostle is traditionally believed to have written the book of Revelation?",
+      "options": [
+        "John",
+        "Peter",
+        "Paul",
+        "James"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Where was Jesus born according to the Gospels?",
+      "options": [
+        "Nazareth",
+        "Jerusalem",
+        "Bethlehem",
+        "Capernaum"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who betrayed Jesus for thirty pieces of silver?",
+      "options": [
+        "Judas Iscariot",
+        "Simon the Zealot",
+        "James",
+        "Andrew"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which New Testament letter begins with a discussion of faith and works?",
+      "options": [
+        "James",
+        "Romans",
+        "Ephesians",
+        "Colossians"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What event in the New Testament marks Jesus rising from the dead?",
+      "options": [
+        "The Ascension",
+        "The Resurrection",
+        "The Transfiguration",
+        "The Annunciation"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}

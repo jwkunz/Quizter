@@ -385,3 +385,26 @@
   - Existing legacy manual question files may still deserialize without a category and will default to `Uncategorized`.
 - Next stage:
   - Optional release build and broader category-aware admin/player polish.
+
+## v2.2.0 - 2026-03-12
+- Completed:
+  - Changed built-in question packs to use a root JSON object with:
+    - optional `category`
+    - `questions`
+  - Removed repeated per-question `category` values from `assets/questions/*.json` to reduce duplication.
+  - Updated server loading to support:
+    - new root object packs
+    - legacy plain arrays for backward compatibility
+  - Added default internal category assignment of `Generic` when a pack does not specify a root category.
+  - Updated pack export/import serialization paths to emit the root pack format.
+  - Made the admin category tree fully data-driven from discovered pack categories instead of fixed category assumptions.
+  - Updated README and admin help text to document the new root pack schema and dynamic category discovery.
+- Build artifacts:
+  - Not run for this milestone.
+- Test status:
+  - `cargo check` passes.
+  - Verified all built-in question packs now use root `category` + `questions` structure.
+- Known issues:
+  - Legacy manual question storage still uses per-question records internally and defaults missing categories to `Generic`.
+- Next stage:
+  - Optional release build and additional category-management polish.

@@ -1,67 +1,65 @@
-[
-  {
-    "prompt": "Which U.S. state is known as the Sunshine State?",
-    "options": [
-      "California",
-      "Florida",
-      "Arizona",
-      "Hawaii"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Geography"
-  },
-  {
-    "prompt": "What is the capital of Texas?",
-    "options": [
-      "Dallas",
-      "Houston",
-      "Austin",
-      "San Antonio"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "Geography"
-  },
-  {
-    "prompt": "Which state has the postal abbreviation 'CO'?",
-    "options": [
-      "Connecticut",
-      "Colorado",
-      "California",
-      "Columbia"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Geography"
-  },
-  {
-    "prompt": "Which U.S. state is the largest by area?",
-    "options": [
-      "Texas",
-      "California",
-      "Alaska",
-      "Montana"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "Geography"
-  },
-  {
-    "prompt": "Which state is known as the Grand Canyon State?",
-    "options": [
-      "New Mexico",
-      "Nevada",
-      "Utah",
-      "Arizona"
-    ],
-    "correct_index": 3,
-    "points": 100,
-    "image_url": null,
-    "category": "Geography"
-  }
-]
+{
+  "category": "Geography",
+  "questions": [
+    {
+      "prompt": "Which U.S. state is known as the Sunshine State?",
+      "options": [
+        "California",
+        "Florida",
+        "Arizona",
+        "Hawaii"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the capital of Texas?",
+      "options": [
+        "Dallas",
+        "Houston",
+        "Austin",
+        "San Antonio"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which state has the postal abbreviation 'CO'?",
+      "options": [
+        "Connecticut",
+        "Colorado",
+        "California",
+        "Columbia"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state is the largest by area?",
+      "options": [
+        "Texas",
+        "California",
+        "Alaska",
+        "Montana"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which state is known as the Grand Canyon State?",
+      "options": [
+        "New Mexico",
+        "Nevada",
+        "Utah",
+        "Arizona"
+      ],
+      "correct_index": 3,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}

@@ -1,262 +1,245 @@
-[
-  {
-    "prompt": "What is the chemical symbol for water?",
-    "options": [
-      "O2",
-      "H2O",
-      "CO2",
-      "NaCl"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is the atomic number of carbon?",
-    "options": [
-      "6",
-      "8",
-      "12",
-      "14"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which particle in an atom has a negative charge?",
-    "options": [
-      "Proton",
-      "Neutron",
-      "Electron",
-      "Nucleus"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What gas do humans exhale as a waste product of respiration?",
-    "options": [
-      "Oxygen",
-      "Carbon dioxide",
-      "Nitrogen",
-      "Hydrogen"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is the pH of a neutral solution at room temperature?",
-    "options": [
-      "0",
-      "7",
-      "10",
-      "14"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which element has the chemical symbol 'Na'?",
-    "options": [
-      "Nitrogen",
-      "Sodium",
-      "Nickel",
-      "Neon"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which state of matter has a definite volume but no definite shape?",
-    "options": [
-      "Solid",
-      "Liquid",
-      "Gas",
-      "Plasma"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is the chemical formula for table salt?",
-    "options": [
-      "NaCl",
-      "KCl",
-      "CaCO3",
-      "HCl"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which type of chemical bond involves the sharing of electron pairs between atoms?",
-    "options": [
-      "Ionic bond",
-      "Covalent bond",
-      "Metallic bond",
-      "Hydrogen bond"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which gas is most abundant in Earth's atmosphere?",
-    "options": [
-      "Oxygen",
-      "Carbon dioxide",
-      "Nitrogen",
-      "Argon"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which element is represented by the symbol 'Fe'?",
-    "options": [
-      "Fluorine",
-      "Iron",
-      "Francium",
-      "Fermium"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is the center of an atom called?",
-    "options": [
-      "Electron shell",
-      "Proton cloud",
-      "Nucleus",
-      "Ion core"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which element is required for combustion to occur?",
-    "options": [
-      "Nitrogen",
-      "Oxygen",
-      "Helium",
-      "Neon"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What type of reaction releases energy to the surroundings?",
-    "options": [
-      "Endothermic reaction",
-      "Exothermic reaction",
-      "Neutralization reaction",
-      "Oxidation reaction"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is the smallest unit of an element that retains its chemical properties?",
-    "options": [
-      "Molecule",
-      "Atom",
-      "Compound",
-      "Ion"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which scientist developed the periodic table of elements?",
-    "options": [
-      "Marie Curie",
-      "Dmitri Mendeleev",
-      "John Dalton",
-      "Niels Bohr"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What type of bond forms when one atom transfers electrons to another?",
-    "options": [
-      "Covalent bond",
-      "Ionic bond",
-      "Metallic bond",
-      "Hydrogen bond"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is the chemical symbol for gold?",
-    "options": [
-      "Ag",
-      "Au",
-      "Gd",
-      "Go"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which subatomic particle has no electrical charge?",
-    "options": [
-      "Proton",
-      "Electron",
-      "Neutron",
-      "Ion"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What type of mixture has a uniform composition throughout?",
-    "options": [
-      "Heterogeneous mixture",
-      "Homogeneous mixture",
-      "Suspension",
-      "Colloid"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  }
-]
+{
+  "category": "STEM",
+  "questions": [
+    {
+      "prompt": "What is the chemical symbol for water?",
+      "options": [
+        "O2",
+        "H2O",
+        "CO2",
+        "NaCl"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the atomic number of carbon?",
+      "options": [
+        "6",
+        "8",
+        "12",
+        "14"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which particle in an atom has a negative charge?",
+      "options": [
+        "Proton",
+        "Neutron",
+        "Electron",
+        "Nucleus"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What gas do humans exhale as a waste product of respiration?",
+      "options": [
+        "Oxygen",
+        "Carbon dioxide",
+        "Nitrogen",
+        "Hydrogen"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the pH of a neutral solution at room temperature?",
+      "options": [
+        "0",
+        "7",
+        "10",
+        "14"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which element has the chemical symbol 'Na'?",
+      "options": [
+        "Nitrogen",
+        "Sodium",
+        "Nickel",
+        "Neon"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which state of matter has a definite volume but no definite shape?",
+      "options": [
+        "Solid",
+        "Liquid",
+        "Gas",
+        "Plasma"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the chemical formula for table salt?",
+      "options": [
+        "NaCl",
+        "KCl",
+        "CaCO3",
+        "HCl"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which type of chemical bond involves the sharing of electron pairs between atoms?",
+      "options": [
+        "Ionic bond",
+        "Covalent bond",
+        "Metallic bond",
+        "Hydrogen bond"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which gas is most abundant in Earth's atmosphere?",
+      "options": [
+        "Oxygen",
+        "Carbon dioxide",
+        "Nitrogen",
+        "Argon"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which element is represented by the symbol 'Fe'?",
+      "options": [
+        "Fluorine",
+        "Iron",
+        "Francium",
+        "Fermium"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the center of an atom called?",
+      "options": [
+        "Electron shell",
+        "Proton cloud",
+        "Nucleus",
+        "Ion core"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which element is required for combustion to occur?",
+      "options": [
+        "Nitrogen",
+        "Oxygen",
+        "Helium",
+        "Neon"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What type of reaction releases energy to the surroundings?",
+      "options": [
+        "Endothermic reaction",
+        "Exothermic reaction",
+        "Neutralization reaction",
+        "Oxidation reaction"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the smallest unit of an element that retains its chemical properties?",
+      "options": [
+        "Molecule",
+        "Atom",
+        "Compound",
+        "Ion"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which scientist developed the periodic table of elements?",
+      "options": [
+        "Marie Curie",
+        "Dmitri Mendeleev",
+        "John Dalton",
+        "Niels Bohr"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What type of bond forms when one atom transfers electrons to another?",
+      "options": [
+        "Covalent bond",
+        "Ionic bond",
+        "Metallic bond",
+        "Hydrogen bond"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the chemical symbol for gold?",
+      "options": [
+        "Ag",
+        "Au",
+        "Gd",
+        "Go"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which subatomic particle has no electrical charge?",
+      "options": [
+        "Proton",
+        "Electron",
+        "Neutron",
+        "Ion"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What type of mixture has a uniform composition throughout?",
+      "options": [
+        "Heterogeneous mixture",
+        "Homogeneous mixture",
+        "Suspension",
+        "Colloid"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}

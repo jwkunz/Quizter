@@ -79,6 +79,20 @@ struct Question {
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
+struct QuestionPack {
+    #[serde(default)]
+    category: Option<String>,
+    questions: Vec<Question>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+#[serde(untagged)]
+enum QuestionPackFile {
+    Pack(QuestionPack),
+    Questions(Vec<Question>),
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
 struct HistoryEntry {
     finished_at: String,
     rounds_played: usize,
@@ -699,7 +713,15 @@ async fn import_questions_as_bank(
         imported.push(q);
     }
 
-    let serialized = match serde_json::to_string_pretty(&imported) {
+    let pack = QuestionPack {
+        category: imported
+            .first()
+            .map(|q| q.category.clone())
+            .filter(|category| !category.trim().is_empty()),
+        questions: imported.clone(),
+    };
+
+    let serialized = match serde_json::to_string_pretty(&pack) {
         Ok(v) => v,
         Err(_) => return (StatusCode::INTERNAL_SERVER_ERROR, Json(json!({"error": "serialize_failed"}))),
     };
@@ -737,7 +759,17 @@ async fn export_current_pack(
 
     let payload = {
         let game = state.game.lock().await;
-        serde_json::to_string_pretty(&game.questions).unwrap_or_else(|_| "[]".to_string())
+        let categories: HashSet<String> = game.questions.iter().map(|q| q.category.clone()).collect();
+        let category = if categories.len() == 1 {
+            categories.into_iter().next()
+        } else {
+            None
+        };
+        let pack = QuestionPack {
+            category,
+            questions: game.questions.clone(),
+        };
+        serde_json::to_string_pretty(&pack).unwrap_or_else(|_| "{\"questions\":[]}".to_string())
     };
     (
         StatusCode::OK,
@@ -1461,19 +1493,26 @@ fn load_file_question_banks(runtime_root: &FsPath) -> HashMap<String, Vec<Questi
             }
         };
 
-        let parsed = match serde_json::from_str::<Vec<Question>>(&raw) {
-            Ok(questions) => questions,
+        let parsed = match serde_json::from_str::<QuestionPackFile>(&raw) {
+            Ok(parsed) => parsed,
             Err(err) => {
                 tracing::warn!("Invalid JSON in {}: {}", file.display(), err);
                 continue;
             }
         };
 
-        for mut question in parsed {
+        let (pack_category, questions) = match parsed {
+            QuestionPackFile::Pack(pack) => (pack.category, pack.questions),
+            QuestionPackFile::Questions(questions) => (None, questions),
+        };
+
+        let pack_category = pack_category
+            .filter(|category| !category.trim().is_empty())
+            .unwrap_or_else(default_question_category);
+
+        for mut question in questions {
             question.id = Uuid::new_v4().to_string();
-            if question.category.trim().is_empty() {
-                question.category = infer_category_from_file_name(&file_name);
-            }
+            question.category = pack_category.clone();
             if question.options.len() != 4 || question.correct_index > 3 || question.points == 0 {
                 tracing::warn!(
                     "Skipping invalid question '{}' from {}",
@@ -1545,7 +1584,7 @@ fn new_question_id() -> String {
 }
 
 fn default_question_category() -> String {
-    "Uncategorized".to_string()
+    "Generic".to_string()
 }
 
 fn ensure_question_runtime_fields(questions: &mut [Question]) {
@@ -1559,51 +1598,6 @@ fn ensure_question_runtime_fields(questions: &mut [Question]) {
     }
 }
 
-fn infer_category_from_file_name(file_name: &str) -> String {
-    let lower = file_name.to_ascii_lowercase();
-    if matches!(
-        lower.as_str(),
-        "american_history.json"
-            | "black_history.json"
-            | "church_of_jesus_christ_history.json"
-            | "world_history.json"
-    ) {
-        return "History".to_string();
-    }
-    if matches!(
-        lower.as_str(),
-        "book_of_mormon.json"
-            | "doctrine_and_covenants.json"
-            | "general_conference_april_2025.json"
-            | "general_conference_october_2025.json"
-            | "new_testament.json"
-            | "old_testament.json"
-            | "preach_my_gospel.json"
-            | "prophets.json"
-    ) {
-        return "Religion".to_string();
-    }
-    if matches!(
-        lower.as_str(),
-        "chemistry.json"
-            | "computers.json"
-            | "ecology.json"
-            | "electronics.json"
-            | "health.json"
-            | "mathmatics.json"
-            | "personal_finance.json"
-            | "science.json"
-    ) {
-        return "STEM".to_string();
-    }
-    if matches!(lower.as_str(), "board_games.json" | "classic_literature.json" | "music.json") {
-        return "Literature".to_string();
-    }
-    if matches!(lower.as_str(), "geography.json" | "us_states.json") {
-        return "Geography".to_string();
-    }
-    default_question_category()
-}
 
 fn append_history(data_dir: &PathBuf, entry: HistoryEntry) {
     let path = data_dir.join("history.json");

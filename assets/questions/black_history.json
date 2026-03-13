@@ -1,262 +1,245 @@
-[
-  {
-    "prompt": "Who delivered the famous 'I Have a Dream' speech during the March on Washington in 1963?",
-    "options": [
-      "Malcolm X",
-      "Martin Luther King Jr.",
-      "Frederick Douglass",
-      "Jesse Jackson"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Who was the first African American to serve as President of the United States?",
-    "options": [
-      "Barack Obama",
-      "Colin Powell",
-      "Thurgood Marshall",
-      "Jesse Jackson"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Who was the famous conductor of the Underground Railroad who helped enslaved people escape to freedom?",
-    "options": [
-      "Harriet Tubman",
-      "Sojourner Truth",
-      "Ida B. Wells",
-      "Phillis Wheatley"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which Supreme Court case declared racial segregation in public schools unconstitutional?",
-    "options": [
-      "Plessy v. Ferguson",
-      "Brown v. Board of Education",
-      "Dred Scott v. Sandford",
-      "Miranda v. Arizona"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Who was the first African American woman to travel into space?",
-    "options": [
-      "Mae Jemison",
-      "Katherine Johnson",
-      "Shirley Jackson",
-      "Guion Bluford"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which abolitionist and writer escaped slavery and became a leading voice against it?",
-    "options": [
-      "Frederick Douglass",
-      "Booker T. Washington",
-      "W.E.B. Du Bois",
-      "Marcus Garvey"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Who refused to give up her seat on a Montgomery bus in 1955, helping spark the Civil Rights Movement?",
-    "options": [
-      "Rosa Parks",
-      "Ella Baker",
-      "Fannie Lou Hamer",
-      "Angela Davis"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which African American leader founded the Tuskegee Institute and promoted vocational education?",
-    "options": [
-      "W.E.B. Du Bois",
-      "Booker T. Washington",
-      "Frederick Douglass",
-      "James Baldwin"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Who was the first African American justice appointed to the U.S. Supreme Court?",
-    "options": [
-      "Clarence Thomas",
-      "Thurgood Marshall",
-      "Constance Baker Motley",
-      "Colin Powell"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which movement in the 1920s celebrated African American culture, art, and literature in New York City?",
-    "options": [
-      "Civil Rights Movement",
-      "Harlem Renaissance",
-      "Black Power Movement",
-      "Pan-African Movement"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Who was a prominent civil rights leader and co-founder of the NAACP?",
-    "options": [
-      "W.E.B. Du Bois",
-      "Langston Hughes",
-      "Malcolm X",
-      "Medgar Evers"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which African American scientist helped calculate orbital mechanics for NASA's space missions?",
-    "options": [
-      "Mae Jemison",
-      "Katherine Johnson",
-      "Dorothy Vaughan",
-      "Annie Easley"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Who was the leader of the Nation of Islam known for advocating Black empowerment in the 1960s?",
-    "options": [
-      "Martin Luther King Jr.",
-      "Malcolm X",
-      "Bayard Rustin",
-      "John Lewis"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which poet was a leading figure of the Harlem Renaissance and wrote 'The Negro Speaks of Rivers'?",
-    "options": [
-      "Langston Hughes",
-      "Maya Angelou",
-      "James Baldwin",
-      "Paul Laurence Dunbar"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Who was the first African American Major League Baseball player in the modern era?",
-    "options": [
-      "Satchel Paige",
-      "Jackie Robinson",
-      "Hank Aaron",
-      "Willie Mays"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which famous speech begins with the line 'Four score and seven years ago' and was delivered during the Civil War?",
-    "options": [
-      "Emancipation Proclamation",
-      "Gettysburg Address",
-      "I Have a Dream",
-      "Atlanta Compromise"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which African American inventor improved the traffic signal and invented the gas mask?",
-    "options": [
-      "George Washington Carver",
-      "Garrett Morgan",
-      "Elijah McCoy",
-      "Lewis Latimer"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Who wrote the autobiography 'Narrative of the Life of Frederick Douglass'?",
-    "options": [
-      "Frederick Douglass",
-      "Sojourner Truth",
-      "Booker T. Washington",
-      "Marcus Garvey"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which African American woman became a famous poet and author of 'I Know Why the Caged Bird Sings'?",
-    "options": [
-      "Maya Angelou",
-      "Toni Morrison",
-      "Alice Walker",
-      "Zora Neale Hurston"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which civil rights law of 1964 outlawed discrimination based on race, color, religion, sex, or national origin?",
-    "options": [
-      "Voting Rights Act",
-      "Civil Rights Act",
-      "Fair Housing Act",
-      "Emancipation Proclamation"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  }
-]
+{
+  "category": "History",
+  "questions": [
+    {
+      "prompt": "Who delivered the famous 'I Have a Dream' speech during the March on Washington in 1963?",
+      "options": [
+        "Malcolm X",
+        "Martin Luther King Jr.",
+        "Frederick Douglass",
+        "Jesse Jackson"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who was the first African American to serve as President of the United States?",
+      "options": [
+        "Barack Obama",
+        "Colin Powell",
+        "Thurgood Marshall",
+        "Jesse Jackson"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who was the famous conductor of the Underground Railroad who helped enslaved people escape to freedom?",
+      "options": [
+        "Harriet Tubman",
+        "Sojourner Truth",
+        "Ida B. Wells",
+        "Phillis Wheatley"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which Supreme Court case declared racial segregation in public schools unconstitutional?",
+      "options": [
+        "Plessy v. Ferguson",
+        "Brown v. Board of Education",
+        "Dred Scott v. Sandford",
+        "Miranda v. Arizona"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who was the first African American woman to travel into space?",
+      "options": [
+        "Mae Jemison",
+        "Katherine Johnson",
+        "Shirley Jackson",
+        "Guion Bluford"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which abolitionist and writer escaped slavery and became a leading voice against it?",
+      "options": [
+        "Frederick Douglass",
+        "Booker T. Washington",
+        "W.E.B. Du Bois",
+        "Marcus Garvey"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who refused to give up her seat on a Montgomery bus in 1955, helping spark the Civil Rights Movement?",
+      "options": [
+        "Rosa Parks",
+        "Ella Baker",
+        "Fannie Lou Hamer",
+        "Angela Davis"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which African American leader founded the Tuskegee Institute and promoted vocational education?",
+      "options": [
+        "W.E.B. Du Bois",
+        "Booker T. Washington",
+        "Frederick Douglass",
+        "James Baldwin"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who was the first African American justice appointed to the U.S. Supreme Court?",
+      "options": [
+        "Clarence Thomas",
+        "Thurgood Marshall",
+        "Constance Baker Motley",
+        "Colin Powell"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which movement in the 1920s celebrated African American culture, art, and literature in New York City?",
+      "options": [
+        "Civil Rights Movement",
+        "Harlem Renaissance",
+        "Black Power Movement",
+        "Pan-African Movement"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who was a prominent civil rights leader and co-founder of the NAACP?",
+      "options": [
+        "W.E.B. Du Bois",
+        "Langston Hughes",
+        "Malcolm X",
+        "Medgar Evers"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which African American scientist helped calculate orbital mechanics for NASA's space missions?",
+      "options": [
+        "Mae Jemison",
+        "Katherine Johnson",
+        "Dorothy Vaughan",
+        "Annie Easley"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who was the leader of the Nation of Islam known for advocating Black empowerment in the 1960s?",
+      "options": [
+        "Martin Luther King Jr.",
+        "Malcolm X",
+        "Bayard Rustin",
+        "John Lewis"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which poet was a leading figure of the Harlem Renaissance and wrote 'The Negro Speaks of Rivers'?",
+      "options": [
+        "Langston Hughes",
+        "Maya Angelou",
+        "James Baldwin",
+        "Paul Laurence Dunbar"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who was the first African American Major League Baseball player in the modern era?",
+      "options": [
+        "Satchel Paige",
+        "Jackie Robinson",
+        "Hank Aaron",
+        "Willie Mays"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which famous speech begins with the line 'Four score and seven years ago' and was delivered during the Civil War?",
+      "options": [
+        "Emancipation Proclamation",
+        "Gettysburg Address",
+        "I Have a Dream",
+        "Atlanta Compromise"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which African American inventor improved the traffic signal and invented the gas mask?",
+      "options": [
+        "George Washington Carver",
+        "Garrett Morgan",
+        "Elijah McCoy",
+        "Lewis Latimer"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who wrote the autobiography 'Narrative of the Life of Frederick Douglass'?",
+      "options": [
+        "Frederick Douglass",
+        "Sojourner Truth",
+        "Booker T. Washington",
+        "Marcus Garvey"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which African American woman became a famous poet and author of 'I Know Why the Caged Bird Sings'?",
+      "options": [
+        "Maya Angelou",
+        "Toni Morrison",
+        "Alice Walker",
+        "Zora Neale Hurston"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which civil rights law of 1964 outlawed discrimination based on race, color, religion, sex, or national origin?",
+      "options": [
+        "Voting Rights Act",
+        "Civil Rights Act",
+        "Fair Housing Act",
+        "Emancipation Proclamation"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}

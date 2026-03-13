@@ -72,6 +72,7 @@ After opening admin page:
 4. Click **Admin Login**.
 5. Optional: choose question banks in **Current Question Pool Filter**.
    - Default is all bank files off.
+   - The server builds category groups dynamically from the pack files it finds.
    - Expand categories to add or clear whole groups of files at once, or select individual packs.
    - Changes during a game apply from the next round onward.
 6. Place JSON pack files in `assets/questions/`, restart the server if needed, then apply the filter.
@@ -101,23 +102,33 @@ Question bank JSON files live under:
 File-bank behavior:
 
 - File-bank list is read from `assets/questions/*.json`.
-- The admin filter groups pack files into a category tree.
+- The admin filter groups pack files into a dynamic category tree based on the categories found in those JSON packs.
 - Bank file selection is persisted on the server.
 - Default first-run bank selection is all-off.
 - Effective playable pool = selected file-bank questions.
 
-Question format per item:
+Question pack format:
 
 ```json
 {
   "category": "History",
-  "prompt": "Question text",
-  "options": ["A", "B", "C", "D"],
-  "correct_index": 1,
-  "points": 100,
-  "image_url": null
+  "questions": [
+    {
+      "prompt": "Question text",
+      "options": ["A", "B", "C", "D"],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    }
+  ]
 }
 ```
+
+Notes:
+
+- The root `category` field is optional.
+- If the root `category` is missing, Quizter assigns the pack to `Generic`.
+- The root `category` applies to every question in that pack.
 
 Easy question generation with an LLM:
 
@@ -125,20 +136,24 @@ Easy question generation with an LLM:
 - Useful prompt template:
 
 ```text
-Please generate { } questions about { } using the JSON format provided in this example: 
-  {
-    "category": "History",
-    "prompt": "Which document first established the principle that government derives its authority from the consent of the governed?",
-    "options": [
-      "The Articles of Confederation",
-      "The Declaration of Independence",
-      "The Bill of Rights",
-      "The Federalist Papers"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null
-  },
+Please generate { } questions about { } using the JSON format provided in this example:
+{
+  "category": "History",
+  "questions": [
+    {
+      "prompt": "Which document first established the principle that government derives its authority from the consent of the governed?",
+      "options": [
+        "The Articles of Confederation",
+        "The Declaration of Independence",
+        "The Bill of Rights",
+        "The Federalist Papers"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}
 ```
 
 - Replace the first `{ }` with the number of questions.
@@ -150,7 +165,7 @@ Rules:
 - `options` must have exactly 4 entries
 - `correct_index` must be 0 to 3
 - `points` must be > 0
-- `category` should be one of: `History`, `Religion`, `STEM`, `Literature`, `Geography`
+- `category` can be any label you want; the server will build the admin filter from the categories it finds
 
 ## If Browser Does Not Open Automatically
 

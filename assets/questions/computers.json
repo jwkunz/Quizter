@@ -1,262 +1,245 @@
-[
-  {
-    "prompt": "What does CPU stand for in computing?",
-    "options": [
-      "Central Processing Unit",
-      "Computer Processing Utility",
-      "Central Program Unit",
-      "Control Processing Unit"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which component of a computer temporarily stores data and programs currently in use?",
-    "options": [
-      "Hard drive",
-      "RAM",
-      "GPU",
-      "Power supply"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What does the acronym 'HTTP' stand for?",
-    "options": [
-      "HyperText Transfer Protocol",
-      "High Transfer Text Protocol",
-      "HyperText Transmission Process",
-      "Host Transfer Text Program"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which device is primarily used to display visual output from a computer?",
-    "options": [
-      "Printer",
-      "Monitor",
-      "Keyboard",
-      "Router"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which programming language is primarily used for structuring content on web pages?",
-    "options": [
-      "Python",
-      "HTML",
-      "Java",
-      "C++"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is the primary function of an operating system?",
-    "options": [
-      "Manage hardware and software resources",
-      "Edit images",
-      "Create spreadsheets",
-      "Connect to the internet"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which storage device typically has no moving parts and uses flash memory?",
-    "options": [
-      "Hard Disk Drive",
-      "Solid State Drive",
-      "Optical Drive",
-      "Floppy Disk"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What does 'URL' stand for?",
-    "options": [
-      "Universal Resource Locator",
-      "Uniform Resource Locator",
-      "Unified Reference Link",
-      "Universal Retrieval Location"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which company developed the Windows operating system?",
-    "options": [
-      "Apple",
-      "Microsoft",
-      "Google",
-      "IBM"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What unit is commonly used to measure computer memory?",
-    "options": [
-      "Volt",
-      "Byte",
-      "Hertz",
-      "Watt"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which programming concept refers to repeating a block of code multiple times?",
-    "options": [
-      "Loop",
-      "Variable",
-      "Function",
-      "Array"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which network device directs internet traffic between networks?",
-    "options": [
-      "Router",
-      "Keyboard",
-      "Scanner",
-      "Monitor"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What type of malware disguises itself as legitimate software?",
-    "options": [
-      "Virus",
-      "Worm",
-      "Trojan horse",
-      "Spyware"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which part of a computer performs most of the calculations?",
-    "options": [
-      "CPU",
-      "Hard drive",
-      "Monitor",
-      "Keyboard"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which programming language is widely used for data science and machine learning?",
-    "options": [
-      "Python",
-      "HTML",
-      "CSS",
-      "SQL"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What does GPU stand for?",
-    "options": [
-      "General Processing Unit",
-      "Graphics Processing Unit",
-      "Graphical Performance Utility",
-      "Graphics Program Unit"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which protocol is commonly used to securely transfer data over the web?",
-    "options": [
-      "FTP",
-      "HTTP",
-      "HTTPS",
-      "SMTP"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which company created the Linux kernel?",
-    "options": [
-      "Linus Torvalds",
-      "Bill Gates",
-      "Steve Jobs",
-      "Mark Zuckerberg"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is the binary number system based on?",
-    "options": [
-      "Base 2",
-      "Base 8",
-      "Base 10",
-      "Base 16"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which type of software allows users to browse the internet?",
-    "options": [
-      "Spreadsheet",
-      "Web browser",
-      "Compiler",
-      "Text editor"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  }
-]
+{
+  "category": "STEM",
+  "questions": [
+    {
+      "prompt": "What does CPU stand for in computing?",
+      "options": [
+        "Central Processing Unit",
+        "Computer Processing Utility",
+        "Central Program Unit",
+        "Control Processing Unit"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which component of a computer temporarily stores data and programs currently in use?",
+      "options": [
+        "Hard drive",
+        "RAM",
+        "GPU",
+        "Power supply"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does the acronym 'HTTP' stand for?",
+      "options": [
+        "HyperText Transfer Protocol",
+        "High Transfer Text Protocol",
+        "HyperText Transmission Process",
+        "Host Transfer Text Program"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which device is primarily used to display visual output from a computer?",
+      "options": [
+        "Printer",
+        "Monitor",
+        "Keyboard",
+        "Router"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which programming language is primarily used for structuring content on web pages?",
+      "options": [
+        "Python",
+        "HTML",
+        "Java",
+        "C++"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the primary function of an operating system?",
+      "options": [
+        "Manage hardware and software resources",
+        "Edit images",
+        "Create spreadsheets",
+        "Connect to the internet"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which storage device typically has no moving parts and uses flash memory?",
+      "options": [
+        "Hard Disk Drive",
+        "Solid State Drive",
+        "Optical Drive",
+        "Floppy Disk"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does 'URL' stand for?",
+      "options": [
+        "Universal Resource Locator",
+        "Uniform Resource Locator",
+        "Unified Reference Link",
+        "Universal Retrieval Location"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which company developed the Windows operating system?",
+      "options": [
+        "Apple",
+        "Microsoft",
+        "Google",
+        "IBM"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What unit is commonly used to measure computer memory?",
+      "options": [
+        "Volt",
+        "Byte",
+        "Hertz",
+        "Watt"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which programming concept refers to repeating a block of code multiple times?",
+      "options": [
+        "Loop",
+        "Variable",
+        "Function",
+        "Array"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which network device directs internet traffic between networks?",
+      "options": [
+        "Router",
+        "Keyboard",
+        "Scanner",
+        "Monitor"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What type of malware disguises itself as legitimate software?",
+      "options": [
+        "Virus",
+        "Worm",
+        "Trojan horse",
+        "Spyware"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which part of a computer performs most of the calculations?",
+      "options": [
+        "CPU",
+        "Hard drive",
+        "Monitor",
+        "Keyboard"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which programming language is widely used for data science and machine learning?",
+      "options": [
+        "Python",
+        "HTML",
+        "CSS",
+        "SQL"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does GPU stand for?",
+      "options": [
+        "General Processing Unit",
+        "Graphics Processing Unit",
+        "Graphical Performance Utility",
+        "Graphics Program Unit"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which protocol is commonly used to securely transfer data over the web?",
+      "options": [
+        "FTP",
+        "HTTP",
+        "HTTPS",
+        "SMTP"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which company created the Linux kernel?",
+      "options": [
+        "Linus Torvalds",
+        "Bill Gates",
+        "Steve Jobs",
+        "Mark Zuckerberg"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the binary number system based on?",
+      "options": [
+        "Base 2",
+        "Base 8",
+        "Base 10",
+        "Base 16"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which type of software allows users to browse the internet?",
+      "options": [
+        "Spreadsheet",
+        "Web browser",
+        "Compiler",
+        "Text editor"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}

@@ -1,262 +1,245 @@
-[
-  {
-    "prompt": "Who is the prophet who led his family from Jerusalem to the Americas at the beginning of the Book of Mormon?",
-    "options": [
-      "Nephi",
-      "Lehi",
-      "Alma",
-      "Mosiah"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which book is the first book in the Book of Mormon?",
-    "options": [
-      "1 Nephi",
-      "Mosiah",
-      "Ether",
-      "Jacob"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Who built a ship to carry his family across the ocean to the promised land?",
-    "options": [
-      "Lehi",
-      "Nephi",
-      "Jacob",
-      "Samuel"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What object did Lehi see in his dream that represented the love of God?",
-    "options": [
-      "A tree of life",
-      "A golden sword",
-      "A shining temple",
-      "A pillar of fire"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Who was the prophet who kept the small plates after Nephi?",
-    "options": [
-      "Jacob",
-      "Alma",
-      "Mormon",
-      "Helaman"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What two major groups of people are described throughout much of the Book of Mormon?",
-    "options": [
-      "Nephites and Lamanites",
-      "Jaredites and Amalekites",
-      "Israelites and Babylonians",
-      "Romans and Greeks"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Who was the king who translated the Jaredite record using interpreters?",
-    "options": [
-      "King Benjamin",
-      "King Mosiah",
-      "King Noah",
-      "King Limhi"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which prophet delivered the famous sermon from a tower about serving others?",
-    "options": [
-      "King Benjamin",
-      "Alma the Younger",
-      "Nephi",
-      "Helaman"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Who was a wicked man that became a prophet after seeing an angel?",
-    "options": [
-      "Helaman",
-      "Alma the Younger",
-      "Nephi",
-      "Mormon"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which missionary companions traveled with Alma the Younger to preach to the Lamanites?",
-    "options": [
-      "The sons of Mosiah",
-      "The sons of Helaman",
-      "The sons of Lehi",
-      "The sons of Jacob"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Who was the Nephite commander known for his title of liberty?",
-    "options": [
-      "Captain Moroni",
-      "Helaman",
-      "Gidgiddoni",
-      "Teancum"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which Book of Mormon prophet preached repentance on the city wall of Zarahemla?",
-    "options": [
-      "Samuel the Lamanite",
-      "Alma",
-      "Jacob",
-      "Ammon"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What sign was given of the birth of Jesus in the Book of Mormon?",
-    "options": [
-      "A day and a night and a day with no darkness",
-      "A star appearing in the west",
-      "A pillar of fire",
-      "An eclipse of the sun"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "After His resurrection, where did Jesus appear to people in the Book of Mormon?",
-    "options": [
-      "The Americas",
-      "Rome",
-      "Egypt",
-      "Babylon"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which Book of Mormon prophet abridged many of the records into a single history?",
-    "options": [
-      "Moroni",
-      "Mormon",
-      "Nephi",
-      "Jacob"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Who was the final prophet who completed and buried the Book of Mormon plates?",
-    "options": [
-      "Moroni",
-      "Mormon",
-      "Ether",
-      "Helaman"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which group of people came to the Americas after the Tower of Babel?",
-    "options": [
-      "The Jaredites",
-      "The Nephites",
-      "The Lamanites",
-      "The Zoramites"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Who was the prophet who wrote the book of Ether?",
-    "options": [
-      "Moroni",
-      "Mormon",
-      "Ether",
-      "Nephi"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What sacred records did Nephi and his brothers retrieve from Laban in Jerusalem?",
-    "options": [
-      "The brass plates",
-      "The golden plates",
-      "The stone tablets",
-      "The scroll of Isaiah"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which prophet taught that 'men are free according to the flesh' and emphasized agency?",
-    "options": [
-      "Lehi",
-      "Alma",
-      "Nephi",
-      "Moroni"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  }
-]
+{
+  "category": "Religion",
+  "questions": [
+    {
+      "prompt": "Who is the prophet who led his family from Jerusalem to the Americas at the beginning of the Book of Mormon?",
+      "options": [
+        "Nephi",
+        "Lehi",
+        "Alma",
+        "Mosiah"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which book is the first book in the Book of Mormon?",
+      "options": [
+        "1 Nephi",
+        "Mosiah",
+        "Ether",
+        "Jacob"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who built a ship to carry his family across the ocean to the promised land?",
+      "options": [
+        "Lehi",
+        "Nephi",
+        "Jacob",
+        "Samuel"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What object did Lehi see in his dream that represented the love of God?",
+      "options": [
+        "A tree of life",
+        "A golden sword",
+        "A shining temple",
+        "A pillar of fire"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who was the prophet who kept the small plates after Nephi?",
+      "options": [
+        "Jacob",
+        "Alma",
+        "Mormon",
+        "Helaman"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What two major groups of people are described throughout much of the Book of Mormon?",
+      "options": [
+        "Nephites and Lamanites",
+        "Jaredites and Amalekites",
+        "Israelites and Babylonians",
+        "Romans and Greeks"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who was the king who translated the Jaredite record using interpreters?",
+      "options": [
+        "King Benjamin",
+        "King Mosiah",
+        "King Noah",
+        "King Limhi"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which prophet delivered the famous sermon from a tower about serving others?",
+      "options": [
+        "King Benjamin",
+        "Alma the Younger",
+        "Nephi",
+        "Helaman"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who was a wicked man that became a prophet after seeing an angel?",
+      "options": [
+        "Helaman",
+        "Alma the Younger",
+        "Nephi",
+        "Mormon"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which missionary companions traveled with Alma the Younger to preach to the Lamanites?",
+      "options": [
+        "The sons of Mosiah",
+        "The sons of Helaman",
+        "The sons of Lehi",
+        "The sons of Jacob"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who was the Nephite commander known for his title of liberty?",
+      "options": [
+        "Captain Moroni",
+        "Helaman",
+        "Gidgiddoni",
+        "Teancum"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which Book of Mormon prophet preached repentance on the city wall of Zarahemla?",
+      "options": [
+        "Samuel the Lamanite",
+        "Alma",
+        "Jacob",
+        "Ammon"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What sign was given of the birth of Jesus in the Book of Mormon?",
+      "options": [
+        "A day and a night and a day with no darkness",
+        "A star appearing in the west",
+        "A pillar of fire",
+        "An eclipse of the sun"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "After His resurrection, where did Jesus appear to people in the Book of Mormon?",
+      "options": [
+        "The Americas",
+        "Rome",
+        "Egypt",
+        "Babylon"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which Book of Mormon prophet abridged many of the records into a single history?",
+      "options": [
+        "Moroni",
+        "Mormon",
+        "Nephi",
+        "Jacob"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who was the final prophet who completed and buried the Book of Mormon plates?",
+      "options": [
+        "Moroni",
+        "Mormon",
+        "Ether",
+        "Helaman"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which group of people came to the Americas after the Tower of Babel?",
+      "options": [
+        "The Jaredites",
+        "The Nephites",
+        "The Lamanites",
+        "The Zoramites"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who was the prophet who wrote the book of Ether?",
+      "options": [
+        "Moroni",
+        "Mormon",
+        "Ether",
+        "Nephi"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What sacred records did Nephi and his brothers retrieve from Laban in Jerusalem?",
+      "options": [
+        "The brass plates",
+        "The golden plates",
+        "The stone tablets",
+        "The scroll of Isaiah"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which prophet taught that 'men are free according to the flesh' and emphasized agency?",
+      "options": [
+        "Lehi",
+        "Alma",
+        "Nephi",
+        "Moroni"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}

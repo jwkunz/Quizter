@@ -1,262 +1,245 @@
-[
-  {
-    "prompt": "In the board game Chess, which piece can move in an L-shaped pattern?",
-    "options": [
-      "Bishop",
-      "Knight",
-      "Rook",
-      "Queen"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Literature"
-  },
-  {
-    "prompt": "In Monopoly, what happens when a player lands on 'Go'?",
-    "options": [
-      "They pay a tax",
-      "They draw a card",
-      "They collect $200",
-      "They go to jail"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "Literature"
-  },
-  {
-    "prompt": "How many spaces are on a standard Scrabble board?",
-    "options": [
-      "196",
-      "225",
-      "144",
-      "169"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Literature"
-  },
-  {
-    "prompt": "In Checkers, what happens when a piece reaches the opposite end of the board?",
-    "options": [
-      "It is removed",
-      "It becomes a king",
-      "It skips a turn",
-      "It doubles in size"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Literature"
-  },
-  {
-    "prompt": "Which board game involves guessing a hidden word using letter tiles?",
-    "options": [
-      "Scrabble",
-      "Boggle",
-      "Hangman",
-      "Word Search"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Literature"
-  },
-  {
-    "prompt": "In the game Risk, what is the primary objective?",
-    "options": [
-      "Collect the most money",
-      "Capture all enemy pieces",
-      "Conquer territories on the map",
-      "Solve puzzles"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "Literature"
-  },
-  {
-    "prompt": "In Clue (Cluedo), what are players trying to determine?",
-    "options": [
-      "Who won the game",
-      "Who committed the crime, with what weapon, and where",
-      "How many points each player has",
-      "Which card is highest"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Literature"
-  },
-  {
-    "prompt": "How many players typically play a standard game of chess?",
-    "options": [
-      "2",
-      "3",
-      "4",
-      "6"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Literature"
-  },
-  {
-    "prompt": "In Scrabble, how many points is the letter 'Q' typically worth?",
-    "options": [
-      "8",
-      "10",
-      "5",
-      "12"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Literature"
-  },
-  {
-    "prompt": "Which board game features the pieces called 'pawn', 'rook', 'bishop', and 'queen'?",
-    "options": [
-      "Checkers",
-      "Chess",
-      "Backgammon",
-      "Go"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Literature"
-  },
-  {
-    "prompt": "In the game Sorry!, what is the goal?",
-    "options": [
-      "Move all your pawns to the home space",
-      "Capture the opponent\u2019s king",
-      "Collect the most properties",
-      "Spell the longest word"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Literature"
-  },
-  {
-    "prompt": "Which ancient strategy board game originated in China and uses black and white stones?",
-    "options": [
-      "Checkers",
-      "Go",
-      "Mahjong",
-      "Dominoes"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Literature"
-  },
-  {
-    "prompt": "In Monopoly, what happens if a player cannot pay their debts?",
-    "options": [
-      "They lose a turn",
-      "They go to jail",
-      "They go bankrupt",
-      "They skip the board"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "Literature"
-  },
-  {
-    "prompt": "How many squares are on a standard chessboard?",
-    "options": [
-      "64",
-      "81",
-      "72",
-      "49"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Literature"
-  },
-  {
-    "prompt": "In Backgammon, what do players use to determine how far they move their pieces?",
-    "options": [
-      "Cards",
-      "Dice",
-      "Spinners",
-      "Tiles"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Literature"
-  },
-  {
-    "prompt": "Which board game involves building words from letter tiles on a board?",
-    "options": [
-      "Boggle",
-      "Scrabble",
-      "Codenames",
-      "Scattergories"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Literature"
-  },
-  {
-    "prompt": "In the game Clue, which room is commonly included on the board?",
-    "options": [
-      "Kitchen",
-      "Gym",
-      "Garage",
-      "Library"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Literature"
-  },
-  {
-    "prompt": "In chess, what is the term for threatening the opponent\u2019s king?",
-    "options": [
-      "Capture",
-      "Check",
-      "Mate",
-      "Guard"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Literature"
-  },
-  {
-    "prompt": "In Risk, what determines the outcome of battles?",
-    "options": [
-      "Card draws",
-      "Dice rolls",
-      "Tile placement",
-      "Point totals"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Literature"
-  },
-  {
-    "prompt": "In chess, what is the objective of the game?",
-    "options": [
-      "Capture all pieces",
-      "Checkmate the opponent\u2019s king",
-      "Reach the opposite side",
-      "Control the center"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Literature"
-  }
-]
+{
+  "category": "Literature",
+  "questions": [
+    {
+      "prompt": "In the board game Chess, which piece can move in an L-shaped pattern?",
+      "options": [
+        "Bishop",
+        "Knight",
+        "Rook",
+        "Queen"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "In Monopoly, what happens when a player lands on 'Go'?",
+      "options": [
+        "They pay a tax",
+        "They draw a card",
+        "They collect $200",
+        "They go to jail"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "How many spaces are on a standard Scrabble board?",
+      "options": [
+        "196",
+        "225",
+        "144",
+        "169"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "In Checkers, what happens when a piece reaches the opposite end of the board?",
+      "options": [
+        "It is removed",
+        "It becomes a king",
+        "It skips a turn",
+        "It doubles in size"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which board game involves guessing a hidden word using letter tiles?",
+      "options": [
+        "Scrabble",
+        "Boggle",
+        "Hangman",
+        "Word Search"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "In the game Risk, what is the primary objective?",
+      "options": [
+        "Collect the most money",
+        "Capture all enemy pieces",
+        "Conquer territories on the map",
+        "Solve puzzles"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "In Clue (Cluedo), what are players trying to determine?",
+      "options": [
+        "Who won the game",
+        "Who committed the crime, with what weapon, and where",
+        "How many points each player has",
+        "Which card is highest"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "How many players typically play a standard game of chess?",
+      "options": [
+        "2",
+        "3",
+        "4",
+        "6"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "In Scrabble, how many points is the letter 'Q' typically worth?",
+      "options": [
+        "8",
+        "10",
+        "5",
+        "12"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which board game features the pieces called 'pawn', 'rook', 'bishop', and 'queen'?",
+      "options": [
+        "Checkers",
+        "Chess",
+        "Backgammon",
+        "Go"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "In the game Sorry!, what is the goal?",
+      "options": [
+        "Move all your pawns to the home space",
+        "Capture the opponent\u2019s king",
+        "Collect the most properties",
+        "Spell the longest word"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which ancient strategy board game originated in China and uses black and white stones?",
+      "options": [
+        "Checkers",
+        "Go",
+        "Mahjong",
+        "Dominoes"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "In Monopoly, what happens if a player cannot pay their debts?",
+      "options": [
+        "They lose a turn",
+        "They go to jail",
+        "They go bankrupt",
+        "They skip the board"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "How many squares are on a standard chessboard?",
+      "options": [
+        "64",
+        "81",
+        "72",
+        "49"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "In Backgammon, what do players use to determine how far they move their pieces?",
+      "options": [
+        "Cards",
+        "Dice",
+        "Spinners",
+        "Tiles"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which board game involves building words from letter tiles on a board?",
+      "options": [
+        "Boggle",
+        "Scrabble",
+        "Codenames",
+        "Scattergories"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "In the game Clue, which room is commonly included on the board?",
+      "options": [
+        "Kitchen",
+        "Gym",
+        "Garage",
+        "Library"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "In chess, what is the term for threatening the opponent\u2019s king?",
+      "options": [
+        "Capture",
+        "Check",
+        "Mate",
+        "Guard"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "In Risk, what determines the outcome of battles?",
+      "options": [
+        "Card draws",
+        "Dice rolls",
+        "Tile placement",
+        "Point totals"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "In chess, what is the objective of the game?",
+      "options": [
+        "Capture all pieces",
+        "Checkmate the opponent\u2019s king",
+        "Reach the opposite side",
+        "Control the center"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}

@@ -1,262 +1,245 @@
-[
-  {
-    "prompt": "Who led the Israelites out of Egypt according to the book of Exodus?",
-    "options": [
-      "Abraham",
-      "Moses",
-      "Joshua",
-      "Aaron"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What is the first book of the Old Testament?",
-    "options": [
-      "Exodus",
-      "Genesis",
-      "Leviticus",
-      "Numbers"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which Old Testament figure built an ark to survive a great flood?",
-    "options": [
-      "Noah",
-      "Abraham",
-      "Lot",
-      "Jacob"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Who was the first king of Israel?",
-    "options": [
-      "David",
-      "Saul",
-      "Solomon",
-      "Samuel"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which king of Israel built the first temple in Jerusalem?",
-    "options": [
-      "David",
-      "Saul",
-      "Solomon",
-      "Hezekiah"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Who defeated the Philistine giant Goliath?",
-    "options": [
-      "Samson",
-      "David",
-      "Joshua",
-      "Saul"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What mountain did Moses receive the Ten Commandments on?",
-    "options": [
-      "Mount Carmel",
-      "Mount Sinai",
-      "Mount Zion",
-      "Mount Ararat"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Who was swallowed by a great fish after trying to flee from God's command?",
-    "options": [
-      "Jonah",
-      "Elijah",
-      "Isaiah",
-      "Amos"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which Old Testament book contains many poetic psalms traditionally attributed to King David?",
-    "options": [
-      "Proverbs",
-      "Psalms",
-      "Ecclesiastes",
-      "Song of Solomon"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Who was thrown into a den of lions but survived?",
-    "options": [
-      "Joseph",
-      "Daniel",
-      "Jeremiah",
-      "Ezra"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which patriarch was known for his coat of many colors?",
-    "options": [
-      "Isaac",
-      "Joseph",
-      "Jacob",
-      "Benjamin"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which Old Testament book records the creation of the world?",
-    "options": [
-      "Genesis",
-      "Exodus",
-      "Job",
-      "Deuteronomy"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Who succeeded Moses and led the Israelites into the Promised Land?",
-    "options": [
-      "Joshua",
-      "Aaron",
-      "Samuel",
-      "David"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which judge of Israel was known for his great strength and long hair?",
-    "options": [
-      "Gideon",
-      "Samson",
-      "Deborah",
-      "Jephthah"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which book of the Old Testament is known for its reflections on the meaning of life and the phrase 'vanity of vanities'?",
-    "options": [
-      "Ecclesiastes",
-      "Proverbs",
-      "Psalms",
-      "Lamentations"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which prophet challenged the prophets of Baal on Mount Carmel?",
-    "options": [
-      "Elijah",
-      "Isaiah",
-      "Jeremiah",
-      "Hosea"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which Old Testament book tells the story of a queen who saved the Jewish people from destruction in Persia?",
-    "options": [
-      "Ruth",
-      "Esther",
-      "Judges",
-      "Ezra"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which patriarch was the father of Isaac?",
-    "options": [
-      "Abraham",
-      "Jacob",
-      "Noah",
-      "Joseph"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What city\u2019s walls fell after the Israelites marched around it for seven days?",
-    "options": [
-      "Jericho",
-      "Babylon",
-      "Nineveh",
-      "Samaria"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which Old Testament book tells the story of a righteous man who endured great suffering and remained faithful to God?",
-    "options": [
-      "Job",
-      "Nehemiah",
-      "Malachi",
-      "Habakkuk"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  }
-]
+{
+  "category": "Religion",
+  "questions": [
+    {
+      "prompt": "Who led the Israelites out of Egypt according to the book of Exodus?",
+      "options": [
+        "Abraham",
+        "Moses",
+        "Joshua",
+        "Aaron"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the first book of the Old Testament?",
+      "options": [
+        "Exodus",
+        "Genesis",
+        "Leviticus",
+        "Numbers"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which Old Testament figure built an ark to survive a great flood?",
+      "options": [
+        "Noah",
+        "Abraham",
+        "Lot",
+        "Jacob"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who was the first king of Israel?",
+      "options": [
+        "David",
+        "Saul",
+        "Solomon",
+        "Samuel"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which king of Israel built the first temple in Jerusalem?",
+      "options": [
+        "David",
+        "Saul",
+        "Solomon",
+        "Hezekiah"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who defeated the Philistine giant Goliath?",
+      "options": [
+        "Samson",
+        "David",
+        "Joshua",
+        "Saul"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What mountain did Moses receive the Ten Commandments on?",
+      "options": [
+        "Mount Carmel",
+        "Mount Sinai",
+        "Mount Zion",
+        "Mount Ararat"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who was swallowed by a great fish after trying to flee from God's command?",
+      "options": [
+        "Jonah",
+        "Elijah",
+        "Isaiah",
+        "Amos"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which Old Testament book contains many poetic psalms traditionally attributed to King David?",
+      "options": [
+        "Proverbs",
+        "Psalms",
+        "Ecclesiastes",
+        "Song of Solomon"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who was thrown into a den of lions but survived?",
+      "options": [
+        "Joseph",
+        "Daniel",
+        "Jeremiah",
+        "Ezra"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which patriarch was known for his coat of many colors?",
+      "options": [
+        "Isaac",
+        "Joseph",
+        "Jacob",
+        "Benjamin"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which Old Testament book records the creation of the world?",
+      "options": [
+        "Genesis",
+        "Exodus",
+        "Job",
+        "Deuteronomy"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who succeeded Moses and led the Israelites into the Promised Land?",
+      "options": [
+        "Joshua",
+        "Aaron",
+        "Samuel",
+        "David"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which judge of Israel was known for his great strength and long hair?",
+      "options": [
+        "Gideon",
+        "Samson",
+        "Deborah",
+        "Jephthah"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which book of the Old Testament is known for its reflections on the meaning of life and the phrase 'vanity of vanities'?",
+      "options": [
+        "Ecclesiastes",
+        "Proverbs",
+        "Psalms",
+        "Lamentations"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which prophet challenged the prophets of Baal on Mount Carmel?",
+      "options": [
+        "Elijah",
+        "Isaiah",
+        "Jeremiah",
+        "Hosea"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which Old Testament book tells the story of a queen who saved the Jewish people from destruction in Persia?",
+      "options": [
+        "Ruth",
+        "Esther",
+        "Judges",
+        "Ezra"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which patriarch was the father of Isaac?",
+      "options": [
+        "Abraham",
+        "Jacob",
+        "Noah",
+        "Joseph"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What city\u2019s walls fell after the Israelites marched around it for seven days?",
+      "options": [
+        "Jericho",
+        "Babylon",
+        "Nineveh",
+        "Samaria"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which Old Testament book tells the story of a righteous man who endured great suffering and remained faithful to God?",
+      "options": [
+        "Job",
+        "Nehemiah",
+        "Malachi",
+        "Habakkuk"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}

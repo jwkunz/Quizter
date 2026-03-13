@@ -1,262 +1,245 @@
-[
-  {
-    "prompt": "Who was the President of the Church of Jesus Christ of Latter-day Saints at the time of the April 2025 General Conference?",
-    "options": [
-      "Thomas S. Monson",
-      "Russell M. Nelson",
-      "Dallin H. Oaks",
-      "Henry B. Eyring"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What major theme was frequently emphasized during the April 2025 General Conference?",
-    "options": [
-      "Political engagement",
-      "Faith in Jesus Christ and covenant discipleship",
-      "Economic development",
-      "Educational reform"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which member of the First Presidency often conducted sessions during the April 2025 conference?",
-    "options": [
-      "Henry B. Eyring",
-      "Jeffrey R. Holland",
-      "Gary E. Stevenson",
-      "Dale G. Renlund"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which apostle frequently spoke about personal revelation and spiritual preparation?",
-    "options": [
-      "David A. Bednar",
-      "Dieter F. Uchtdorf",
-      "Neil L. Andersen",
-      "Gary E. Stevenson"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which apostle often emphasized the importance of remembering and following Jesus Christ?",
-    "options": [
-      "Ulisses Soares",
-      "Jeffrey R. Holland",
-      "Gerrit W. Gong",
-      "Quentin L. Cook"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which leader encouraged members to strengthen their homes as centers of faith?",
-    "options": [
-      "Dallin H. Oaks",
-      "Henry B. Eyring",
-      "David A. Bednar",
-      "Dieter F. Uchtdorf"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which apostle frequently taught about missionary work and sharing the gospel?",
-    "options": [
-      "Neil L. Andersen",
-      "Gary E. Stevenson",
-      "Gerrit W. Gong",
-      "Ulisses Soares"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What event traditionally occurs during the Saturday morning session of General Conference?",
-    "options": [
-      "Temple dedications",
-      "Sustaining of Church leaders",
-      "Missionary farewells",
-      "Ward reorganizations"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which apostle often spoke about the joy of discipleship and hope through Jesus Christ?",
-    "options": [
-      "Dieter F. Uchtdorf",
-      "David A. Bednar",
-      "Jeffrey R. Holland",
-      "Dale G. Renlund"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which principle was frequently discussed in conference messages about strengthening families?",
-    "options": [
-      "Financial independence",
-      "Covenant keeping",
-      "Political participation",
-      "Educational advancement"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which apostle frequently spoke about unity and belonging in the Church?",
-    "options": [
-      "Gerrit W. Gong",
-      "Gary E. Stevenson",
-      "Neil L. Andersen",
-      "David A. Bednar"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which apostle emphasized service and ministering to others?",
-    "options": [
-      "Quentin L. Cook",
-      "Jeffrey R. Holland",
-      "Dieter F. Uchtdorf",
-      "Henry B. Eyring"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which General Authority frequently taught about repentance and forgiveness through Christ?",
-    "options": [
-      "Dale G. Renlund",
-      "Ulisses Soares",
-      "Gary E. Stevenson",
-      "Neil L. Andersen"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which apostle often spoke about strengthening testimonies through scripture study?",
-    "options": [
-      "David A. Bednar",
-      "Jeffrey R. Holland",
-      "Dieter F. Uchtdorf",
-      "Ulisses Soares"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What central invitation is often extended during General Conference messages?",
-    "options": [
-      "Increase business success",
-      "Follow Jesus Christ and live His teachings",
-      "Pursue political leadership",
-      "Invest in financial markets"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which session of General Conference traditionally focuses on messages to all members worldwide?",
-    "options": [
-      "Saturday morning",
-      "Saturday evening",
-      "Sunday morning",
-      "All sessions"
-    ],
-    "correct_index": 3,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which apostle frequently taught about the importance of temples and temple worship?",
-    "options": [
-      "Dale G. Renlund",
-      "Gary E. Stevenson",
-      "David A. Bednar",
-      "Ulisses Soares"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which General Conference session traditionally concludes the conference weekend?",
-    "options": [
-      "Saturday afternoon",
-      "Sunday afternoon",
-      "Sunday morning",
-      "Saturday evening"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What is the main purpose of General Conference according to Church leaders?",
-    "options": [
-      "Announce Church finances",
-      "Provide counsel and prophetic guidance",
-      "Debate Church policy",
-      "Elect Church officers"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "How often is General Conference held by the Church of Jesus Christ of Latter-day Saints?",
-    "options": [
-      "Once per year",
-      "Every two years",
-      "Twice per year",
-      "Every three months"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  }
-]
+{
+  "category": "Religion",
+  "questions": [
+    {
+      "prompt": "Who was the President of the Church of Jesus Christ of Latter-day Saints at the time of the April 2025 General Conference?",
+      "options": [
+        "Thomas S. Monson",
+        "Russell M. Nelson",
+        "Dallin H. Oaks",
+        "Henry B. Eyring"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What major theme was frequently emphasized during the April 2025 General Conference?",
+      "options": [
+        "Political engagement",
+        "Faith in Jesus Christ and covenant discipleship",
+        "Economic development",
+        "Educational reform"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which member of the First Presidency often conducted sessions during the April 2025 conference?",
+      "options": [
+        "Henry B. Eyring",
+        "Jeffrey R. Holland",
+        "Gary E. Stevenson",
+        "Dale G. Renlund"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which apostle frequently spoke about personal revelation and spiritual preparation?",
+      "options": [
+        "David A. Bednar",
+        "Dieter F. Uchtdorf",
+        "Neil L. Andersen",
+        "Gary E. Stevenson"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which apostle often emphasized the importance of remembering and following Jesus Christ?",
+      "options": [
+        "Ulisses Soares",
+        "Jeffrey R. Holland",
+        "Gerrit W. Gong",
+        "Quentin L. Cook"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which leader encouraged members to strengthen their homes as centers of faith?",
+      "options": [
+        "Dallin H. Oaks",
+        "Henry B. Eyring",
+        "David A. Bednar",
+        "Dieter F. Uchtdorf"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which apostle frequently taught about missionary work and sharing the gospel?",
+      "options": [
+        "Neil L. Andersen",
+        "Gary E. Stevenson",
+        "Gerrit W. Gong",
+        "Ulisses Soares"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What event traditionally occurs during the Saturday morning session of General Conference?",
+      "options": [
+        "Temple dedications",
+        "Sustaining of Church leaders",
+        "Missionary farewells",
+        "Ward reorganizations"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which apostle often spoke about the joy of discipleship and hope through Jesus Christ?",
+      "options": [
+        "Dieter F. Uchtdorf",
+        "David A. Bednar",
+        "Jeffrey R. Holland",
+        "Dale G. Renlund"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which principle was frequently discussed in conference messages about strengthening families?",
+      "options": [
+        "Financial independence",
+        "Covenant keeping",
+        "Political participation",
+        "Educational advancement"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which apostle frequently spoke about unity and belonging in the Church?",
+      "options": [
+        "Gerrit W. Gong",
+        "Gary E. Stevenson",
+        "Neil L. Andersen",
+        "David A. Bednar"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which apostle emphasized service and ministering to others?",
+      "options": [
+        "Quentin L. Cook",
+        "Jeffrey R. Holland",
+        "Dieter F. Uchtdorf",
+        "Henry B. Eyring"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which General Authority frequently taught about repentance and forgiveness through Christ?",
+      "options": [
+        "Dale G. Renlund",
+        "Ulisses Soares",
+        "Gary E. Stevenson",
+        "Neil L. Andersen"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which apostle often spoke about strengthening testimonies through scripture study?",
+      "options": [
+        "David A. Bednar",
+        "Jeffrey R. Holland",
+        "Dieter F. Uchtdorf",
+        "Ulisses Soares"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What central invitation is often extended during General Conference messages?",
+      "options": [
+        "Increase business success",
+        "Follow Jesus Christ and live His teachings",
+        "Pursue political leadership",
+        "Invest in financial markets"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which session of General Conference traditionally focuses on messages to all members worldwide?",
+      "options": [
+        "Saturday morning",
+        "Saturday evening",
+        "Sunday morning",
+        "All sessions"
+      ],
+      "correct_index": 3,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which apostle frequently taught about the importance of temples and temple worship?",
+      "options": [
+        "Dale G. Renlund",
+        "Gary E. Stevenson",
+        "David A. Bednar",
+        "Ulisses Soares"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which General Conference session traditionally concludes the conference weekend?",
+      "options": [
+        "Saturday afternoon",
+        "Sunday afternoon",
+        "Sunday morning",
+        "Saturday evening"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the main purpose of General Conference according to Church leaders?",
+      "options": [
+        "Announce Church finances",
+        "Provide counsel and prophetic guidance",
+        "Debate Church policy",
+        "Elect Church officers"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "How often is General Conference held by the Church of Jesus Christ of Latter-day Saints?",
+      "options": [
+        "Once per year",
+        "Every two years",
+        "Twice per year",
+        "Every three months"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}

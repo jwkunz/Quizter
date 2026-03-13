@@ -1,262 +1,245 @@
-[
-  {
-    "prompt": "Who opened the October 2025 General Conference with introductory remarks following the death of President Russell M. Nelson?",
-    "options": [
-      "Henry B. Eyring",
-      "Dallin H. Oaks",
-      "Jeffrey R. Holland",
-      "Russell M. Nelson"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which apostle taught that 'peacemaking is a Christlike attribute' during the October 2025 conference?",
-    "options": [
-      "Gary E. Stevenson",
-      "Neil L. Andersen",
-      "David A. Bednar",
-      "Dieter F. Uchtdorf"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which speaker gave the talk titled 'Blessed Are the Peacemakers'?",
-    "options": [
-      "Jeffrey R. Holland",
-      "Gary E. Stevenson",
-      "Dallin H. Oaks",
-      "Ulisses Soares"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which talk emphasized the importance of Primary music in helping children feel the Spirit?",
-    "options": [
-      "The Eternal Gift of Testimony",
-      "Tune Your Heart to Jesus Christ: The Sacred Gift of Primary Music",
-      "Forsake Not Your Own Mercy",
-      "Do Your Part With All Your Heart"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which apostle spoke about faith in Jesus Christ growing stronger when it is tested?",
-    "options": [
-      "Dieter F. Uchtdorf",
-      "David A. Bednar",
-      "Quentin L. Cook",
-      "Neil L. Andersen"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which apostle referenced Charles Dickens\u2019 'A Tale of Two Cities' when speaking about challenging times?",
-    "options": [
-      "Quentin L. Cook",
-      "Jeffrey R. Holland",
-      "Dale G. Renlund",
-      "Gary E. Stevenson"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which apostle gave the message titled 'They Are Their Own Judges'?",
-    "options": [
-      "David A. Bednar",
-      "Ulisses Soares",
-      "Jeffrey R. Holland",
-      "Dieter F. Uchtdorf"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which apostle spoke about 'Taking on the Name of Jesus Christ'?",
-    "options": [
-      "Dale G. Renlund",
-      "Jeffrey R. Holland",
-      "D. Todd Christofferson",
-      "Neil L. Andersen"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which talk title encouraged members to 'Do Your Part With All Your Heart'?",
-    "options": [
-      "Elder Dieter F. Uchtdorf",
-      "Elder Gary E. Stevenson",
-      "Elder Jeffrey R. Holland",
-      "Elder David A. Bednar"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which theme emphasized that members should create an environment where 'no one sits alone' in the Church?",
-    "options": [
-      "Temple worship",
-      "Belonging and fellowship",
-      "Missionary work",
-      "Church history"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which apostle encouraged members to judge less and show greater compassion toward others?",
-    "options": [
-      "Gerrit W. Gong",
-      "Jeffrey R. Holland",
-      "D. Todd Christofferson",
-      "Gary E. Stevenson"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which leader emphasized the role of families in God\u2019s eternal plan?",
-    "options": [
-      "Dallin H. Oaks",
-      "Henry B. Eyring",
-      "Jeffrey R. Holland",
-      "David A. Bednar"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which apostle spoke during the Sunday morning session about evidences of faith in Jesus Christ?",
-    "options": [
-      "Jeffrey R. Holland",
-      "Ulisses Soares",
-      "Dieter F. Uchtdorf",
-      "Neil L. Andersen"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What major event shortly preceded the October 2025 General Conference?",
-    "options": [
-      "Dedication of a new temple",
-      "The death of President Russell M. Nelson",
-      "A new Church handbook release",
-      "The calling of a new First Presidency"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What did leaders encourage members to seek during General Conference?",
-    "options": [
-      "Financial success",
-      "Personal revelation",
-      "Academic learning",
-      "Political influence"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which talk theme emphasized reconciling with God through repentance and discipleship?",
-    "options": [
-      "Be Reconciled to God",
-      "The Lord Looketh on the Heart",
-      "The Eternal Gift of Testimony",
-      "Simplicity in Christ"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which session traditionally includes the sustaining of General Authorities and officers?",
-    "options": [
-      "Sunday afternoon",
-      "Saturday morning",
-      "Saturday evening",
-      "Sunday morning"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "How often does the Church hold General Conference worldwide broadcasts?",
-    "options": [
-      "Once a year",
-      "Every six months",
-      "Every four years",
-      "Monthly"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "What central message did many October 2025 conference speakers emphasize?",
-    "options": [
-      "Economic self-reliance",
-      "Following Jesus Christ and strengthening discipleship",
-      "Church construction",
-      "Political participation"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which phrase best describes the overall purpose of General Conference messages?",
-    "options": [
-      "Church policy debates",
-      "Counsel and revelation from Church leaders",
-      "Historical reviews",
-      "Membership statistics"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  }
-]
+{
+  "category": "Religion",
+  "questions": [
+    {
+      "prompt": "Who opened the October 2025 General Conference with introductory remarks following the death of President Russell M. Nelson?",
+      "options": [
+        "Henry B. Eyring",
+        "Dallin H. Oaks",
+        "Jeffrey R. Holland",
+        "Russell M. Nelson"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which apostle taught that 'peacemaking is a Christlike attribute' during the October 2025 conference?",
+      "options": [
+        "Gary E. Stevenson",
+        "Neil L. Andersen",
+        "David A. Bednar",
+        "Dieter F. Uchtdorf"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which speaker gave the talk titled 'Blessed Are the Peacemakers'?",
+      "options": [
+        "Jeffrey R. Holland",
+        "Gary E. Stevenson",
+        "Dallin H. Oaks",
+        "Ulisses Soares"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which talk emphasized the importance of Primary music in helping children feel the Spirit?",
+      "options": [
+        "The Eternal Gift of Testimony",
+        "Tune Your Heart to Jesus Christ: The Sacred Gift of Primary Music",
+        "Forsake Not Your Own Mercy",
+        "Do Your Part With All Your Heart"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which apostle spoke about faith in Jesus Christ growing stronger when it is tested?",
+      "options": [
+        "Dieter F. Uchtdorf",
+        "David A. Bednar",
+        "Quentin L. Cook",
+        "Neil L. Andersen"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which apostle referenced Charles Dickens\u2019 'A Tale of Two Cities' when speaking about challenging times?",
+      "options": [
+        "Quentin L. Cook",
+        "Jeffrey R. Holland",
+        "Dale G. Renlund",
+        "Gary E. Stevenson"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which apostle gave the message titled 'They Are Their Own Judges'?",
+      "options": [
+        "David A. Bednar",
+        "Ulisses Soares",
+        "Jeffrey R. Holland",
+        "Dieter F. Uchtdorf"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which apostle spoke about 'Taking on the Name of Jesus Christ'?",
+      "options": [
+        "Dale G. Renlund",
+        "Jeffrey R. Holland",
+        "D. Todd Christofferson",
+        "Neil L. Andersen"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which talk title encouraged members to 'Do Your Part With All Your Heart'?",
+      "options": [
+        "Elder Dieter F. Uchtdorf",
+        "Elder Gary E. Stevenson",
+        "Elder Jeffrey R. Holland",
+        "Elder David A. Bednar"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which theme emphasized that members should create an environment where 'no one sits alone' in the Church?",
+      "options": [
+        "Temple worship",
+        "Belonging and fellowship",
+        "Missionary work",
+        "Church history"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which apostle encouraged members to judge less and show greater compassion toward others?",
+      "options": [
+        "Gerrit W. Gong",
+        "Jeffrey R. Holland",
+        "D. Todd Christofferson",
+        "Gary E. Stevenson"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which leader emphasized the role of families in God\u2019s eternal plan?",
+      "options": [
+        "Dallin H. Oaks",
+        "Henry B. Eyring",
+        "Jeffrey R. Holland",
+        "David A. Bednar"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which apostle spoke during the Sunday morning session about evidences of faith in Jesus Christ?",
+      "options": [
+        "Jeffrey R. Holland",
+        "Ulisses Soares",
+        "Dieter F. Uchtdorf",
+        "Neil L. Andersen"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What major event shortly preceded the October 2025 General Conference?",
+      "options": [
+        "Dedication of a new temple",
+        "The death of President Russell M. Nelson",
+        "A new Church handbook release",
+        "The calling of a new First Presidency"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What did leaders encourage members to seek during General Conference?",
+      "options": [
+        "Financial success",
+        "Personal revelation",
+        "Academic learning",
+        "Political influence"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which talk theme emphasized reconciling with God through repentance and discipleship?",
+      "options": [
+        "Be Reconciled to God",
+        "The Lord Looketh on the Heart",
+        "The Eternal Gift of Testimony",
+        "Simplicity in Christ"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which session traditionally includes the sustaining of General Authorities and officers?",
+      "options": [
+        "Sunday afternoon",
+        "Saturday morning",
+        "Saturday evening",
+        "Sunday morning"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "How often does the Church hold General Conference worldwide broadcasts?",
+      "options": [
+        "Once a year",
+        "Every six months",
+        "Every four years",
+        "Monthly"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What central message did many October 2025 conference speakers emphasize?",
+      "options": [
+        "Economic self-reliance",
+        "Following Jesus Christ and strengthening discipleship",
+        "Church construction",
+        "Political participation"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which phrase best describes the overall purpose of General Conference messages?",
+      "options": [
+        "Church policy debates",
+        "Counsel and revelation from Church leaders",
+        "Historical reviews",
+        "Membership statistics"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}

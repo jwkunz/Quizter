@@ -1,262 +1,245 @@
-[
-  {
-    "prompt": "Which ancient civilization built the pyramids at Giza?",
-    "options": [
-      "Mesopotamians",
-      "Egyptians",
-      "Greeks",
-      "Romans"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Who was the first emperor of a unified China?",
-    "options": [
-      "Confucius",
-      "Qin Shi Huang",
-      "Kublai Khan",
-      "Sun Yat-sen"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which empire was ruled by Julius Caesar before becoming a dictatorship?",
-    "options": [
-      "Greek Empire",
-      "Roman Republic",
-      "Byzantine Empire",
-      "Ottoman Empire"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which document limited the power of the English monarchy in 1215?",
-    "options": [
-      "Magna Carta",
-      "English Bill of Rights",
-      "Treaty of Versailles",
-      "Petition of Right"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which Italian city is most associated with the beginning of the Renaissance?",
-    "options": [
-      "Rome",
-      "Venice",
-      "Florence",
-      "Milan"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Who was the Mongol leader who created one of the largest empires in history?",
-    "options": [
-      "Attila the Hun",
-      "Genghis Khan",
-      "Kublai Khan",
-      "Tamerlane"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which explorer is credited with reaching the Americas in 1492?",
-    "options": [
-      "Christopher Columbus",
-      "Vasco da Gama",
-      "Ferdinand Magellan",
-      "Amerigo Vespucci"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which event began the French Revolution in 1789?",
-    "options": [
-      "Storming of the Bastille",
-      "Execution of Louis XVI",
-      "Reign of Terror",
-      "Napoleon\u2019s coronation"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Who was the British prime minister during most of World War II?",
-    "options": [
-      "Neville Chamberlain",
-      "Winston Churchill",
-      "Clement Attlee",
-      "Harold Macmillan"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which empire controlled much of southeastern Europe and the Middle East for centuries before World War I?",
-    "options": [
-      "Ottoman Empire",
-      "Persian Empire",
-      "Russian Empire",
-      "Mongol Empire"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which conflict from 1914\u20131918 involved many of the world's major powers?",
-    "options": [
-      "Crimean War",
-      "World War I",
-      "Franco-Prussian War",
-      "Napoleonic Wars"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which leader of India promoted nonviolent resistance against British rule?",
-    "options": [
-      "Jawaharlal Nehru",
-      "Mahatma Gandhi",
-      "Indira Gandhi",
-      "Subhas Chandra Bose"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which wall, built in 1961, symbolized the division between East and West during the Cold War?",
-    "options": [
-      "Great Wall",
-      "Berlin Wall",
-      "Iron Curtain",
-      "Hadrian\u2019s Wall"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which civilization developed cuneiform writing?",
-    "options": [
-      "Egyptians",
-      "Sumerians",
-      "Phoenicians",
-      "Greeks"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which empire was ruled by the pharaohs?",
-    "options": [
-      "Roman Empire",
-      "Egyptian civilization",
-      "Persian Empire",
-      "Babylonian Empire"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Who was the first man to walk on the Moon in 1969?",
-    "options": [
-      "Buzz Aldrin",
-      "Neil Armstrong",
-      "Yuri Gagarin",
-      "John Glenn"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which empire built a vast road system connecting its territories in South America?",
-    "options": [
-      "Aztec Empire",
-      "Inca Empire",
-      "Maya Civilization",
-      "Olmec Civilization"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which political ideology was promoted by Karl Marx?",
-    "options": [
-      "Capitalism",
-      "Communism",
-      "Fascism",
-      "Mercantilism"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which war from 1939\u20131945 involved the Axis and Allied powers?",
-    "options": [
-      "World War I",
-      "World War II",
-      "Korean War",
-      "Vietnam War"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which treaty ended World War I in 1919?",
-    "options": [
-      "Treaty of Paris",
-      "Treaty of Versailles",
-      "Treaty of Vienna",
-      "Treaty of Tordesillas"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  }
-]
+{
+  "category": "History",
+  "questions": [
+    {
+      "prompt": "Which ancient civilization built the pyramids at Giza?",
+      "options": [
+        "Mesopotamians",
+        "Egyptians",
+        "Greeks",
+        "Romans"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who was the first emperor of a unified China?",
+      "options": [
+        "Confucius",
+        "Qin Shi Huang",
+        "Kublai Khan",
+        "Sun Yat-sen"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which empire was ruled by Julius Caesar before becoming a dictatorship?",
+      "options": [
+        "Greek Empire",
+        "Roman Republic",
+        "Byzantine Empire",
+        "Ottoman Empire"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which document limited the power of the English monarchy in 1215?",
+      "options": [
+        "Magna Carta",
+        "English Bill of Rights",
+        "Treaty of Versailles",
+        "Petition of Right"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which Italian city is most associated with the beginning of the Renaissance?",
+      "options": [
+        "Rome",
+        "Venice",
+        "Florence",
+        "Milan"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who was the Mongol leader who created one of the largest empires in history?",
+      "options": [
+        "Attila the Hun",
+        "Genghis Khan",
+        "Kublai Khan",
+        "Tamerlane"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which explorer is credited with reaching the Americas in 1492?",
+      "options": [
+        "Christopher Columbus",
+        "Vasco da Gama",
+        "Ferdinand Magellan",
+        "Amerigo Vespucci"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which event began the French Revolution in 1789?",
+      "options": [
+        "Storming of the Bastille",
+        "Execution of Louis XVI",
+        "Reign of Terror",
+        "Napoleon\u2019s coronation"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who was the British prime minister during most of World War II?",
+      "options": [
+        "Neville Chamberlain",
+        "Winston Churchill",
+        "Clement Attlee",
+        "Harold Macmillan"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which empire controlled much of southeastern Europe and the Middle East for centuries before World War I?",
+      "options": [
+        "Ottoman Empire",
+        "Persian Empire",
+        "Russian Empire",
+        "Mongol Empire"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which conflict from 1914\u20131918 involved many of the world's major powers?",
+      "options": [
+        "Crimean War",
+        "World War I",
+        "Franco-Prussian War",
+        "Napoleonic Wars"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which leader of India promoted nonviolent resistance against British rule?",
+      "options": [
+        "Jawaharlal Nehru",
+        "Mahatma Gandhi",
+        "Indira Gandhi",
+        "Subhas Chandra Bose"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which wall, built in 1961, symbolized the division between East and West during the Cold War?",
+      "options": [
+        "Great Wall",
+        "Berlin Wall",
+        "Iron Curtain",
+        "Hadrian\u2019s Wall"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which civilization developed cuneiform writing?",
+      "options": [
+        "Egyptians",
+        "Sumerians",
+        "Phoenicians",
+        "Greeks"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which empire was ruled by the pharaohs?",
+      "options": [
+        "Roman Empire",
+        "Egyptian civilization",
+        "Persian Empire",
+        "Babylonian Empire"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who was the first man to walk on the Moon in 1969?",
+      "options": [
+        "Buzz Aldrin",
+        "Neil Armstrong",
+        "Yuri Gagarin",
+        "John Glenn"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which empire built a vast road system connecting its territories in South America?",
+      "options": [
+        "Aztec Empire",
+        "Inca Empire",
+        "Maya Civilization",
+        "Olmec Civilization"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which political ideology was promoted by Karl Marx?",
+      "options": [
+        "Capitalism",
+        "Communism",
+        "Fascism",
+        "Mercantilism"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which war from 1939\u20131945 involved the Axis and Allied powers?",
+      "options": [
+        "World War I",
+        "World War II",
+        "Korean War",
+        "Vietnam War"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which treaty ended World War I in 1919?",
+      "options": [
+        "Treaty of Paris",
+        "Treaty of Versailles",
+        "Treaty of Vienna",
+        "Treaty of Tordesillas"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}

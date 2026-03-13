@@ -1,262 +1,245 @@
-[
-  {
-    "prompt": "Who is the primary prophet through whom the revelations in the Doctrine and Covenants were given?",
-    "options": [
-      "Brigham Young",
-      "Joseph Smith",
-      "Oliver Cowdery",
-      "John Taylor"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which section of the Doctrine and Covenants is known as the 'Preface' to the book?",
-    "options": [
-      "Section 1",
-      "Section 5",
-      "Section 20",
-      "Section 76"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Where was the Church of Jesus Christ organized on April 6, 1830?",
-    "options": [
-      "Kirtland, Ohio",
-      "Fayette, New York",
-      "Nauvoo, Illinois",
-      "Independence, Missouri"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which section outlines many of the basic beliefs and organization of the Church and is sometimes called the 'Articles and Covenants'?",
-    "options": [
-      "Section 13",
-      "Section 20",
-      "Section 42",
-      "Section 76"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which priesthood was restored by John the Baptist according to the Doctrine and Covenants?",
-    "options": [
-      "Melchizedek Priesthood",
-      "Aaronic Priesthood",
-      "Levitical Priesthood",
-      "Patriarchal Priesthood"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which section describes the three degrees of glory in the afterlife?",
-    "options": [
-      "Section 76",
-      "Section 88",
-      "Section 132",
-      "Section 121"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which revelation is known as the 'Word of Wisdom'?",
-    "options": [
-      "Section 42",
-      "Section 76",
-      "Section 89",
-      "Section 110"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which city is identified in the Doctrine and Covenants as the location of Zion or the New Jerusalem?",
-    "options": [
-      "Salt Lake City",
-      "Kirtland",
-      "Independence, Missouri",
-      "Nauvoo"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which section contains the vision of the celestial kingdom and the degrees of glory received by Joseph Smith and Sidney Rigdon?",
-    "options": [
-      "Section 1",
-      "Section 42",
-      "Section 76",
-      "Section 121"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which building was dedicated in Kirtland, Ohio and associated with several revelations in the Doctrine and Covenants?",
-    "options": [
-      "Kirtland Temple",
-      "Nauvoo Temple",
-      "Salt Lake Temple",
-      "Independence Temple"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which section includes the phrase 'The glory of God is intelligence'?",
-    "options": [
-      "Section 88",
-      "Section 76",
-      "Section 121",
-      "Section 132"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which section contains counsel about priesthood power and the principles of righteousness beginning with 'No power or influence can or ought to be maintained'?",
-    "options": [
-      "Section 121",
-      "Section 89",
-      "Section 76",
-      "Section 42"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which section teaches about eternal marriage and the new and everlasting covenant?",
-    "options": [
-      "Section 76",
-      "Section 110",
-      "Section 132",
-      "Section 121"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Who appeared in the Kirtland Temple to restore the keys of the gathering of Israel according to Doctrine and Covenants 110?",
-    "options": [
-      "Moses",
-      "Elijah",
-      "Peter",
-      "John"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which heavenly messenger restored the sealing power according to Doctrine and Covenants 110?",
-    "options": [
-      "Elijah",
-      "Moroni",
-      "Gabriel",
-      "Raphael"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which section explains that all things are governed by law and describes the 'law irrevocably decreed in heaven'?",
-    "options": [
-      "Section 130",
-      "Section 89",
-      "Section 42",
-      "Section 76"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which section instructs the Saints to establish a house of learning, a house of order, and a house of God?",
-    "options": [
-      "Section 88",
-      "Section 20",
-      "Section 76",
-      "Section 132"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which early leader served as one of the Three Witnesses to the Book of Mormon and received revelations in the Doctrine and Covenants?",
-    "options": [
-      "Oliver Cowdery",
-      "Parley P. Pratt",
-      "Wilford Woodruff",
-      "Lorenzo Snow"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which section describes the organization of priesthood quorums including the Quorum of the Twelve Apostles?",
-    "options": [
-      "Section 107",
-      "Section 76",
-      "Section 121",
-      "Section 1"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  },
-  {
-    "prompt": "Which location in Illinois became the gathering place of the Saints and the setting for several later revelations in the Doctrine and Covenants?",
-    "options": [
-      "Nauvoo",
-      "Kirtland",
-      "Palmyra",
-      "Independence"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "Religion"
-  }
-]
+{
+  "category": "Religion",
+  "questions": [
+    {
+      "prompt": "Who is the primary prophet through whom the revelations in the Doctrine and Covenants were given?",
+      "options": [
+        "Brigham Young",
+        "Joseph Smith",
+        "Oliver Cowdery",
+        "John Taylor"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which section of the Doctrine and Covenants is known as the 'Preface' to the book?",
+      "options": [
+        "Section 1",
+        "Section 5",
+        "Section 20",
+        "Section 76"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Where was the Church of Jesus Christ organized on April 6, 1830?",
+      "options": [
+        "Kirtland, Ohio",
+        "Fayette, New York",
+        "Nauvoo, Illinois",
+        "Independence, Missouri"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which section outlines many of the basic beliefs and organization of the Church and is sometimes called the 'Articles and Covenants'?",
+      "options": [
+        "Section 13",
+        "Section 20",
+        "Section 42",
+        "Section 76"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which priesthood was restored by John the Baptist according to the Doctrine and Covenants?",
+      "options": [
+        "Melchizedek Priesthood",
+        "Aaronic Priesthood",
+        "Levitical Priesthood",
+        "Patriarchal Priesthood"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which section describes the three degrees of glory in the afterlife?",
+      "options": [
+        "Section 76",
+        "Section 88",
+        "Section 132",
+        "Section 121"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which revelation is known as the 'Word of Wisdom'?",
+      "options": [
+        "Section 42",
+        "Section 76",
+        "Section 89",
+        "Section 110"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which city is identified in the Doctrine and Covenants as the location of Zion or the New Jerusalem?",
+      "options": [
+        "Salt Lake City",
+        "Kirtland",
+        "Independence, Missouri",
+        "Nauvoo"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which section contains the vision of the celestial kingdom and the degrees of glory received by Joseph Smith and Sidney Rigdon?",
+      "options": [
+        "Section 1",
+        "Section 42",
+        "Section 76",
+        "Section 121"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which building was dedicated in Kirtland, Ohio and associated with several revelations in the Doctrine and Covenants?",
+      "options": [
+        "Kirtland Temple",
+        "Nauvoo Temple",
+        "Salt Lake Temple",
+        "Independence Temple"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which section includes the phrase 'The glory of God is intelligence'?",
+      "options": [
+        "Section 88",
+        "Section 76",
+        "Section 121",
+        "Section 132"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which section contains counsel about priesthood power and the principles of righteousness beginning with 'No power or influence can or ought to be maintained'?",
+      "options": [
+        "Section 121",
+        "Section 89",
+        "Section 76",
+        "Section 42"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which section teaches about eternal marriage and the new and everlasting covenant?",
+      "options": [
+        "Section 76",
+        "Section 110",
+        "Section 132",
+        "Section 121"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who appeared in the Kirtland Temple to restore the keys of the gathering of Israel according to Doctrine and Covenants 110?",
+      "options": [
+        "Moses",
+        "Elijah",
+        "Peter",
+        "John"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which heavenly messenger restored the sealing power according to Doctrine and Covenants 110?",
+      "options": [
+        "Elijah",
+        "Moroni",
+        "Gabriel",
+        "Raphael"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which section explains that all things are governed by law and describes the 'law irrevocably decreed in heaven'?",
+      "options": [
+        "Section 130",
+        "Section 89",
+        "Section 42",
+        "Section 76"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which section instructs the Saints to establish a house of learning, a house of order, and a house of God?",
+      "options": [
+        "Section 88",
+        "Section 20",
+        "Section 76",
+        "Section 132"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which early leader served as one of the Three Witnesses to the Book of Mormon and received revelations in the Doctrine and Covenants?",
+      "options": [
+        "Oliver Cowdery",
+        "Parley P. Pratt",
+        "Wilford Woodruff",
+        "Lorenzo Snow"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which section describes the organization of priesthood quorums including the Quorum of the Twelve Apostles?",
+      "options": [
+        "Section 107",
+        "Section 76",
+        "Section 121",
+        "Section 1"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which location in Illinois became the gathering place of the Saints and the setting for several later revelations in the Doctrine and Covenants?",
+      "options": [
+        "Nauvoo",
+        "Kirtland",
+        "Palmyra",
+        "Independence"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}

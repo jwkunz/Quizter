@@ -1,67 +1,65 @@
-[
-  {
-    "prompt": "What does CPU stand for?",
-    "options": [
-      "Central Processing Unit",
-      "Computer Primary Utility",
-      "Central Program Upload",
-      "Core Peripheral Unit"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which component stores data long-term in a typical computer?",
-    "options": [
-      "RAM",
-      "CPU cache",
-      "SSD",
-      "Register"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is the purpose of a resistor in a circuit?",
-    "options": [
-      "Increase voltage infinitely",
-      "Limit current flow",
-      "Store magnetic energy",
-      "Generate light"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "USB is primarily used for what?",
-    "options": [
-      "Wireless charging only",
-      "Data transfer and power",
-      "Converting AC to DC",
-      "Amplifying audio"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What does LED stand for?",
-    "options": [
-      "Light Emitting Diode",
-      "Low Energy Device",
-      "Linear Electric Display",
-      "Light Energy Driver"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  }
-]
+{
+  "category": "STEM",
+  "questions": [
+    {
+      "prompt": "What does CPU stand for?",
+      "options": [
+        "Central Processing Unit",
+        "Computer Primary Utility",
+        "Central Program Upload",
+        "Core Peripheral Unit"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which component stores data long-term in a typical computer?",
+      "options": [
+        "RAM",
+        "CPU cache",
+        "SSD",
+        "Register"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the purpose of a resistor in a circuit?",
+      "options": [
+        "Increase voltage infinitely",
+        "Limit current flow",
+        "Store magnetic energy",
+        "Generate light"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "USB is primarily used for what?",
+      "options": [
+        "Wireless charging only",
+        "Data transfer and power",
+        "Converting AC to DC",
+        "Amplifying audio"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does LED stand for?",
+      "options": [
+        "Light Emitting Diode",
+        "Low Energy Device",
+        "Linear Electric Display",
+        "Light Energy Driver"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}

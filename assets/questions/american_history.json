@@ -1,262 +1,245 @@
-[
-  {
-    "prompt": "Which document first established the principle that government derives its authority from the consent of the governed?",
-    "options": [
-      "The Articles of Confederation",
-      "The Declaration of Independence",
-      "The Bill of Rights",
-      "The Federalist Papers"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which weakness of the Articles of Confederation was most responsible for the call to create the U.S. Constitution?",
-    "options": [
-      "Lack of a national military",
-      "No power for Congress to tax",
-      "No national currency",
-      "Weak judicial system"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which compromise during the Constitutional Convention determined representation in Congress?",
-    "options": [
-      "Missouri Compromise",
-      "Great Compromise",
-      "Three-Fifths Compromise",
-      "Connecticut Agreement"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which event demonstrated the weaknesses of the Articles of Confederation and helped lead to the Constitutional Convention?",
-    "options": [
-      "Bacon\u2019s Rebellion",
-      "Shays\u2019 Rebellion",
-      "Whiskey Rebellion",
-      "Pontiac\u2019s Rebellion"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "What was the main purpose of the Federalist Papers?",
-    "options": [
-      "To explain the Constitution and encourage its ratification",
-      "To oppose the Constitution",
-      "To outline foreign policy strategies",
-      "To organize political parties"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which Supreme Court case established the principle of judicial review?",
-    "options": [
-      "McCulloch v. Maryland",
-      "Marbury v. Madison",
-      "Gibbons v. Ogden",
-      "Dred Scott v. Sandford"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which purchase doubled the size of the United States in 1803?",
-    "options": [
-      "Florida Purchase",
-      "Louisiana Purchase",
-      "Oregon Treaty",
-      "Mexican Cession"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "The Monroe Doctrine (1823) primarily warned which nations against further colonization in the Americas?",
-    "options": [
-      "Asian nations",
-      "European powers",
-      "African kingdoms",
-      "Middle Eastern empires"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which belief supported the expansion of the United States across North America during the 1800s?",
-    "options": [
-      "Popular Sovereignty",
-      "Manifest Destiny",
-      "Mercantilism",
-      "Isolationism"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which compromise admitted Missouri as a slave state and Maine as a free state?",
-    "options": [
-      "Compromise of 1850",
-      "Missouri Compromise",
-      "Kansas-Nebraska Act",
-      "Wilmot Proviso"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which abolitionist publication was written by William Lloyd Garrison?",
-    "options": [
-      "The Liberator",
-      "Common Sense",
-      "The Crisis",
-      "Uncle Tom\u2019s Cabin"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which event is generally considered the beginning of the Civil War?",
-    "options": [
-      "Battle of Antietam",
-      "Attack on Fort Sumter",
-      "Battle of Gettysburg",
-      "Emancipation Proclamation"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which amendment abolished slavery in the United States?",
-    "options": [
-      "13th Amendment",
-      "14th Amendment",
-      "15th Amendment",
-      "12th Amendment"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "During Reconstruction, what was the primary goal of the Freedmen\u2019s Bureau?",
-    "options": [
-      "Provide assistance to former slaves and poor whites",
-      "Enforce military rule in the South",
-      "Expand voting rights to women",
-      "Promote western settlement"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which industrialist was known for building a major steel company using vertical integration?",
-    "options": [
-      "John D. Rockefeller",
-      "Andrew Carnegie",
-      "Cornelius Vanderbilt",
-      "J.P. Morgan"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which progressive reform introduced the direct election of U.S. senators?",
-    "options": [
-      "16th Amendment",
-      "17th Amendment",
-      "18th Amendment",
-      "19th Amendment"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which event directly caused the United States to enter World War I in 1917?",
-    "options": [
-      "Zimmerman Telegram and unrestricted submarine warfare",
-      "Attack on Pearl Harbor",
-      "Russian Revolution",
-      "Treaty of Versailles"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which New Deal program provided jobs through public works projects?",
-    "options": [
-      "Social Security Administration",
-      "Works Progress Administration",
-      "Federal Reserve",
-      "Securities and Exchange Commission"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which Cold War policy aimed to prevent the spread of communism?",
-    "options": [
-      "Appeasement",
-      "Containment",
-      "Isolationism",
-      "Detente"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  },
-  {
-    "prompt": "Which landmark Supreme Court decision declared racial segregation in public schools unconstitutional?",
-    "options": [
-      "Plessy v. Ferguson",
-      "Brown v. Board of Education",
-      "Roe v. Wade",
-      "Miranda v. Arizona"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "History"
-  }
-]
+{
+  "category": "History",
+  "questions": [
+    {
+      "prompt": "Which document first established the principle that government derives its authority from the consent of the governed?",
+      "options": [
+        "The Articles of Confederation",
+        "The Declaration of Independence",
+        "The Bill of Rights",
+        "The Federalist Papers"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which weakness of the Articles of Confederation was most responsible for the call to create the U.S. Constitution?",
+      "options": [
+        "Lack of a national military",
+        "No power for Congress to tax",
+        "No national currency",
+        "Weak judicial system"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which compromise during the Constitutional Convention determined representation in Congress?",
+      "options": [
+        "Missouri Compromise",
+        "Great Compromise",
+        "Three-Fifths Compromise",
+        "Connecticut Agreement"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which event demonstrated the weaknesses of the Articles of Confederation and helped lead to the Constitutional Convention?",
+      "options": [
+        "Bacon\u2019s Rebellion",
+        "Shays\u2019 Rebellion",
+        "Whiskey Rebellion",
+        "Pontiac\u2019s Rebellion"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What was the main purpose of the Federalist Papers?",
+      "options": [
+        "To explain the Constitution and encourage its ratification",
+        "To oppose the Constitution",
+        "To outline foreign policy strategies",
+        "To organize political parties"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which Supreme Court case established the principle of judicial review?",
+      "options": [
+        "McCulloch v. Maryland",
+        "Marbury v. Madison",
+        "Gibbons v. Ogden",
+        "Dred Scott v. Sandford"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which purchase doubled the size of the United States in 1803?",
+      "options": [
+        "Florida Purchase",
+        "Louisiana Purchase",
+        "Oregon Treaty",
+        "Mexican Cession"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "The Monroe Doctrine (1823) primarily warned which nations against further colonization in the Americas?",
+      "options": [
+        "Asian nations",
+        "European powers",
+        "African kingdoms",
+        "Middle Eastern empires"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which belief supported the expansion of the United States across North America during the 1800s?",
+      "options": [
+        "Popular Sovereignty",
+        "Manifest Destiny",
+        "Mercantilism",
+        "Isolationism"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which compromise admitted Missouri as a slave state and Maine as a free state?",
+      "options": [
+        "Compromise of 1850",
+        "Missouri Compromise",
+        "Kansas-Nebraska Act",
+        "Wilmot Proviso"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which abolitionist publication was written by William Lloyd Garrison?",
+      "options": [
+        "The Liberator",
+        "Common Sense",
+        "The Crisis",
+        "Uncle Tom\u2019s Cabin"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which event is generally considered the beginning of the Civil War?",
+      "options": [
+        "Battle of Antietam",
+        "Attack on Fort Sumter",
+        "Battle of Gettysburg",
+        "Emancipation Proclamation"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which amendment abolished slavery in the United States?",
+      "options": [
+        "13th Amendment",
+        "14th Amendment",
+        "15th Amendment",
+        "12th Amendment"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "During Reconstruction, what was the primary goal of the Freedmen\u2019s Bureau?",
+      "options": [
+        "Provide assistance to former slaves and poor whites",
+        "Enforce military rule in the South",
+        "Expand voting rights to women",
+        "Promote western settlement"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which industrialist was known for building a major steel company using vertical integration?",
+      "options": [
+        "John D. Rockefeller",
+        "Andrew Carnegie",
+        "Cornelius Vanderbilt",
+        "J.P. Morgan"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which progressive reform introduced the direct election of U.S. senators?",
+      "options": [
+        "16th Amendment",
+        "17th Amendment",
+        "18th Amendment",
+        "19th Amendment"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which event directly caused the United States to enter World War I in 1917?",
+      "options": [
+        "Zimmerman Telegram and unrestricted submarine warfare",
+        "Attack on Pearl Harbor",
+        "Russian Revolution",
+        "Treaty of Versailles"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which New Deal program provided jobs through public works projects?",
+      "options": [
+        "Social Security Administration",
+        "Works Progress Administration",
+        "Federal Reserve",
+        "Securities and Exchange Commission"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which Cold War policy aimed to prevent the spread of communism?",
+      "options": [
+        "Appeasement",
+        "Containment",
+        "Isolationism",
+        "Detente"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which landmark Supreme Court decision declared racial segregation in public schools unconstitutional?",
+      "options": [
+        "Plessy v. Ferguson",
+        "Brown v. Board of Education",
+        "Roe v. Wade",
+        "Miranda v. Arizona"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}

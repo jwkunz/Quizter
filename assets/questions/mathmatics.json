@@ -1,262 +1,245 @@
-[
-  {
-    "prompt": "Who wrote the play 'Romeo and Juliet'?",
-    "options": [
-      "William Shakespeare",
-      "Charles Dickens",
-      "Jane Austen",
-      "Mark Twain"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Who is the author of the novel 'Moby-Dick'?",
-    "options": [
-      "Herman Melville",
-      "Nathaniel Hawthorne",
-      "Edgar Allan Poe",
-      "Henry James"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which novel by Jane Austen features the characters Elizabeth Bennet and Mr. Darcy?",
-    "options": [
-      "Sense and Sensibility",
-      "Emma",
-      "Pride and Prejudice",
-      "Mansfield Park"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Who wrote the epic poem 'The Odyssey'?",
-    "options": [
-      "Homer",
-      "Virgil",
-      "Sophocles",
-      "Aristotle"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which Charles Dickens novel begins with the line 'It was the best of times, it was the worst of times'?",
-    "options": [
-      "Oliver Twist",
-      "Great Expectations",
-      "David Copperfield",
-      "A Tale of Two Cities"
-    ],
-    "correct_index": 3,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Who wrote 'The Adventures of Tom Sawyer'?",
-    "options": [
-      "Mark Twain",
-      "Jack London",
-      "Herman Melville",
-      "Henry David Thoreau"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which novel tells the story of Victor Frankenstein and his creation?",
-    "options": [
-      "Dracula",
-      "Frankenstein",
-      "The Strange Case of Dr. Jekyll and Mr. Hyde",
-      "The Invisible Man"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Who wrote 'The Divine Comedy', which includes the sections Inferno, Purgatorio, and Paradiso?",
-    "options": [
-      "Dante Alighieri",
-      "Geoffrey Chaucer",
-      "John Milton",
-      "Virgil"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which Russian author wrote the novel 'War and Peace'?",
-    "options": [
-      "Fyodor Dostoevsky",
-      "Leo Tolstoy",
-      "Anton Chekhov",
-      "Nikolai Gogol"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Who wrote the tragedy 'Hamlet'?",
-    "options": [
-      "William Shakespeare",
-      "Christopher Marlowe",
-      "Ben Jonson",
-      "John Donne"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which novel by George Orwell depicts a dystopian society under constant surveillance?",
-    "options": [
-      "Animal Farm",
-      "1984",
-      "Brave New World",
-      "Fahrenheit 451"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Who wrote the novel 'The Great Gatsby'?",
-    "options": [
-      "Ernest Hemingway",
-      "F. Scott Fitzgerald",
-      "John Steinbeck",
-      "William Faulkner"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which author wrote 'The Canterbury Tales'?",
-    "options": [
-      "Geoffrey Chaucer",
-      "William Langland",
-      "Thomas More",
-      "Edmund Spenser"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which novel by Harper Lee centers on the trial of Tom Robinson?",
-    "options": [
-      "To Kill a Mockingbird",
-      "Of Mice and Men",
-      "The Grapes of Wrath",
-      "The Catcher in the Rye"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Who wrote the novel 'The Scarlet Letter'?",
-    "options": [
-      "Nathaniel Hawthorne",
-      "Herman Melville",
-      "Edgar Allan Poe",
-      "Washington Irving"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which American author wrote 'The Grapes of Wrath'?",
-    "options": [
-      "John Steinbeck",
-      "Ernest Hemingway",
-      "William Faulkner",
-      "Upton Sinclair"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Who wrote the epic poem 'Paradise Lost'?",
-    "options": [
-      "John Milton",
-      "Alexander Pope",
-      "William Blake",
-      "Edmund Spenser"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which novel by Mary Shelley is considered one of the earliest works of science fiction?",
-    "options": [
-      "Dracula",
-      "Frankenstein",
-      "The Time Machine",
-      "The War of the Worlds"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Who wrote 'Don Quixote', often considered one of the first modern novels?",
-    "options": [
-      "Miguel de Cervantes",
-      "Gabriel Garc\u00eda M\u00e1rquez",
-      "Jorge Luis Borges",
-      "Lope de Vega"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which novel features the characters Lennie Small and George Milton?",
-    "options": [
-      "The Grapes of Wrath",
-      "Of Mice and Men",
-      "East of Eden",
-      "Cannery Row"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  }
-]
+{
+  "category": "STEM",
+  "questions": [
+    {
+      "prompt": "Who wrote the play 'Romeo and Juliet'?",
+      "options": [
+        "William Shakespeare",
+        "Charles Dickens",
+        "Jane Austen",
+        "Mark Twain"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who is the author of the novel 'Moby-Dick'?",
+      "options": [
+        "Herman Melville",
+        "Nathaniel Hawthorne",
+        "Edgar Allan Poe",
+        "Henry James"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which novel by Jane Austen features the characters Elizabeth Bennet and Mr. Darcy?",
+      "options": [
+        "Sense and Sensibility",
+        "Emma",
+        "Pride and Prejudice",
+        "Mansfield Park"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who wrote the epic poem 'The Odyssey'?",
+      "options": [
+        "Homer",
+        "Virgil",
+        "Sophocles",
+        "Aristotle"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which Charles Dickens novel begins with the line 'It was the best of times, it was the worst of times'?",
+      "options": [
+        "Oliver Twist",
+        "Great Expectations",
+        "David Copperfield",
+        "A Tale of Two Cities"
+      ],
+      "correct_index": 3,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who wrote 'The Adventures of Tom Sawyer'?",
+      "options": [
+        "Mark Twain",
+        "Jack London",
+        "Herman Melville",
+        "Henry David Thoreau"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which novel tells the story of Victor Frankenstein and his creation?",
+      "options": [
+        "Dracula",
+        "Frankenstein",
+        "The Strange Case of Dr. Jekyll and Mr. Hyde",
+        "The Invisible Man"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who wrote 'The Divine Comedy', which includes the sections Inferno, Purgatorio, and Paradiso?",
+      "options": [
+        "Dante Alighieri",
+        "Geoffrey Chaucer",
+        "John Milton",
+        "Virgil"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which Russian author wrote the novel 'War and Peace'?",
+      "options": [
+        "Fyodor Dostoevsky",
+        "Leo Tolstoy",
+        "Anton Chekhov",
+        "Nikolai Gogol"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who wrote the tragedy 'Hamlet'?",
+      "options": [
+        "William Shakespeare",
+        "Christopher Marlowe",
+        "Ben Jonson",
+        "John Donne"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which novel by George Orwell depicts a dystopian society under constant surveillance?",
+      "options": [
+        "Animal Farm",
+        "1984",
+        "Brave New World",
+        "Fahrenheit 451"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who wrote the novel 'The Great Gatsby'?",
+      "options": [
+        "Ernest Hemingway",
+        "F. Scott Fitzgerald",
+        "John Steinbeck",
+        "William Faulkner"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which author wrote 'The Canterbury Tales'?",
+      "options": [
+        "Geoffrey Chaucer",
+        "William Langland",
+        "Thomas More",
+        "Edmund Spenser"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which novel by Harper Lee centers on the trial of Tom Robinson?",
+      "options": [
+        "To Kill a Mockingbird",
+        "Of Mice and Men",
+        "The Grapes of Wrath",
+        "The Catcher in the Rye"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who wrote the novel 'The Scarlet Letter'?",
+      "options": [
+        "Nathaniel Hawthorne",
+        "Herman Melville",
+        "Edgar Allan Poe",
+        "Washington Irving"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which American author wrote 'The Grapes of Wrath'?",
+      "options": [
+        "John Steinbeck",
+        "Ernest Hemingway",
+        "William Faulkner",
+        "Upton Sinclair"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who wrote the epic poem 'Paradise Lost'?",
+      "options": [
+        "John Milton",
+        "Alexander Pope",
+        "William Blake",
+        "Edmund Spenser"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which novel by Mary Shelley is considered one of the earliest works of science fiction?",
+      "options": [
+        "Dracula",
+        "Frankenstein",
+        "The Time Machine",
+        "The War of the Worlds"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Who wrote 'Don Quixote', often considered one of the first modern novels?",
+      "options": [
+        "Miguel de Cervantes",
+        "Gabriel Garc\u00eda M\u00e1rquez",
+        "Jorge Luis Borges",
+        "Lope de Vega"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which novel features the characters Lennie Small and George Milton?",
+      "options": [
+        "The Grapes of Wrath",
+        "Of Mice and Men",
+        "East of Eden",
+        "Cannery Row"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}

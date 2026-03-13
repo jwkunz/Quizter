@@ -237,27 +237,32 @@
           <h2>Question Pack Setup</h2>
           <p class="status">
             The easiest setup is to place JSON question packs directly into <code>assets/questions/</code> on the server package.
-            Each pack must use the <code>.json</code> extension and each question should use <code>"category"</code> instead of <code>"id"</code>.
+            Each pack must use the <code>.json</code> extension. You can optionally define a single root <code>"category"</code> that applies to the whole pack.
           </p>
           <div class="wizard-step">Step 1: Create or copy one or more JSON pack files into <code>assets/questions/</code>.</div>
           <div class="wizard-step">Step 2: Restart the Quizter server so it reloads the available pack files.</div>
-          <div class="wizard-step">Step 3: Open <strong>Current Question Pool Filter</strong>, expand a category, and add or remove whole groups of files or individual packs.</div>
+          <div class="wizard-step">Step 3: Open <strong>Current Question Pool Filter</strong>, expand a discovered category, and add or remove whole groups of files or individual packs.</div>
           <div class="wizard-step">Step 4: Confirm the status line shows the expected counts for available questions and questions in play.</div>
+          <div class="wizard-step">If a pack has no root <code>"category"</code>, Quizter will place it under <strong>Generic</strong>.</div>
           <p class="status">Tip: an easy way to generate question packs is to ask an LLM such as ChatGPT with this prompt:</p>
-          <div class="copy-prompt">Please generate { } questions about { } using the JSON format provided in this example: 
-  {
-    "category": "History",
-    "prompt": "Which document first established the principle that government derives its authority from the consent of the governed?",
-    "options": [
-      "The Articles of Confederation",
-      "The Declaration of Independence",
-      "The Bill of Rights",
-      "The Federalist Papers"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null
-  },</div>
+          <div class="copy-prompt">Please generate { } questions about { } using the JSON format provided in this example:
+{
+  "category": "History",
+  "questions": [
+    {
+      "prompt": "Which document first established the principle that government derives its authority from the consent of the governed?",
+      "options": [
+        "The Articles of Confederation",
+        "The Declaration of Independence",
+        "The Bill of Rights",
+        "The Federalist Papers"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}</div>
         </div>
       </div>
 

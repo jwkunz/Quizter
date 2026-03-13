@@ -1,262 +1,245 @@
-[
-  {
-    "prompt": "What is the term for money set aside for unexpected expenses?",
-    "options": [
-      "Emergency fund",
-      "Retirement account",
-      "Investment portfolio",
-      "Credit line"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is a budget?",
-    "options": [
-      "A type of loan",
-      "A plan for managing income and expenses",
-      "An investment account",
-      "A tax refund"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What does APR stand for in finance?",
-    "options": [
-      "Annual Percentage Rate",
-      "Adjusted Payment Ratio",
-      "Average Personal Revenue",
-      "Annual Profit Return"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which type of account typically earns interest while holding savings?",
-    "options": [
-      "Checking account",
-      "Savings account",
-      "Credit account",
-      "Loan account"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What does diversification mean in investing?",
-    "options": [
-      "Investing in only one company",
-      "Spreading investments across different assets",
-      "Selling investments quickly",
-      "Avoiding the stock market"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is the term for borrowing money with the promise to repay it later?",
-    "options": [
-      "Investing",
-      "Credit",
-      "Saving",
-      "Budgeting"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which financial product represents ownership in a company?",
-    "options": [
-      "Bond",
-      "Stock",
-      "Loan",
-      "Certificate of deposit"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is compound interest?",
-    "options": [
-      "Interest paid only once",
-      "Interest calculated only on the original amount",
-      "Interest earned on both the principal and previous interest",
-      "Interest paid by the government"
-    ],
-    "correct_index": 2,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is the purpose of a credit score?",
-    "options": [
-      "To measure a person's income",
-      "To evaluate creditworthiness",
-      "To calculate taxes",
-      "To determine savings interest"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which type of investment is generally considered the least risky?",
-    "options": [
-      "Stocks",
-      "Government bonds",
-      "Cryptocurrency",
-      "Startup investments"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is inflation?",
-    "options": [
-      "A decrease in prices over time",
-      "An increase in the general level of prices",
-      "A rise in wages",
-      "A drop in interest rates"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is a 401(k)?",
-    "options": [
-      "A type of mortgage",
-      "A retirement savings plan offered by employers",
-      "A credit card account",
-      "A checking account"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What does liquidity refer to in finance?",
-    "options": [
-      "The ability to quickly convert assets to cash",
-      "The total value of investments",
-      "The amount of debt someone has",
-      "The rate of return on investments"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which type of loan is commonly used to buy a home?",
-    "options": [
-      "Auto loan",
-      "Mortgage",
-      "Personal loan",
-      "Student loan"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is net income?",
-    "options": [
-      "Income before taxes and expenses",
-      "Income after taxes and expenses",
-      "Total savings",
-      "Money invested in stocks"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What does ROI stand for?",
-    "options": [
-      "Rate of Income",
-      "Return on Investment",
-      "Range of Interest",
-      "Revenue of Industry"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is a deductible in insurance?",
-    "options": [
-      "The amount paid before insurance coverage begins",
-      "The monthly insurance payment",
-      "The maximum insurance payout",
-      "The interest rate on insurance"
-    ],
-    "correct_index": 0,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "Which financial document summarizes income and expenses over a period of time?",
-    "options": [
-      "Balance sheet",
-      "Income statement",
-      "Budget report",
-      "Credit report"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is a credit card minimum payment?",
-    "options": [
-      "The total amount owed",
-      "The smallest amount required to keep the account current",
-      "The interest charged monthly",
-      "The annual fee"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  },
-  {
-    "prompt": "What is the main purpose of insurance?",
-    "options": [
-      "To increase income",
-      "To reduce financial risk from unexpected events",
-      "To earn investment returns",
-      "To avoid paying taxes"
-    ],
-    "correct_index": 1,
-    "points": 100,
-    "image_url": null,
-    "category": "STEM"
-  }
-]
+{
+  "category": "STEM",
+  "questions": [
+    {
+      "prompt": "What is the term for money set aside for unexpected expenses?",
+      "options": [
+        "Emergency fund",
+        "Retirement account",
+        "Investment portfolio",
+        "Credit line"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is a budget?",
+      "options": [
+        "A type of loan",
+        "A plan for managing income and expenses",
+        "An investment account",
+        "A tax refund"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does APR stand for in finance?",
+      "options": [
+        "Annual Percentage Rate",
+        "Adjusted Payment Ratio",
+        "Average Personal Revenue",
+        "Annual Profit Return"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which type of account typically earns interest while holding savings?",
+      "options": [
+        "Checking account",
+        "Savings account",
+        "Credit account",
+        "Loan account"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does diversification mean in investing?",
+      "options": [
+        "Investing in only one company",
+        "Spreading investments across different assets",
+        "Selling investments quickly",
+        "Avoiding the stock market"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the term for borrowing money with the promise to repay it later?",
+      "options": [
+        "Investing",
+        "Credit",
+        "Saving",
+        "Budgeting"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which financial product represents ownership in a company?",
+      "options": [
+        "Bond",
+        "Stock",
+        "Loan",
+        "Certificate of deposit"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is compound interest?",
+      "options": [
+        "Interest paid only once",
+        "Interest calculated only on the original amount",
+        "Interest earned on both the principal and previous interest",
+        "Interest paid by the government"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the purpose of a credit score?",
+      "options": [
+        "To measure a person's income",
+        "To evaluate creditworthiness",
+        "To calculate taxes",
+        "To determine savings interest"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which type of investment is generally considered the least risky?",
+      "options": [
+        "Stocks",
+        "Government bonds",
+        "Cryptocurrency",
+        "Startup investments"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is inflation?",
+      "options": [
+        "A decrease in prices over time",
+        "An increase in the general level of prices",
+        "A rise in wages",
+        "A drop in interest rates"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is a 401(k)?",
+      "options": [
+        "A type of mortgage",
+        "A retirement savings plan offered by employers",
+        "A credit card account",
+        "A checking account"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does liquidity refer to in finance?",
+      "options": [
+        "The ability to quickly convert assets to cash",
+        "The total value of investments",
+        "The amount of debt someone has",
+        "The rate of return on investments"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which type of loan is commonly used to buy a home?",
+      "options": [
+        "Auto loan",
+        "Mortgage",
+        "Personal loan",
+        "Student loan"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is net income?",
+      "options": [
+        "Income before taxes and expenses",
+        "Income after taxes and expenses",
+        "Total savings",
+        "Money invested in stocks"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does ROI stand for?",
+      "options": [
+        "Rate of Income",
+        "Return on Investment",
+        "Range of Interest",
+        "Revenue of Industry"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is a deductible in insurance?",
+      "options": [
+        "The amount paid before insurance coverage begins",
+        "The monthly insurance payment",
+        "The maximum insurance payout",
+        "The interest rate on insurance"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which financial document summarizes income and expenses over a period of time?",
+      "options": [
+        "Balance sheet",
+        "Income statement",
+        "Budget report",
+        "Credit report"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is a credit card minimum payment?",
+      "options": [
+        "The total amount owed",
+        "The smallest amount required to keep the account current",
+        "The interest charged monthly",
+        "The annual fee"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the main purpose of insurance?",
+      "options": [
+        "To increase income",
+        "To reduce financial risk from unexpected events",
+        "To earn investment returns",
+        "To avoid paying taxes"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}
