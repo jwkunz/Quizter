@@ -499,3 +499,20 @@
   - Additional local question-pack edits remain outside this milestone.
 - Next stage:
   - Optional build, question-pack updates, and further admin polish.
+
+## v2.8.0 - 2026-03-12
+- Completed:
+  - Reordered the admin tabs so `Question Pool` appears immediately after `Lobby`.
+  - Added a large countdown widget to `Game Monitor` showing either answer time remaining or time before the next round starts.
+  - Added a manual `Issue Question` button to `Game Monitor` for manual round issue mode.
+  - Increased the incorrect-result flash duration on the player UI.
+  - Made the correct answer text more prominent beneath the incorrect result graphic.
+  - Updated README and admin help text to explain the new `Game Monitor` countdown flow.
+- Build artifacts:
+  - Not run for this milestone.
+- Test status:
+  - `cargo check` passes.
+- Known issues:
+  - Additional local question-pack edits remain outside this milestone.
+- Next stage:
+  - Optional build, question-pack updates, and additional admin/player polish.

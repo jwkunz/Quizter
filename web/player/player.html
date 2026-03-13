@@ -209,11 +209,12 @@
       font-weight: bold;
     }
     .flash-subtext {
-      margin-top: 0.4rem;
-      color: var(--muted);
-      font-size: 0.95rem;
+      margin-top: 0.65rem;
+      color: #ecf8ff;
+      font-size: 1.2rem;
       line-height: 1.35;
-      max-width: min(420px, 70vw);
+      max-width: min(560px, 76vw);
+      font-weight: bold;
     }
     .impact-alert {
       position: fixed;
@@ -563,7 +564,7 @@
             }
             flash.classList.remove("hidden");
             if (resultFlashTimer) clearTimeout(resultFlashTimer);
-            resultFlashTimer = setTimeout(() => flash.classList.add("hidden"), 2000);
+            resultFlashTimer = setTimeout(() => flash.classList.add("hidden"), myResult?.is_correct ? 2000 : 4000);
           }
         } catch (_e) {}
       };

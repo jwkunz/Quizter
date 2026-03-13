@@ -318,6 +318,33 @@
     .prose li {
       margin-bottom: 0.3rem;
     }
+    .countdown-widget {
+      text-align: center;
+      padding: 1.2rem 1rem;
+      border-radius: 16px;
+      border: 1px solid #31474c;
+      background: radial-gradient(circle at top, #102328, #0b0f11 65%);
+      box-shadow: inset 0 0 18px #00f6ff22;
+      margin-bottom: 1rem;
+    }
+    .countdown-label {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.78rem;
+    }
+    .countdown-value {
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      line-height: 1;
+      margin: 0.35rem 0 0.45rem;
+      color: var(--neon-gold);
+      text-shadow: 0 0 14px #ff8f00aa;
+      font-weight: bold;
+    }
+    .countdown-subtext {
+      color: #d4ecf6;
+      min-height: 1.4rem;
+    }
   </style>
 </head>
 <body>
@@ -325,8 +352,8 @@
     <div class="tab-bar" role="tablist" aria-label="Admin Console Tabs">
       <button class="tab-btn active" data-tab-target="welcomeTab">Welcome</button>
       <button class="tab-btn" data-tab-target="lobbyTab">Lobby</button>
-      <button class="tab-btn" data-tab-target="settingsTab">Game Settings</button>
       <button class="tab-btn" data-tab-target="questionPoolTab">Question Pool</button>
+      <button class="tab-btn" data-tab-target="settingsTab">Game Settings</button>
       <button class="tab-btn" data-tab-target="gameMonitorTab">Game Monitor</button>
       <button class="tab-btn" data-tab-target="helpTab">Help</button>
     </div>
@@ -338,7 +365,7 @@
           <div>
             <h1>Quizter Admin Console</h1>
             <div class="status">LAN quiz hosting for players, admins, and spectators in one browser-based package.</div>
-            <div class="version-badge">Software Version: v2.7.0</div>
+            <div class="version-badge">Software Version: v2.8.0</div>
           </div>
         </div>
         <div class="legal-box">Copyright 2026 Numerius Engineering LLC.
@@ -421,10 +448,7 @@ Contact numerius.engineering@gmail.com for support</div>
         <div id="bankList" class="bank-list"></div>
         <p class="status" id="bankSummary"></p>
         <p class="status warning" id="bankWarning"></p>
-        <div class="row">
-          <button id="startGameBtn">Start Game</button>
-          <button id="nextRoundBtn">Issue Question</button>
-        </div>
+        <div class="row"><button id="startGameBtn">Start Game</button></div>
         <p class="status" id="gameState">Waiting for state...</p>
       </div>
       <div class="panel" id="questionPoolLocked">
@@ -436,6 +460,17 @@ Contact numerius.engineering@gmail.com for support</div>
     <section class="tab-panel" id="gameMonitorTab">
       <div class="split hidden" id="adminSplit">
         <div>
+          <div class="panel">
+            <h2>Round Countdown</h2>
+            <div class="countdown-widget">
+              <div class="countdown-label" id="countdownLabel">Waiting</div>
+              <div class="countdown-value" id="countdownValue">--</div>
+              <div class="countdown-subtext" id="countdownSubtext">Create a room and start a game to begin.</div>
+              <div class="row" style="justify-content:center; margin-top:0.8rem;">
+                <button id="monitorIssueQuestionBtn" class="hidden">Issue Question</button>
+              </div>
+            </div>
+          </div>
           <div class="panel">
             <h2>Live Feed</h2>
             <div id="feed" class="status"></div>
@@ -464,9 +499,9 @@ Contact numerius.engineering@gmail.com for support</div>
               <li>Go to the <strong>Lobby</strong> tab and confirm Server URL, Room Code, Admin Passcode, and Rounds.</li>
               <li>Click <strong>Create/Update Room</strong>.</li>
               <li>Click <strong>Admin Login</strong>.</li>
-              <li>Open <strong>Game Settings</strong> to configure the match rules.</li>
               <li>Open <strong>Question Pool</strong> to choose which packs are in play.</li>
-              <li>Start the game and use <strong>Issue Question</strong> if automatic issue is disabled.</li>
+              <li>Open <strong>Game Settings</strong> to configure the match rules.</li>
+              <li>Start the game from <strong>Question Pool</strong>, then watch the countdown in <strong>Game Monitor</strong>. If automatic issue is disabled, use <strong>Issue Question</strong> there.</li>
             </ol>
 
             <h3>Question Pack Setup</h3>
@@ -476,7 +511,7 @@ Contact numerius.engineering@gmail.com for support</div>
             <div class="wizard-step">Step 3: Open <strong>Question Pool Selection</strong>, expand a discovered category, and check the groups or individual packs you want in play.</div>
             <div class="wizard-step">Step 4: Confirm the status line shows the expected counts for available questions and questions in play.</div>
             <div class="wizard-step">Adjust all game rules in the <strong>Game Settings</strong> tab before creating or updating the room.</div>
-            <div class="wizard-step">Round issue mode: leave <strong>Enable Automatic Timed Question Issue</strong> off to use the manual <strong>Issue Question</strong> button, or turn it on and set the number of seconds between automatically issued questions.</div>
+            <div class="wizard-step">Round issue mode: leave <strong>Enable Automatic Timed Question Issue</strong> off to use the manual <strong>Issue Question</strong> button in <strong>Game Monitor</strong>, or turn it on and set the number of seconds between automatically issued questions.</div>
             <div class="wizard-step">If a pack has no root <code>"category"</code>, Quizter will place it under <strong>Generic</strong>.</div>
 
             <h3>Question Pack Format</h3>
@@ -556,6 +591,16 @@ Contact numerius.engineering@gmail.com for support</div>
     let availableBanks = [];
     let categoryTree = [];
     let selectedBanks = new Set();
+    let monitorState = {
+      status: "lobby",
+      autoIssueEnabled: true,
+      autoIssueDelaySecs: 15,
+      completedRounds: 0,
+      totalRounds: 0,
+      currentQuestionSecondsLeft: null
+    };
+    let postRoundCountdownRemaining = null;
+    let countdownInterval = null;
 
     const el = (id) => document.getElementById(id);
     const feed = (msg) => {
@@ -571,6 +616,67 @@ Contact numerius.engineering@gmail.com for support</div>
       document.querySelectorAll(".tab-panel").forEach((panel) => {
         panel.classList.toggle("active", panel.id === tabId);
       });
+    }
+
+    function clearMonitorCountdownInterval() {
+      if (countdownInterval) {
+        clearInterval(countdownInterval);
+        countdownInterval = null;
+      }
+    }
+
+    function renderMonitorCountdown() {
+      const label = el("countdownLabel");
+      const value = el("countdownValue");
+      const subtext = el("countdownSubtext");
+      const manualButton = el("monitorIssueQuestionBtn");
+      manualButton.classList.add("hidden");
+
+      if (monitorState.status === "in_round" && monitorState.currentQuestionSecondsLeft != null) {
+        label.textContent = "Time Remaining To Answer";
+        value.textContent = String(Math.max(0, monitorState.currentQuestionSecondsLeft));
+        subtext.textContent = `Round ${Math.min(monitorState.completedRounds + 1, monitorState.totalRounds)}/${monitorState.totalRounds}`;
+        return;
+      }
+
+      if (monitorState.status === "round_result") {
+        if (monitorState.autoIssueEnabled) {
+          label.textContent = "Time Before Next Round";
+          value.textContent = String(Math.max(0, postRoundCountdownRemaining ?? monitorState.autoIssueDelaySecs));
+          subtext.textContent = `Automatic issue is enabled. Next question will issue in ${Math.max(0, postRoundCountdownRemaining ?? monitorState.autoIssueDelaySecs)} second(s).`;
+        } else {
+          label.textContent = "Manual Issue Mode";
+          value.textContent = "Ready";
+          subtext.textContent = "Automatic issue is disabled. Use Issue Question when you want to start the next round.";
+          manualButton.classList.remove("hidden");
+        }
+        return;
+      }
+
+      if (monitorState.status === "ended") {
+        label.textContent = "Game Complete";
+        value.textContent = "Done";
+        subtext.textContent = "The game has ended. Start a new game from the Question Pool tab.";
+        return;
+      }
+
+      label.textContent = "Waiting";
+      value.textContent = "--";
+      subtext.textContent = "Create a room and start a game to begin.";
+    }
+
+    function startPostRoundCountdown(seconds) {
+      clearMonitorCountdownInterval();
+      postRoundCountdownRemaining = Math.max(0, Number(seconds || 0));
+      renderMonitorCountdown();
+      if (postRoundCountdownRemaining <= 0) return;
+      countdownInterval = setInterval(() => {
+        postRoundCountdownRemaining = Math.max(0, (postRoundCountdownRemaining ?? 0) - 1);
+        renderMonitorCountdown();
+        if (postRoundCountdownRemaining <= 0) {
+          clearMonitorCountdownInterval();
+        }
+      }, 1000);
     }
 
     function syncAutoIssueControls() {
@@ -730,6 +836,17 @@ Contact numerius.engineering@gmail.com for support</div>
             latestQuestionCount = Number(s.questions_in_play || s.questions_available || 0);
             latestAvailableCount = Number(s.available_questions || latestAvailableCount);
             applySettingsToControls(s);
+            monitorState.status = s.status;
+            monitorState.autoIssueEnabled = Boolean(s.auto_issue_enabled);
+            monitorState.autoIssueDelaySecs = Number(s.auto_issue_delay_secs || 15);
+            monitorState.completedRounds = Number(s.completed_rounds || 0);
+            monitorState.totalRounds = Number(s.total_rounds || 0);
+            monitorState.currentQuestionSecondsLeft = s.current_question ? Number(s.current_question.seconds_left || 0) : null;
+            if (s.status !== "round_result") {
+              postRoundCountdownRemaining = null;
+              clearMonitorCountdownInterval();
+            }
+            renderMonitorCountdown();
             updateGameStateStatus(`Status: ${s.status} | Round ${s.completed_rounds}/${s.total_rounds} | Players: ${s.leaderboard.length}`);
             const lb = el("leaderboard");
             lb.innerHTML = "";
@@ -741,12 +858,25 @@ Contact numerius.engineering@gmail.com for support</div>
             });
             el("startGameBtn").disabled = latestQuestionCount === 0;
           }
+          if (msg.event === "timer_tick") {
+            monitorState.currentQuestionSecondsLeft = Number(msg.payload.seconds_left || 0);
+            renderMonitorCountdown();
+          }
           if (msg.event === "powerup_activated") {
             const actor = msg.payload.player_name || msg.payload.player_id;
             feed(`${actor} used ${msg.payload.powerup}`);
           }
           if (msg.event === "round_result") {
             feed(`Round ${msg.payload.round_number} complete.`);
+            monitorState.status = "round_result";
+            monitorState.currentQuestionSecondsLeft = null;
+            if (monitorState.autoIssueEnabled) {
+              startPostRoundCountdown(monitorState.autoIssueDelaySecs);
+            } else {
+              clearMonitorCountdownInterval();
+              postRoundCountdownRemaining = null;
+              renderMonitorCountdown();
+            }
           }
         } catch (_e) {}
       };
@@ -821,7 +951,7 @@ Contact numerius.engineering@gmail.com for support</div>
     el("createRoomBtn").onclick = createRoom;
     el("loginBtn").onclick = login;
     el("startGameBtn").onclick = startGame;
-    el("nextRoundBtn").onclick = () => ws?.send(JSON.stringify({ action: "admin_next_round" }));
+    el("monitorIssueQuestionBtn").onclick = () => ws?.send(JSON.stringify({ action: "admin_next_round" }));
     el("speedBonusEnabled").onchange = pushSettingsUpdate;
     el("hideScoresUntilEnd").onchange = pushSettingsUpdate;
     el("powerupsEnabled").onchange = pushSettingsUpdate;
@@ -854,6 +984,7 @@ Contact numerius.engineering@gmail.com for support</div>
     });
     refreshServerInfo();
     applySettingsToControls(currentSettingsPayload());
+    renderMonitorCountdown();
   </script>
 </body>
 </html>

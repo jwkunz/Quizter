@@ -6,7 +6,7 @@ One person (the admin/host) runs the server on their computer. Everyone else joi
 
 ![Quizter Logo](assets/images/Quizter_logo.png)
 
-**Software Version:** `v2.7.0`
+**Software Version:** `v2.8.0`
 
 Copyright 2026 Numerius Engineering LLC.  
 Distributed under the terms of the MIT License  
@@ -52,9 +52,11 @@ No separate player or admin app download is needed.
 5. Your browser should open automatically to the admin page.
 6. In admin page:
    - open the **Lobby** tab to create/update room and login as admin
-   - open the **Game Settings** tab to set match rules
    - open the **Question Pool** tab to select question bank files
+   - open the **Game Settings** tab to set match rules
    - open the **Game Monitor** tab to watch the leaderboard and live feed
+   - use the large countdown widget in **Game Monitor** to track answer time and time before the next round
+   - in manual round mode, use **Issue Question** from **Game Monitor**
    - open the **Help** tab for setup instructions, question-pack guidance, and artwork
    - start game from the **Question Pool** tab
 7. Ask players to scan the **Player Join QR** shown at top of admin page.
@@ -89,7 +91,7 @@ After opening admin page:
    - Changes during a game apply from the next round onward.
 6. Place JSON pack files in `assets/questions/`, restart the server if needed, then check them in the filter.
 7. Choose how rounds should be issued:
-   - Leave **Enable Automatic Question Issue** off to use the manual **Issue Question** button.
+   - Leave **Enable Automatic Question Issue** off to use the manual **Issue Question** button in **Game Monitor**.
    - Turn **Enable Automatic Question Issue** on to have Quizter automatically issue the next question after the configured number of seconds.
 8. Click **Start Game**.
 9. Watch player join activity, issue questions manually or automatically, and monitor the live leaderboard.
@@ -128,6 +130,7 @@ Players open the hosted player page from QR/URL and can:
 - see a large centered power-up graphic flash when a power-up is activated
 - get red top alerts when other players trigger power-ups that affect them
 - see score updates and round progress
+- see the correct answer beneath the incorrect result graphic
 
 No install needed on player devices; modern mobile browsers are enough.
 
@@ -215,7 +218,8 @@ Then use the QR code at the top of admin page to let players join.
 ## Gameplay Notes
 
 - End-of-round result graphics flash full-screen for 2 seconds.
-- Incorrect or missed rounds show the correct answer during the result flash.
+- Incorrect or missed rounds show the correct answer beneath the result graphic during the result flash.
+- Incorrect result flashes remain on screen longer than correct flashes for easier reading.
 - `Speed Searcher` now provides a 60-second exclusive answer window.
 - Affected-player power-up alerts appear as red push banners at top of player screen.
 
