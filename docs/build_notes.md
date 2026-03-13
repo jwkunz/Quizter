@@ -531,3 +531,16 @@
   - Additional local question-pack edits remain outside this milestone.
 - Next stage:
   - Optional build, question-pack updates, and additional admin/player polish.
+
+## v2.10.0 - 2026-03-12
+- Completed:
+  - Moved the `Start Game` button and main game status line to the top of the `Game Monitor` tab.
+  - Kept existing game control behavior intact while making the monitor tab the host's main live-control surface.
+- Build artifacts:
+  - Not run for this milestone.
+- Test status:
+  - `cargo check` passes.
+- Known issues:
+  - Additional local question-pack edits remain outside this milestone.
+- Next stage:
+  - Optional build, question-pack updates, and additional admin/player polish.

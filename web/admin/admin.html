@@ -448,8 +448,6 @@ Contact numerius.engineering@gmail.com for support</div>
         <div id="bankList" class="bank-list"></div>
         <p class="status" id="bankSummary"></p>
         <p class="status warning" id="bankWarning"></p>
-        <div class="row"><button id="startGameBtn">Start Game</button></div>
-        <p class="status" id="gameState">Waiting for state...</p>
       </div>
       <div class="panel" id="questionPoolLocked">
         <h2>Question Pool Selection</h2>
@@ -460,6 +458,13 @@ Contact numerius.engineering@gmail.com for support</div>
     <section class="tab-panel" id="gameMonitorTab">
       <div class="split hidden" id="adminSplit">
         <div>
+          <div class="panel">
+            <h2>Game Control</h2>
+            <div class="row" style="margin-bottom:.5rem;">
+              <button id="startGameBtn">Start Game</button>
+            </div>
+            <p class="status" id="gameState">Waiting for state...</p>
+          </div>
           <div class="panel">
             <h2>Round Countdown</h2>
             <div class="countdown-widget">
