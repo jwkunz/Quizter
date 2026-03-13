@@ -2,50 +2,98 @@
   "category": "STEM",
   "questions": [
     {
-      "prompt": "What does CPU stand for?",
+      "prompt": "What unit is used to measure electrical resistance?",
       "options": [
-        "Central Processing Unit",
-        "Computer Primary Utility",
-        "Central Program Upload",
-        "Core Peripheral Unit"
+        "Volt",
+        "Ohm",
+        "Ampere",
+        "Watt"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What unit measures electrical current?",
+      "options": [
+        "Volt",
+        "Ampere",
+        "Ohm",
+        "Farad"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What unit measures electrical voltage?",
+      "options": [
+        "Volt",
+        "Ampere",
+        "Ohm",
+        "Henry"
       ],
       "correct_index": 0,
       "points": 100,
       "image_url": null
     },
     {
-      "prompt": "Which component stores data long-term in a typical computer?",
+      "prompt": "Which component stores electrical energy in an electric field?",
       "options": [
-        "RAM",
-        "CPU cache",
-        "SSD",
-        "Register"
+        "Resistor",
+        "Capacitor",
+        "Diode",
+        "Transistor"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which component opposes the flow of electrical current?",
+      "options": [
+        "Resistor",
+        "Capacitor",
+        "Inductor",
+        "Transformer"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which semiconductor component allows current to flow in only one direction?",
+      "options": [
+        "Transistor",
+        "Capacitor",
+        "Diode",
+        "Relay"
       ],
       "correct_index": 2,
       "points": 100,
       "image_url": null
     },
     {
-      "prompt": "What is the purpose of a resistor in a circuit?",
+      "prompt": "What electronic component is commonly used to amplify or switch signals?",
       "options": [
-        "Increase voltage infinitely",
-        "Limit current flow",
-        "Store magnetic energy",
-        "Generate light"
+        "Transistor",
+        "Fuse",
+        "Resistor",
+        "LED"
       ],
-      "correct_index": 1,
+      "correct_index": 0,
       "points": 100,
       "image_url": null
     },
     {
-      "prompt": "USB is primarily used for what?",
+      "prompt": "Which component stores energy in a magnetic field when current flows through it?",
       "options": [
-        "Wireless charging only",
-        "Data transfer and power",
-        "Converting AC to DC",
-        "Amplifying audio"
+        "Capacitor",
+        "Resistor",
+        "Inductor",
+        "Diode"
       ],
-      "correct_index": 1,
+      "correct_index": 2,
       "points": 100,
       "image_url": null
     },
@@ -58,6 +106,138 @@
         "Light Energy Driver"
       ],
       "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which device protects circuits by breaking the connection if current becomes too high?",
+      "options": [
+        "Fuse",
+        "Capacitor",
+        "Transistor",
+        "Inductor"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What instrument is used to measure voltage, current, and resistance?",
+      "options": [
+        "Oscilloscope",
+        "Multimeter",
+        "Signal generator",
+        "Spectrum analyzer"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What law states that voltage equals current times resistance?",
+      "options": [
+        "Kirchhoff's Law",
+        "Ohm's Law",
+        "Faraday's Law",
+        "Coulomb's Law"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which electronic component converts alternating current (AC) to direct current (DC)?",
+      "options": [
+        "Rectifier",
+        "Transformer",
+        "Capacitor",
+        "Relay"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which device is used to visualize electrical signals as waveforms?",
+      "options": [
+        "Multimeter",
+        "Oscilloscope",
+        "Power supply",
+        "Signal amplifier"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which component temporarily stores electrical charge?",
+      "options": [
+        "Inductor",
+        "Capacitor",
+        "Transistor",
+        "Fuse"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which device converts electrical energy into light?",
+      "options": [
+        "LED",
+        "Transformer",
+        "Capacitor",
+        "Resistor"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which component is used to step up or step down AC voltage?",
+      "options": [
+        "Transformer",
+        "Transistor",
+        "Capacitor",
+        "Relay"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which component is commonly used to smooth voltage in power supplies?",
+      "options": [
+        "Capacitor",
+        "Resistor",
+        "Diode",
+        "Fuse"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What type of current flows in only one direction?",
+      "options": [
+        "Alternating Current",
+        "Direct Current",
+        "Pulsed Current",
+        "Reactive Current"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which law describes how the total resistance of resistors in series adds together?",
+      "options": [
+        "Ohm's Law",
+        "Kirchhoff's Voltage Law",
+        "Series Resistance Rule",
+        "Power Law"
+      ],
+      "correct_index": 2,
       "points": 100,
       "image_url": null
     }

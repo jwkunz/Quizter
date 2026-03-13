@@ -1,0 +1,245 @@
+{
+  "category": "Life Skills",
+  "questions": [
+    {
+      "prompt": "What fluid lubricates the internal components of an engine?",
+      "options": [
+        "Brake fluid",
+        "Engine oil",
+        "Transmission fluid",
+        "Coolant"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What component is responsible for igniting the air-fuel mixture in a gasoline engine?",
+      "options": [
+        "Fuel injector",
+        "Spark plug",
+        "Alternator",
+        "Radiator"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which fluid is used in the braking system to transfer force from the pedal to the brakes?",
+      "options": [
+        "Power steering fluid",
+        "Brake fluid",
+        "Coolant",
+        "Engine oil"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What does a car’s radiator primarily help regulate?",
+      "options": [
+        "Battery voltage",
+        "Engine temperature",
+        "Fuel pressure",
+        "Exhaust flow"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which component stores electrical energy used to start the vehicle?",
+      "options": [
+        "Alternator",
+        "Starter motor",
+        "Battery",
+        "Ignition coil"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What device generates electricity to recharge the battery while the engine is running?",
+      "options": [
+        "Starter",
+        "Alternator",
+        "Distributor",
+        "Radiator fan"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which part filters dust and debris from the air entering the engine?",
+      "options": [
+        "Fuel filter",
+        "Cabin filter",
+        "Air filter",
+        "Oil filter"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What maintenance task involves rotating tires from one position to another on the vehicle?",
+      "options": [
+        "Wheel alignment",
+        "Tire balancing",
+        "Tire rotation",
+        "Wheel calibration"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which component removes contaminants from engine oil?",
+      "options": [
+        "Oil filter",
+        "Fuel pump",
+        "Air intake",
+        "Catalytic converter"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What fluid helps keep an engine from overheating or freezing?",
+      "options": [
+        "Coolant",
+        "Brake fluid",
+        "Power steering fluid",
+        "Windshield washer fluid"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What part is used to crank the engine when starting the car?",
+      "options": [
+        "Starter motor",
+        "Alternator",
+        "Spark plug",
+        "Fuel injector"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which system uses pads and rotors to slow or stop the vehicle?",
+      "options": [
+        "Suspension system",
+        "Exhaust system",
+        "Brake system",
+        "Cooling system"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What component helps keep a car traveling straight and tires wearing evenly?",
+      "options": [
+        "Wheel alignment",
+        "Spark timing",
+        "Fuel mixture",
+        "Battery charge"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What maintenance item cleans the air entering the passenger cabin through the HVAC system?",
+      "options": [
+        "Oil filter",
+        "Fuel filter",
+        "Cabin air filter",
+        "Transmission filter"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which belt commonly drives components like the alternator and power steering pump?",
+      "options": [
+        "Timing belt",
+        "Serpentine belt",
+        "Fan belt",
+        "Cam belt"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What component reduces harmful emissions in a vehicle’s exhaust system?",
+      "options": [
+        "Catalytic converter",
+        "Radiator",
+        "Starter motor",
+        "Oil pump"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which fluid assists in making steering easier in vehicles with hydraulic steering systems?",
+      "options": [
+        "Brake fluid",
+        "Coolant",
+        "Power steering fluid",
+        "Transmission fluid"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What component delivers fuel from the tank to the engine?",
+      "options": [
+        "Fuel pump",
+        "Air intake",
+        "Radiator hose",
+        "Spark coil"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What device indicates when the engine oil pressure is too low?",
+      "options": [
+        "Oil pressure warning light",
+        "Fuel gauge",
+        "Temperature gauge",
+        "Speedometer"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What maintenance procedure ensures tires wear evenly and the vehicle tracks straight?",
+      "options": [
+        "Wheel alignment",
+        "Oil change",
+        "Coolant flush",
+        "Battery replacement"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}

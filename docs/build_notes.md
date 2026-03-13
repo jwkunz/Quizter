@@ -544,3 +544,20 @@
   - Additional local question-pack edits remain outside this milestone.
 - Next stage:
   - Optional build, question-pack updates, and additional admin/player polish.
+
+## v3.0.0 - 2026-03-12
+- Completed:
+  - Finalized the current Quizter gameplay/admin UX milestone set and included the latest question-bank asset updates.
+  - Updated the local build script to package the full `assets/` tree, including images, music, sfx, and question packs.
+  - Updated artifact verification to confirm the packaged archive contains the full asset bundle.
+  - Updated the GitHub release workflow to use `quizter-server-*` artifact names and include both macOS release targets.
+- Build artifacts:
+  - `quizter-server-local-v3.0.0.zip`
+- Test status:
+  - `cargo check` passes.
+  - `scripts/build_release.sh "$(cat VERSION)" local` passes.
+  - `scripts/verify_artifacts.sh "$(cat VERSION)" local` passes.
+- Known issues:
+  - None recorded for this release pass beyond normal platform-specific runtime validation in CI.
+- Next stage:
+  - Publish `v3.0.0` release artifacts and monitor workflow output.

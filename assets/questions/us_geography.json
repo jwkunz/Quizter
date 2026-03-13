@@ -1,0 +1,245 @@
+{
+  "category": "Geography",
+  "questions": [
+    {
+      "prompt": "What is the largest U.S. state by land area?",
+      "options": [
+        "Texas",
+        "California",
+        "Alaska",
+        "Montana"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the longest river in the United States?",
+      "options": [
+        "Mississippi River",
+        "Missouri River",
+        "Colorado River",
+        "Rio Grande"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state has the most people?",
+      "options": [
+        "Texas",
+        "Florida",
+        "California",
+        "New York"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the capital city of the United States?",
+      "options": [
+        "New York City",
+        "Washington, D.C.",
+        "Philadelphia",
+        "Boston"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state is known as the 'Sunshine State'?",
+      "options": [
+        "California",
+        "Arizona",
+        "Florida",
+        "Nevada"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What mountain range runs along the eastern United States?",
+      "options": [
+        "Rocky Mountains",
+        "Appalachian Mountains",
+        "Sierra Nevada",
+        "Cascade Range"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state borders the most other states?",
+      "options": [
+        "Missouri",
+        "Tennessee",
+        "Kentucky",
+        "Colorado"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which Great Lake is the largest by surface area?",
+      "options": [
+        "Lake Superior",
+        "Lake Michigan",
+        "Lake Erie",
+        "Lake Ontario"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the capital of California?",
+      "options": [
+        "Los Angeles",
+        "San Diego",
+        "Sacramento",
+        "San Francisco"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which desert covers much of southern California and Nevada?",
+      "options": [
+        "Sonoran Desert",
+        "Mojave Desert",
+        "Chihuahuan Desert",
+        "Great Basin Desert"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. national park is home to the famous geyser Old Faithful?",
+      "options": [
+        "Yosemite National Park",
+        "Grand Canyon National Park",
+        "Yellowstone National Park",
+        "Zion National Park"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What river forms much of the border between Texas and Mexico?",
+      "options": [
+        "Colorado River",
+        "Rio Grande",
+        "Mississippi River",
+        "Arkansas River"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state is made up entirely of islands?",
+      "options": [
+        "Hawaii",
+        "Rhode Island",
+        "Florida",
+        "Alaska"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What is the tallest mountain in the United States?",
+      "options": [
+        "Mount Rainier",
+        "Mount Whitney",
+        "Denali",
+        "Mount Elbert"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. city is known as the 'Windy City'?",
+      "options": [
+        "Chicago",
+        "Detroit",
+        "Milwaukee",
+        "Cleveland"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state is the smallest by land area?",
+      "options": [
+        "Delaware",
+        "Rhode Island",
+        "Connecticut",
+        "New Jersey"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "What large canyon carved by the Colorado River is located in Arizona?",
+      "options": [
+        "Black Canyon",
+        "Grand Canyon",
+        "Kings Canyon",
+        "Canyonlands"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which state is known as the 'Empire State'?",
+      "options": [
+        "New York",
+        "Pennsylvania",
+        "Massachusetts",
+        "Virginia"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which major U.S. river flows through St. Louis and New Orleans?",
+      "options": [
+        "Missouri River",
+        "Ohio River",
+        "Mississippi River",
+        "Columbia River"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which state capital sits near the center of Texas?",
+      "options": [
+        "Dallas",
+        "Houston",
+        "Austin",
+        "San Antonio"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    }
+  ]
+}

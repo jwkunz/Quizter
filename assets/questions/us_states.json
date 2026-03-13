@@ -2,43 +2,7 @@
   "category": "Geography",
   "questions": [
     {
-      "prompt": "Which U.S. state is known as the Sunshine State?",
-      "options": [
-        "California",
-        "Florida",
-        "Arizona",
-        "Hawaii"
-      ],
-      "correct_index": 1,
-      "points": 100,
-      "image_url": null
-    },
-    {
-      "prompt": "What is the capital of Texas?",
-      "options": [
-        "Dallas",
-        "Houston",
-        "Austin",
-        "San Antonio"
-      ],
-      "correct_index": 2,
-      "points": 100,
-      "image_url": null
-    },
-    {
-      "prompt": "Which state has the postal abbreviation 'CO'?",
-      "options": [
-        "Connecticut",
-        "Colorado",
-        "California",
-        "Columbia"
-      ],
-      "correct_index": 1,
-      "points": 100,
-      "image_url": null
-    },
-    {
-      "prompt": "Which U.S. state is the largest by area?",
+      "prompt": "Which U.S. state is the largest by land area?",
       "options": [
         "Texas",
         "California",
@@ -50,14 +14,230 @@
       "image_url": null
     },
     {
-      "prompt": "Which state is known as the Grand Canyon State?",
+      "prompt": "Which U.S. state is the most populous?",
       "options": [
-        "New Mexico",
+        "Texas",
+        "Florida",
+        "California",
+        "New York"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state is known as the 'Lone Star State'?",
+      "options": [
+        "Arizona",
+        "Texas",
+        "Oklahoma",
+        "New Mexico"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state is known as the 'Sunshine State'?",
+      "options": [
+        "California",
+        "Florida",
+        "Arizona",
+        "Nevada"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state is the smallest by land area?",
+      "options": [
+        "Delaware",
+        "Rhode Island",
+        "Connecticut",
+        "Vermont"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state has the capital city of Atlanta?",
+      "options": [
+        "Alabama",
+        "Georgia",
+        "South Carolina",
+        "Tennessee"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state is known for the Grand Canyon?",
+      "options": [
+        "Utah",
+        "Nevada",
+        "Arizona",
+        "Colorado"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state has the capital city of Denver?",
+      "options": [
+        "Colorado",
+        "Utah",
+        "Wyoming",
+        "Idaho"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state is famous for potatoes?",
+      "options": [
+        "Nebraska",
+        "Idaho",
+        "Montana",
+        "North Dakota"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state has the capital city of Phoenix?",
+      "options": [
+        "Arizona",
+        "Nevada",
+        "California",
+        "New Mexico"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state is known as the 'Empire State'?",
+      "options": [
+        "New Jersey",
+        "Pennsylvania",
+        "New York",
+        "Massachusetts"
+      ],
+      "correct_index": 2,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state has the capital city of Nashville?",
+      "options": [
+        "Kentucky",
+        "Tennessee",
+        "Arkansas",
+        "Missouri"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state is known as the 'Peach State'?",
+      "options": [
+        "Georgia",
+        "South Carolina",
+        "Alabama",
+        "Mississippi"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state has the capital city of Boston?",
+      "options": [
+        "Rhode Island",
+        "Massachusetts",
+        "Connecticut",
+        "New Hampshire"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state has the capital city of Honolulu?",
+      "options": [
+        "Hawaii",
+        "Alaska",
+        "California",
+        "Oregon"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state is known as the 'Silver State'?",
+      "options": [
         "Nevada",
         "Utah",
-        "Arizona"
+        "Arizona",
+        "Colorado"
       ],
-      "correct_index": 3,
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state has the capital city of Madison?",
+      "options": [
+        "Minnesota",
+        "Wisconsin",
+        "Iowa",
+        "Michigan"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state has the capital city of Sacramento?",
+      "options": [
+        "California",
+        "Nevada",
+        "Oregon",
+        "Washington"
+      ],
+      "correct_index": 0,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state has the capital city of Baton Rouge?",
+      "options": [
+        "Mississippi",
+        "Louisiana",
+        "Alabama",
+        "Arkansas"
+      ],
+      "correct_index": 1,
+      "points": 100,
+      "image_url": null
+    },
+    {
+      "prompt": "Which U.S. state has the capital city of Salt Lake City?",
+      "options": [
+        "Nevada",
+        "Utah",
+        "Colorado",
+        "Wyoming"
+      ],
+      "correct_index": 1,
       "points": 100,
       "image_url": null
     }

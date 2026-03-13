@@ -59,6 +59,18 @@ if "web/admin/admin.html" not in names:
 if not has_prefix("assets/questions/"):
     print("question banks missing from server zip")
     sys.exit(1)
+
+if not has_prefix("assets/images/"):
+    print("image assets missing from server zip")
+    sys.exit(1)
+
+if not has_prefix("assets/music/"):
+    print("music assets missing from server zip")
+    sys.exit(1)
+
+if not has_prefix("assets/sfx/"):
+    print("sfx assets missing from server zip")
+    sys.exit(1)
 PY
 
 echo "Artifacts verified for v${VERSION} target=${TARGET}"

@@ -52,7 +52,6 @@ PY
 
 rm -rf "$DIST_DIR"
 mkdir -p "$DIST_DIR" "$STAGE_DIR/server"
-mkdir -p "$STAGE_DIR/server/assets/images" "$STAGE_DIR/server/assets/questions"
 
 if [[ "$TARGET" == "local" ]]; then
   if [[ "$SKIP_SERVER_BUILD" != "1" ]]; then
@@ -87,8 +86,8 @@ fi
 mkdir -p "$STAGE_DIR/server/web/player" "$STAGE_DIR/server/web/admin"
 cp web/player/player.html "$STAGE_DIR/server/web/player/player.html"
 cp web/admin/admin.html "$STAGE_DIR/server/web/admin/admin.html"
-cp -R assets/images/. "$STAGE_DIR/server/assets/images/" 2>/dev/null || true
-cp -R assets/questions/. "$STAGE_DIR/server/assets/questions/" 2>/dev/null || true
+mkdir -p "$STAGE_DIR/server/assets"
+cp -R assets/. "$STAGE_DIR/server/assets/" 2>/dev/null || true
 
 zip_dir "$STAGE_DIR/server" "$DIST_DIR/quizter-server-${TARGET}-v${VERSION}.zip"
 
