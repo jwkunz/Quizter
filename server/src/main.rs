@@ -17,10 +17,11 @@ use std::{
     fs,
     net::{SocketAddr, UdpSocket},
     path::{Path as FsPath, PathBuf},
+    process::Command,
     sync::Arc,
     time::{Duration, Instant},
 };
-use tokio::sync::{mpsc, Mutex};
+use tokio::sync::{mpsc, oneshot, Mutex};
 use tower_http::services::ServeDir;
 use uuid::Uuid;
 
@@ -36,6 +37,7 @@ struct AppState {
     host_ip: Arc<String>,
     port: u16,
     runtime_root: Arc<PathBuf>,
+    shutdown_tx: Arc<Mutex<Option<oneshot::Sender<()>>>>,
 }
 
 #[derive(Debug, Clone, Serialize, Deserialize)]
@@ -388,6 +390,11 @@ struct SetBankSelectionRequest {
 }
 
 #[derive(Deserialize)]
+struct ShutdownRequest {
+    admin_id: String,
+}
+
+#[derive(Deserialize)]
 struct WsClientMessage {
     action: String,
     choice_index: Option<usize>,
@@ -428,6 +435,10 @@ struct ExportPackQuery {
 
 #[tokio::main]
 async fn main() {
+    if maybe_relaunch_in_terminal() {
+        return;
+    }
+
     tracing_subscriber::fmt().with_env_filter("info").init();
 
     let host = env::var("QUIZTER_HOST").unwrap_or_else(|_| "0.0.0.0".to_string());
@@ -448,6 +459,8 @@ async fn main() {
     let file_question_banks = load_file_question_banks(&runtime_root);
     let selected_bank_files = load_selected_bank_files(&data_dir);
 
+    let (shutdown_tx, shutdown_rx) = oneshot::channel::<()>();
+
     let state = AppState {
         game: Arc::new(Mutex::new(GameState::new(
             manual_questions,
@@ -460,6 +473,7 @@ async fn main() {
         host_ip: Arc::new(host_ip),
         port,
         runtime_root: Arc::new(runtime_root.clone()),
+        shutdown_tx: Arc::new(Mutex::new(Some(shutdown_tx))),
     };
 
     let assets_dir = runtime_root.join("assets");
@@ -480,6 +494,7 @@ async fn main() {
         .route("/api/admin/question_banks", get(get_question_banks))
         .route("/api/admin/question_banks/selection", post(set_question_bank_selection))
         .route("/api/admin/start", post(start_game))
+        .route("/api/admin/shutdown", post(shutdown_server))
         .route("/api/state/:client_id", get(get_state))
         .route("/ws/:client_id", get(ws_handler))
         .nest_service("/assets", ServeDir::new(assets_dir))
@@ -495,6 +510,9 @@ async fn main() {
     maybe_open_admin_browser(port);
 
     axum::serve(listener, app)
+        .with_graceful_shutdown(async move {
+            let _ = shutdown_rx.await;
+        })
         .await
         .expect("server execution failed");
 }
@@ -907,6 +925,32 @@ async fn start_game(
 
     start_next_round(state.clone()).await;
     (axum::http::StatusCode::OK, Json(json!({"ok": true})))
+}
+
+async fn shutdown_server(
+    State(state): State<AppState>,
+    Json(req): Json<ShutdownRequest>,
+) -> impl IntoResponse {
+    if !is_admin(&state, &req.admin_id).await {
+        return (
+            axum::http::StatusCode::UNAUTHORIZED,
+            Json(json!({"error": "admin_required"})),
+        );
+    }
+
+    let maybe_tx = state.shutdown_tx.lock().await.take();
+    if let Some(tx) = maybe_tx {
+        let _ = tx.send(());
+        (
+            axum::http::StatusCode::OK,
+            Json(json!({"ok": true, "status": "shutting_down"})),
+        )
+    } else {
+        (
+            axum::http::StatusCode::OK,
+            Json(json!({"ok": true, "status": "already_shutting_down"})),
+        )
+    }
 }
 
 async fn get_state(State(state): State<AppState>, AxPath(client_id): AxPath<String>) -> Json<Value> {
@@ -1787,6 +1831,106 @@ fn maybe_open_admin_browser(port: u16) {
     }
     let url = format!("http://127.0.0.1:{}/admin", port);
     let _ = webbrowser::open(&url);
+}
+
+fn maybe_relaunch_in_terminal() -> bool {
+    use std::io::IsTerminal;
+
+    if env::var("QUIZTER_SPAWN_TERMINAL")
+        .map(|v| v == "0" || v.eq_ignore_ascii_case("false"))
+        .unwrap_or(false)
+    {
+        return false;
+    }
+
+    if env::var("QUIZTER_TERMINAL_LAUNCHED")
+        .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
+        .unwrap_or(false)
+    {
+        return false;
+    }
+
+    if std::io::stdout().is_terminal() || std::io::stderr().is_terminal() {
+        return false;
+    }
+
+    let exe = match env::current_exe() {
+        Ok(path) => path,
+        Err(_) => return false,
+    };
+    let cwd = env::current_dir().ok();
+
+    if spawn_terminal_process(&exe, cwd.as_deref()) {
+        return true;
+    }
+
+    false
+}
+
+fn spawn_terminal_process(exe: &FsPath, cwd: Option<&FsPath>) -> bool {
+    #[cfg(target_os = "windows")]
+    {
+        let mut cmd = Command::new("cmd");
+        cmd.arg("/C")
+            .arg("start")
+            .arg("Quizter Server")
+            .arg(exe);
+        if let Some(dir) = cwd {
+            cmd.current_dir(dir);
+        }
+        cmd.env("QUIZTER_TERMINAL_LAUNCHED", "1");
+        return cmd.spawn().is_ok();
+    }
+
+    #[cfg(target_os = "macos")]
+    {
+        let escaped_exe = shell_escape(exe);
+        let escaped_cwd = cwd.map(shell_escape).unwrap_or_else(|| ".".to_string());
+        let script = format!(
+            "tell application \"Terminal\" to do script \"cd {} && QUIZTER_TERMINAL_LAUNCHED=1 {}\"",
+            escaped_cwd, escaped_exe
+        );
+        return Command::new("osascript").arg("-e").arg(script).spawn().is_ok();
+    }
+
+    #[cfg(all(unix, not(target_os = "macos")))]
+    {
+        let terminal_attempts: [(&str, &[&str]); 5] = [
+            ("x-terminal-emulator", &["-e"]),
+            ("gnome-terminal", &["--"]),
+            ("konsole", &["-e"]),
+            ("xfce4-terminal", &["--command"]),
+            ("xterm", &["-e"]),
+        ];
+
+        for (program, prefix) in terminal_attempts {
+            let mut cmd = Command::new(program);
+            if let Some(dir) = cwd {
+                cmd.current_dir(dir);
+            }
+            cmd.env("QUIZTER_TERMINAL_LAUNCHED", "1");
+            for part in prefix {
+                cmd.arg(part);
+            }
+            if program == "xfce4-terminal" {
+                let launch = format!("QUIZTER_TERMINAL_LAUNCHED=1 {}", shell_escape(exe));
+                cmd.arg(launch);
+            } else {
+                cmd.arg(exe);
+            }
+            if cmd.spawn().is_ok() {
+                return true;
+            }
+        }
+    }
+
+    false
+}
+
+#[cfg(any(target_os = "macos", all(unix, not(target_os = "macos"))))]
+fn shell_escape(path: &FsPath) -> String {
+    let text = path.to_string_lossy().replace('\'', "'\"'\"'");
+    format!("'{}'", text)
 }
 
 fn detect_lan_ip() -> Option<String> {

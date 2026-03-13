@@ -6,7 +6,7 @@ One person (the admin/host) runs the server on their computer. Everyone else joi
 
 ![Quizter Logo](assets/images/Quizter_logo.png)
 
-**Software Version:** `v3.0.0`
+**Software Version:** `v3.1.0`
 
 Copyright 2026 Numerius Engineering LLC.  
 Distributed under the terms of the MIT License  
@@ -49,8 +49,9 @@ No separate player or admin app download is needed.
 4. Run the server executable:
    - Windows: double-click `quizter-server.exe`
    - macOS/Linux: double-click `quizter-server` (or run from terminal)
-5. Your browser should open automatically to the admin page.
-6. In admin page:
+5. Quizter will try to launch in a visible terminal window so the server process is easy to see and stop.
+6. Your browser should open automatically to the admin page.
+7. In admin page:
    - open the **Lobby** tab to create/update room and login as admin
    - open the **Question Pool** tab to select question bank files
    - open the **Game Settings** tab to set match rules
@@ -59,8 +60,9 @@ No separate player or admin app download is needed.
    - in manual round mode, use **Issue Question** from **Game Monitor**
    - open the **Help** tab for setup instructions, question-pack guidance, and artwork
    - start game from the **Question Pool** tab
-7. Ask players to scan the **Player Join QR** shown at top of admin page.
-8. Players open on phones and join with room code + display name.
+   - when you are finished hosting, click **Exit and Close** at the top of the admin page
+8. Ask players to scan the **Player Join QR** shown at top of admin page.
+9. Players open on phones and join with room code + display name.
 
 ## Important Network Requirements
 
@@ -95,6 +97,7 @@ After opening admin page:
    - Turn **Enable Automatic Question Issue** on to have Quizter automatically issue the next question after the configured number of seconds.
 8. Click **Start Game**.
 9. Watch player join activity, issue questions manually or automatically, and monitor the live leaderboard.
+10. When the game session is over, click **Exit and Close** at the top of the admin page to shut down the server cleanly.
 
 Game settings:
 
@@ -215,6 +218,8 @@ Open admin page manually on host machine:
 
 Then use the QR code at the top of admin page to let players join.
 
+If Quizter could not relaunch itself into a separate terminal window on your platform, keep the original terminal window open while you host the game.
+
 ## Gameplay Notes
 
 - End-of-round result graphics flash full-screen for 2 seconds.
@@ -231,6 +236,12 @@ Then use the QR code at the top of admin page to let players join.
 - Confirm firewall permission for the server executable.
 - Confirm QR URL uses host LAN IP (not localhost).
 - Try refreshing player page.
+
+### Server keeps running after browser closes
+
+- Closing only the browser may leave the Quizter server running.
+- Use the **Exit and Close** button in the admin page when you are done hosting.
+- If needed, close the terminal window that launched Quizter or stop the `quizter-server` process manually.
 
 ### Admin page says missing files
 

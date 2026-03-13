@@ -59,6 +59,11 @@
       gap: 0.5rem;
       margin-bottom: 1rem;
     }
+    .top-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-bottom: 0.75rem;
+    }
     .tab-btn {
       padding: 0.7rem 0.95rem;
       border-radius: 999px;
@@ -75,6 +80,17 @@
     }
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
+    .danger-btn {
+      border-color: #ff6b6b;
+      color: #fff1f1;
+      background: linear-gradient(135deg, #2d0b0b, #150707);
+      box-shadow: 0 0 16px #ff6b6b33;
+      font-weight: bold;
+      padding: 0.8rem 1.1rem;
+    }
+    .danger-btn:hover {
+      box-shadow: 0 0 18px #ff6b6b55;
+    }
     input, textarea, button {
       background: #0e0e0e;
       color: var(--text);
@@ -349,6 +365,9 @@
 </head>
 <body>
   <div class="wrap">
+    <div class="top-actions">
+      <button id="shutdownBtn" class="danger-btn" disabled>Exit and Close</button>
+    </div>
     <div class="tab-bar" role="tablist" aria-label="Admin Console Tabs">
       <button class="tab-btn active" data-tab-target="welcomeTab">Welcome</button>
       <button class="tab-btn" data-tab-target="lobbyTab">Lobby</button>
@@ -365,7 +384,7 @@
           <div>
             <h1>Quizter Admin Console</h1>
             <div class="status">LAN quiz hosting for players, admins, and spectators in one browser-based package.</div>
-            <div class="version-badge">Software Version: v3.0.0</div>
+            <div class="version-badge">Software Version: v3.1.0</div>
           </div>
         </div>
         <div class="legal-box">Copyright 2026 Numerius Engineering LLC.
@@ -507,6 +526,7 @@ Contact numerius.engineering@gmail.com for support</div>
               <li>Open <strong>Question Pool</strong> to choose which packs are in play.</li>
               <li>Open <strong>Game Settings</strong> to configure the match rules.</li>
               <li>Start the game from <strong>Question Pool</strong>, then watch the countdown in <strong>Game Monitor</strong>. If automatic issue is disabled, use <strong>Issue Question</strong> there.</li>
+              <li>When you are completely finished hosting, click the large <strong>Exit and Close</strong> button at the top of the admin page to shut down the server cleanly.</li>
             </ol>
 
             <h3>Question Pack Setup</h3>
@@ -567,6 +587,7 @@ Contact numerius.engineering@gmail.com for support</div>
               <li>If players cannot connect, confirm everyone is on the same local network and the firewall allows the server executable.</li>
               <li>If the browser does not open automatically, manually visit <code>http://127.0.0.1:8080/admin</code> on the host machine.</li>
               <li>If new question packs do not appear, restart the server after adding them to <code>assets/questions/</code>.</li>
+              <li>Closing only the browser may leave the server running. Use <strong>Exit and Close</strong> so the engine shuts down cleanly.</li>
             </ul>
           </div>
         </div>
@@ -926,6 +947,7 @@ Contact numerius.engineering@gmail.com for support</div>
       const data = await res.json();
       adminId = data.admin_id;
       el("authStatus").textContent = "Admin logged in";
+      el("shutdownBtn").disabled = false;
       el("mainPanel").classList.remove("hidden");
       el("questionPoolLocked").classList.add("hidden");
       el("adminSplit").classList.remove("hidden");
@@ -982,6 +1004,26 @@ Contact numerius.engineering@gmail.com for support</div>
         feed("Copied player join URL.");
       } catch (_e) {
         feed("Could not copy URL; copy manually from the field.");
+      }
+    };
+    el("shutdownBtn").onclick = async () => {
+      if (!adminId) return;
+      const confirmed = window.confirm("Exit and close Quizter now? This will shut down the server for everyone.");
+      if (!confirmed) return;
+      try {
+        const res = await fetch(`${serverUrl}/api/admin/shutdown`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ admin_id: adminId })
+        });
+        if (!res.ok) {
+          feed("Shutdown request failed.");
+          return;
+        }
+        el("shutdownBtn").disabled = true;
+        document.body.innerHTML = "<div style='padding:2rem;font-family:Trebuchet MS, Verdana, sans-serif;background:#050505;color:#eef7ff;min-height:100vh;'><h1 style='color:#ff8f00;'>Quizter is shutting down</h1><p>You can close this browser window.</p></div>";
+      } catch (_e) {
+        feed("Shutdown request failed.");
       }
     };
     document.querySelectorAll(".tab-btn").forEach((btn) => {

@@ -561,3 +561,21 @@
   - None recorded for this release pass beyond normal platform-specific runtime validation in CI.
 - Next stage:
   - Publish `v3.0.0` release artifacts and monitor workflow output.
+
+## v3.1.0 - 2026-03-12
+- Completed:
+  - Added a large `Exit and Close` button at the top of the admin UI.
+  - Added an admin-authenticated shutdown endpoint so the server can be stopped cleanly from the browser.
+  - Updated Help and README text to warn that closing only the browser may leave the server running.
+  - Added best-effort terminal relaunch logic so desktop launches try to keep the server visible in a terminal window instead of disappearing into the background.
+  - Updated local packaging and verified the release archive after the shutdown/launch changes.
+- Build artifacts:
+  - `quizter-server-local-v3.1.0.zip`
+- Test status:
+  - `cargo check` passes.
+  - `scripts/build_release.sh v3.1.0 local` passes.
+  - `scripts/verify_artifacts.sh v3.1.0 local` passes.
+- Known issues:
+  - Terminal relaunch depends on platform terminal availability and falls back to normal in-place launch if a supported terminal app is not found.
+- Next stage:
+  - Monitor the `v3.1.0` GitHub Actions release build and confirm platform-specific shutdown behavior.
