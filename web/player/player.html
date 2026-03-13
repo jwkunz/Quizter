@@ -168,6 +168,33 @@
       justify-content: center;
       margin: 1rem 0 0.35rem;
     }
+    .countdown-widget {
+      text-align: center;
+      padding: 1rem;
+      border-radius: 16px;
+      border: 1px solid #2e4e54;
+      background: radial-gradient(circle at top, #0f1f23, #0b0b0d 68%);
+      box-shadow: inset 0 0 18px #00f6ff22;
+    }
+    .countdown-label {
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.78rem;
+    }
+    .countdown-value {
+      font-size: clamp(2.2rem, 7vw, 4.2rem);
+      line-height: 1;
+      margin: 0.35rem 0 0.45rem;
+      color: var(--neon-orange);
+      text-shadow: 0 0 14px #ff8f00aa;
+      font-weight: bold;
+    }
+    .countdown-subtext {
+      color: #d3eaf5;
+      min-height: 1.35rem;
+      line-height: 1.35;
+    }
     @media (max-width: 540px) {
       .powerups { grid-template-columns: 1fr; }
     }
@@ -283,6 +310,15 @@
       <div id="leaderboard"></div>
     </div>
 
+    <div class="panel hidden" id="roundCountdownPanel">
+      <h2>Round Countdown</h2>
+      <div class="countdown-widget">
+        <div class="countdown-label" id="roundCountdownLabel">Waiting</div>
+        <div class="countdown-value" id="roundCountdownValue">--</div>
+        <div class="countdown-subtext" id="roundCountdownSubtext">Join the game to begin.</div>
+      </div>
+    </div>
+
     <div class="panel hidden" id="gamePanel">
       <h2 id="questionTitle">Waiting for round...</h2>
       <div class="category-chip hidden" id="questionCategory"></div>
@@ -351,6 +387,8 @@
     let resultFlashTimer = null;
     let powerupFlashTimer = null;
     let impactAlertTimer = null;
+    let betweenRoundCountdownTimer = null;
+    let betweenRoundCountdownRemaining = null;
 
     const el = (id) => document.getElementById(id);
     const log = (msg) => {
@@ -373,6 +411,75 @@
       powerupFlashTimer = setTimeout(() => el("powerupFlash").classList.add("hidden"), 2000);
     }
 
+    function clearBetweenRoundCountdown() {
+      if (betweenRoundCountdownTimer) {
+        clearInterval(betweenRoundCountdownTimer);
+        betweenRoundCountdownTimer = null;
+      }
+      betweenRoundCountdownRemaining = null;
+    }
+
+    function renderRoundCountdown() {
+      const label = el("roundCountdownLabel");
+      const value = el("roundCountdownValue");
+      const subtext = el("roundCountdownSubtext");
+
+      if (!state) {
+        label.textContent = "Waiting";
+        value.textContent = "--";
+        subtext.textContent = "Join the game to begin.";
+        return;
+      }
+
+      if (state.status === "in_round" && state.current_question) {
+        label.textContent = "Time Remaining To Answer";
+        value.textContent = String(Number(state.current_question.seconds_left || 0));
+        subtext.textContent = `Round ${state.current_question.round_number}/${state.total_rounds || 0}`;
+        return;
+      }
+
+      if (state.status === "round_result") {
+        if (state.auto_issue_enabled) {
+          const remaining = betweenRoundCountdownRemaining ?? Number(state.auto_issue_delay_secs || 0);
+          label.textContent = "Time Until Next Question";
+          value.textContent = String(Math.max(0, remaining));
+          subtext.textContent = `Next question will begin automatically in ${Math.max(0, remaining)} second(s).`;
+        } else {
+          label.textContent = "Waiting";
+          value.textContent = "--";
+          subtext.textContent = "Waiting for Host to Issue Question";
+        }
+        return;
+      }
+
+      if (state.status === "ended") {
+        label.textContent = "Game Complete";
+        value.textContent = "Done";
+        subtext.textContent = "Thanks for playing Quizter.";
+        return;
+      }
+
+      label.textContent = "Waiting";
+      value.textContent = "--";
+      subtext.textContent = state.auto_issue_enabled
+        ? "Waiting for the next question to begin."
+        : "Waiting for Host to Issue Question";
+    }
+
+    function startBetweenRoundCountdown(seconds) {
+      clearBetweenRoundCountdown();
+      betweenRoundCountdownRemaining = Math.max(0, Number(seconds || 0));
+      renderRoundCountdown();
+      if (betweenRoundCountdownRemaining <= 0) return;
+      betweenRoundCountdownTimer = setInterval(() => {
+        betweenRoundCountdownRemaining = Math.max(0, (betweenRoundCountdownRemaining ?? 0) - 1);
+        renderRoundCountdown();
+        if (betweenRoundCountdownRemaining <= 0) {
+          clearBetweenRoundCountdown();
+        }
+      }, 1000);
+    }
+
     async function refreshServerUrl() {
       const manual = el("serverUrl")?.value?.trim();
       serverUrl = manual || window.location.origin || serverUrl;
@@ -382,6 +489,7 @@
     function setPanelsJoined(isJoined) {
       el("joinPanel").classList.toggle("hidden", isJoined);
       el("gamePanel").classList.toggle("hidden", !isJoined);
+      el("roundCountdownPanel").classList.toggle("hidden", !isJoined);
       el("powerupPanel").classList.toggle("hidden", !isJoined || !state?.powerups_enabled);
       el("leaderboardPanel").classList.toggle("hidden", !isJoined);
       el("eventsPanel").classList.toggle("hidden", !isJoined);
@@ -495,7 +603,11 @@
 
     function applyState(payload) {
       state = payload;
+      if (state.status !== "round_result") {
+        clearBetweenRoundCountdown();
+      }
       renderQuestion();
+      renderRoundCountdown();
       renderLeaderboard();
       renderPowerups();
     }
@@ -510,6 +622,10 @@
             applyState(msg.payload);
           } else if (msg.event === "timer_tick") {
             el("timer").textContent = msg.payload.seconds_left;
+            if (state?.current_question) {
+              state.current_question.seconds_left = Number(msg.payload.seconds_left || 0);
+            }
+            renderRoundCountdown();
           } else if (msg.event === "powerup_activated") {
             const p = msg.payload;
             mixedMode = p.powerup === "mix_master" ? true : mixedMode;
@@ -565,6 +681,12 @@
             flash.classList.remove("hidden");
             if (resultFlashTimer) clearTimeout(resultFlashTimer);
             resultFlashTimer = setTimeout(() => flash.classList.add("hidden"), myResult?.is_correct ? 2000 : 4000);
+            if (state?.auto_issue_enabled) {
+              startBetweenRoundCountdown(state.auto_issue_delay_secs || 0);
+            } else {
+              clearBetweenRoundCountdown();
+              renderRoundCountdown();
+            }
           }
         } catch (_e) {}
       };
@@ -612,6 +734,7 @@
       ws?.send(JSON.stringify({ action: "tutorial_seen", tutorial_seen: true }));
     };
     refreshServerUrl();
+    renderRoundCountdown();
   </script>
 </body>
 </html>

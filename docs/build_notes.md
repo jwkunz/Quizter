@@ -516,3 +516,18 @@
   - Additional local question-pack edits remain outside this milestone.
 - Next stage:
   - Optional build, question-pack updates, and additional admin/player polish.
+
+## v2.9.0 - 2026-03-12
+- Completed:
+  - Added a player-side round countdown widget below the leaderboard.
+  - During active rounds, the widget shows the time remaining to answer.
+  - During automatic round transitions, the widget shows `Time Until Next Question` with a live countdown.
+  - During manual round transitions, the widget shows `Waiting for Host to Issue Question`.
+- Build artifacts:
+  - Not run for this milestone.
+- Test status:
+  - `cargo check` passes.
+- Known issues:
+  - Additional local question-pack edits remain outside this milestone.
+- Next stage:
+  - Optional build, question-pack updates, and additional admin/player polish.
