@@ -712,6 +712,9 @@
     immediately after room creation.
   - Added a hosted room setting for whether blocked names should be cleared when
     a new game starts, defaulting to permanent blocks until manually unbanned.
+  - Expanded the hosted smoke flow to verify both blocked-name retention modes:
+    blocked by default across games, and optional automatic clearing when a new
+    game starts.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
@@ -738,6 +741,8 @@
   - `cargo test` passes after blocked-name retention setting support.
   - `scripts/smoke_hosted_flow.sh` passes after blocked-name retention setting
     support.
+  - `scripts/smoke_hosted_flow.sh` passes with explicit blocked-name retention
+    mode assertions.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.

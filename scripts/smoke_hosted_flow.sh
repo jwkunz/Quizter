@@ -285,6 +285,41 @@ end_result="$(post_json "/api/rooms/end_game" "{\"room_code\":\"${ROOM_CODE}\",\
 end_status="$(printf '%s' "${end_result}" | sed -n '1p')"
 expect_status "${end_status}" "200" "end game"
 
+echo "Enabling blocked-name clearing for the next game"
+settings_result="$(post_json "/api/rooms/settings" "{\"room_code\":\"${ROOM_CODE}\",\"owner_token\":\"${OWNER_TOKEN}\",\"clear_blocked_names_on_new_game\":true}")"
+settings_status="$(printf '%s' "${settings_result}" | sed -n '1p')"
+expect_status "${settings_status}" "200" "update blocked-name retention setting"
+
+echo "Blocking SmokePlayer again before the next game"
+reblocked_join_result="$(post_json "/api/join" "{\"room_code\":\"${ROOM_CODE}\",\"display_name\":\"SmokePlayer\"}")"
+reblocked_join_status="$(printf '%s' "${reblocked_join_result}" | sed -n '1p')"
+reblocked_join_body="$(printf '%s' "${reblocked_join_result}" | sed -n '2p')"
+expect_status "${reblocked_join_status}" "200" "rejoin smoke player before reblock"
+REBLOKED_PLAYER_ID="$(printf '%s' "${reblocked_join_body}" | json_get player_id)"
+kick_again_result="$(post_json "/api/rooms/kick" "{\"room_code\":\"${ROOM_CODE}\",\"owner_token\":\"${OWNER_TOKEN}\",\"player_id\":\"${REBLOKED_PLAYER_ID}\"}")"
+kick_again_status="$(printf '%s' "${kick_again_result}" | sed -n '1p')"
+expect_status "${kick_again_status}" "200" "kick player again"
+
+echo "Verifying the block still applies before the next game starts"
+blocked_again_join_result="$(post_json "/api/join" "{\"room_code\":\"${ROOM_CODE}\",\"display_name\":\"SmokePlayer\"}")"
+blocked_again_join_status="$(printf '%s' "${blocked_again_join_result}" | sed -n '1p')"
+blocked_again_join_body="$(printf '%s' "${blocked_again_join_result}" | sed -n '2p')"
+expect_status "${blocked_again_join_status}" "400" "blocked join before next game"
+if [[ "$(printf '%s' "${blocked_again_join_body}" | json_get error)" != "player_blocked" ]]; then
+  echo "FAIL: blocked join before next game did not return player_blocked"
+  exit 1
+fi
+
+echo "Starting a second hosted game to clear blocked names"
+second_start_result="$(post_json "/api/rooms/start" "{\"room_code\":\"${ROOM_CODE}\",\"owner_token\":\"${OWNER_TOKEN}\",\"total_rounds\":1}")"
+second_start_status="$(printf '%s' "${second_start_result}" | sed -n '1p')"
+expect_status "${second_start_status}" "200" "start second game"
+
+echo "Verifying SmokePlayer can rejoin after blocked names are cleared"
+post_clear_join_result="$(post_json "/api/join" "{\"room_code\":\"${ROOM_CODE}\",\"display_name\":\"SmokePlayer\"}")"
+post_clear_join_status="$(printf '%s' "${post_clear_join_result}" | sed -n '1p')"
+expect_status "${post_clear_join_status}" "200" "join after automatic blocked-name clearing"
+
 echo "Closing hosted room"
 close_result="$(post_json "/api/rooms/close" "{\"room_code\":\"${ROOM_CODE}\",\"owner_token\":\"${OWNER_TOKEN}\"}")"
 close_status="$(printf '%s' "${close_result}" | sed -n '1p')"
