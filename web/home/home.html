@@ -333,6 +333,7 @@
             <label><span><input id="speedBonusEnabled" type="checkbox" /> Speed bonus enabled</span></label>
             <label><span><input id="hideScoresUntilEnd" type="checkbox" /> Hide scores until end</span></label>
             <label><span><input id="powerupsEnabled" type="checkbox" /> Powerups enabled</span></label>
+            <label><span><input id="clearBlockedNamesOnNewGame" type="checkbox" /> Clear blocked names when a new game starts</span></label>
           </div>
           <div class="stack">
             <label>
@@ -509,6 +510,7 @@
       el("speedBonusEnabled").checked = Boolean(room.speed_bonus_enabled);
       el("hideScoresUntilEnd").checked = Boolean(room.hide_scores_until_end);
       el("powerupsEnabled").checked = Boolean(room.powerups_enabled);
+      el("clearBlockedNamesOnNewGame").checked = Boolean(room.clear_blocked_names_on_new_game);
       el("responseSeconds").value = Number(room.response_seconds || 15);
       el("autoIssueEnabled").checked = Boolean(room.auto_issue_enabled);
       el("autoIssueDelay").value = Number(room.auto_issue_delay_secs || 15);
@@ -676,6 +678,7 @@
           speed_bonus_enabled: el("speedBonusEnabled").checked,
           hide_scores_until_end: el("hideScoresUntilEnd").checked,
           powerups_enabled: el("powerupsEnabled").checked,
+          clear_blocked_names_on_new_game: el("clearBlockedNamesOnNewGame").checked,
           response_seconds: Number(el("responseSeconds").value || "15"),
           auto_issue_enabled: el("autoIssueEnabled").checked,
           auto_issue_delay_secs: Number(el("autoIssueDelay").value || "15")

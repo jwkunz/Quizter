@@ -710,6 +710,8 @@
   - Updated hosted room creation to return the full owner-room snapshot instead
     of a partial payload so the homepage has correct settings and launch state
     immediately after room creation.
+  - Added a hosted room setting for whether blocked names should be cleared when
+    a new game starts, defaulting to permanent blocks until manually unbanned.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
@@ -733,6 +735,9 @@
   - `cargo test` passes after the hosted room-create snapshot fix.
   - `scripts/smoke_hosted_flow.sh` passes after the hosted room-create snapshot
     fix.
+  - `cargo test` passes after blocked-name retention setting support.
+  - `scripts/smoke_hosted_flow.sh` passes after blocked-name retention setting
+    support.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.

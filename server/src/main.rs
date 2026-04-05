@@ -52,6 +52,7 @@ struct RoomState {
     room_title: String,
     owner_token: String,
     launched: bool,
+    clear_blocked_names_on_new_game: bool,
     blocked_names: HashSet<String>,
     last_activity_at: Instant,
     game: GameState,
@@ -439,6 +440,7 @@ fn room_from_template(
         room_title,
         owner_token,
         launched: false,
+        clear_blocked_names_on_new_game: false,
         blocked_names: HashSet::new(),
         last_activity_at: Instant::now(),
         game,
@@ -575,6 +577,7 @@ struct OwnerUpdateSettingsRequest {
     speed_bonus_enabled: Option<bool>,
     hide_scores_until_end: Option<bool>,
     powerups_enabled: Option<bool>,
+    clear_blocked_names_on_new_game: Option<bool>,
     response_seconds: Option<u64>,
     auto_issue_enabled: Option<bool>,
     auto_issue_delay_secs: Option<u64>,
@@ -660,6 +663,7 @@ async fn main() {
             room_title: "Quizter Legacy Room".to_string(),
             owner_token: "legacy-default-room".to_string(),
             launched: true,
+            clear_blocked_names_on_new_game: false,
             blocked_names: HashSet::new(),
             last_activity_at: Instant::now(),
             game: default_game,
@@ -964,6 +968,7 @@ async fn owner_room_payload(state: &AppState, room_code: &str) -> Option<Value> 
             "speed_bonus_enabled": room.game.speed_bonus_enabled,
             "hide_scores_until_end": room.game.hide_scores_until_end,
             "powerups_enabled": room.game.powerups_enabled,
+            "clear_blocked_names_on_new_game": room.clear_blocked_names_on_new_game,
             "response_seconds": room.game.response_seconds,
             "auto_issue_enabled": room.game.auto_issue_enabled,
             "auto_issue_delay_secs": room.game.auto_issue_delay_secs,
@@ -1277,6 +1282,9 @@ async fn update_owner_room_settings(
         if let Some(enabled) = req.powerups_enabled {
             game.powerups_enabled = enabled;
         }
+        if let Some(enabled) = req.clear_blocked_names_on_new_game {
+            room.clear_blocked_names_on_new_game = enabled;
+        }
         if let Some(seconds) = req.response_seconds {
             game.response_seconds = seconds.clamp(1, 300);
         }
@@ -1364,6 +1372,9 @@ async fn start_owner_game(
         game.completed_rounds = 0;
         game.status = GameStatus::Lobby;
         game.current_round = None;
+        if room.clear_blocked_names_on_new_game {
+            room.blocked_names.clear();
+        }
         for player in game.players.values_mut() {
             player.score = 0.0;
             player.last_score_delta = 0.0;
