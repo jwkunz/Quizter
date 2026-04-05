@@ -2875,7 +2875,7 @@ fn maybe_open_admin_browser(port: u16) {
     {
         return;
     }
-    let url = format!("http://127.0.0.1:{}/admin", port);
+    let url = format!("http://127.0.0.1:{}/", port);
     let _ = webbrowser::open(&url);
 }
 

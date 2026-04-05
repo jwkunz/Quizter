@@ -665,10 +665,15 @@
   - Centralized hosted room reset behavior in the landing page so stale,
     expired, resumed-invalid, and explicitly closed hosted rooms clear browser
     ownership state and monitoring UI consistently.
+  - Switched the default browser auto-open target from `/admin` to the hosted
+    homepage at `/`.
+  - Updated the README and legacy admin welcome text to describe the hosted
+    homepage flow as the default product entry point while preserving `/admin`
+    as a legacy console path.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
-  - `cargo check` passes after hosted stale-room cleanup polish.
+  - `cargo check` passes after hosted launch-surface transition updates.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.

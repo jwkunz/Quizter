@@ -1,8 +1,8 @@
 # Quizter
 
-Quizter is a local-network (LAN) multiplayer quiz game with power ups and customizable questions.  Great fun for groups large or small!
+Quizter is a browser-based multiplayer quiz game server.
 
-One person (the admin/host) runs the server on their computer. Everyone else joins from their phone or computer browser by scanning a QR code or opening a URL.
+One person runs the server, opens the Quizter homepage, creates a room, and lets players join from their phone or computer browser by room code or QR code.
 
 ![Quizter Logo](assets/images/Quizter_logo.png)
 
@@ -35,7 +35,8 @@ You only need **one zip file**:
 This server zip already includes:
 
 - the server executable
-- admin web page
+- hosted home page
+- legacy admin web page
 - player web page
 - images and question banks
 
@@ -50,54 +51,52 @@ No separate player or admin app download is needed.
    - Windows: double-click `quizter-server.exe`
    - macOS/Linux: double-click `quizter-server` (or run from terminal)
 5. Quizter will try to launch in a visible terminal window so the server process is easy to see and stop.
-6. Your browser should open automatically to the admin page.
-7. In admin page:
-   - open the **Lobby** tab to create/update room and login as admin
-   - open the **Question Pool** tab to select question bank files
-   - open the **Game Settings** tab to set match rules
-   - open the **Game Monitor** tab to watch the leaderboard and live feed
-   - use the large countdown widget in **Game Monitor** to track answer time and time before the next round
-   - in manual round mode, use **Issue Question** from **Game Monitor**
-   - open the **Help** tab for setup instructions, question-pack guidance, and artwork
-   - start game from the **Question Pool** tab
-   - when you are finished hosting, click **Exit and Close** at the top of the admin page
-8. Ask players to scan the **Player Join QR** shown at top of admin page.
-9. Players open on phones and join with room code + display name.
+6. Your browser should open automatically to the Quizter homepage.
+7. On the homepage:
+   - click **Create Room**
+   - enter a room title
+   - load and select question packs from the server
+   - choose rounds and settings
+   - start the game
+8. Ask players to scan the QR code or enter the 4-character room code.
+9. Players open on phones and join with room code plus display name.
+10. When you are finished, use **End Game** to stop the current game or **Close Room** to fully release the room.
 
-## Important Network Requirements
+## Local Hosting Notes
 
-For phones to join:
+If you are running Quizter from your own computer for a local gathering:
 
-- Host/admin computer and player devices must be on the **same Wi-Fi/LAN**.
+- Host computer and player devices must be on the same Wi-Fi/LAN.
 - If prompted by firewall, **allow** the server on private/local networks.
 - If browser does not auto-open, manually visit:
-  - `http://127.0.0.1:8080/admin` (on host computer)
+  - `http://127.0.0.1:8080/` (on host computer)
 
-## First-Time Admin Walkthrough
+The legacy admin console still exists at:
 
-After opening admin page:
+- `http://127.0.0.1:8080/admin`
 
-1. Leave default server URL unless you know you need a different one.
-2. Choose/confirm:
-   - room code
-   - admin passcode
-   - number of rounds
-   - game settings in the **Game Settings** panel
-3. Click **Create/Update Room**.
-4. Click **Admin Login**.
-5. Optional: choose question banks in **Question Pool Selection** on the **Question Pool** tab.
-   - Default is all bank files off.
-   - The server builds category groups dynamically from the pack files it finds.
-   - Expand categories to add or clear whole groups of files at once, or check individual packs.
-   - Changes take effect immediately from what is checked.
-   - Changes during a game apply from the next round onward.
-6. Place JSON pack files in `assets/questions/`, restart the server if needed, then check them in the filter.
-7. Choose how rounds should be issued:
-   - Leave **Enable Automatic Question Issue** off to use the manual **Issue Question** button in **Game Monitor**.
-   - Turn **Enable Automatic Question Issue** on to have Quizter automatically issue the next question after the configured number of seconds.
-8. Click **Start Game**.
-9. Watch player join activity, issue questions manually or automatically, and monitor the live leaderboard.
-10. When the game session is over, click **Exit and Close** at the top of the admin page to shut down the server cleanly.
+Use it only if you specifically want the older admin-login workflow.
+
+## First-Time Hosted Walkthrough
+
+After opening the homepage:
+
+1. Enter a room title.
+2. Click **Create Room**.
+3. Use **Resume Room** later from the same browser if you reload or come back.
+4. Load the available server-side question packs.
+5. Choose at least one pack and set the number of rounds.
+6. Configure game settings:
+   - response speed bonus
+   - hide scores until end of game
+   - powerups
+   - response time
+   - automatic issue
+   - automatic issue delay
+7. Click **Start Game**.
+8. Let players join by QR code or room code.
+9. Monitor connected players, leaderboard, and blocked names from the homepage.
+10. Use **End Game** to stop the current game but keep the room open, or **Close Room** to invalidate the room and remove players.
 
 Game settings:
 
@@ -122,7 +121,7 @@ Game settings:
 
 ## Player Experience
 
-Players open the hosted player page from QR/URL and can:
+Players open the player page from QR/URL and can:
 
 - join by room code + name
 - answer timed questions
@@ -143,12 +142,12 @@ Question bank JSON files live under:
 
 - `assets/questions/`
 
-File-bank behavior:
+Question-bank behavior:
 
 - File-bank list is read from `assets/questions/*.json`.
-- The admin filter groups pack files into a dynamic category tree based on the categories found in those JSON packs.
-- Bank file selection starts all-off every time the server boots.
-- Effective playable pool = selected file-bank questions.
+- The hosted room flow loads available pack files from `assets/questions/*.json`.
+- Each room chooses its own subset of pack files from the server library.
+- Effective playable pool = selected file-bank questions for that room.
 
 Question pack format:
 
@@ -212,11 +211,11 @@ Rules:
 
 ## If Browser Does Not Open Automatically
 
-Open admin page manually on host machine:
+Open the hosted homepage manually on the host machine:
 
-- `http://127.0.0.1:8080/admin`
+- `http://127.0.0.1:8080/`
 
-Then use the QR code at the top of admin page to let players join.
+Then create a room and use the generated QR code to let players join.
 
 If Quizter could not relaunch itself into a separate terminal window on your platform, keep the original terminal window open while you host the game.
 
@@ -230,7 +229,7 @@ If Quizter could not relaunch itself into a separate terminal window on your pla
 
 ## Troubleshooting
 
-### Players cannot connect
+### Players cannot connect during local hosting
 
 - Confirm host and players are on same network.
 - Confirm firewall permission for the server executable.
@@ -240,7 +239,7 @@ If Quizter could not relaunch itself into a separate terminal window on your pla
 ### Server keeps running after browser closes
 
 - Closing only the browser may leave the Quizter server running.
-- Use the **Exit and Close** button in the admin page when you are done hosting.
+- Stop the running server process when you are done hosting.
 - If needed, close the terminal window that launched Quizter or stop the `quizter-server` process manually.
 
 ### Admin page says missing files
@@ -256,6 +255,7 @@ Run with a different port:
 - `set QUIZTER_PORT=9090 && quizter-server.exe` (Windows cmd)
 
 Then open `http://127.0.0.1:9090/admin`.
+Or open `http://127.0.0.1:9090/` for the hosted homepage.
 
 ## For Developers
 
