@@ -33,6 +33,7 @@ const ROOM_CODE_ALPHABET: &[u8] = b"ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 #[derive(Clone)]
 struct AppState {
     rooms: Arc<Mutex<HashMap<String, RoomState>>>,
+    owner_index: Arc<Mutex<HashMap<String, String>>>,
     clients: Arc<Mutex<HashMap<String, ClientConnection>>>,
     data_dir: Arc<PathBuf>,
     player_join_url: Arc<String>,
@@ -45,6 +46,7 @@ struct AppState {
 #[derive(Debug)]
 struct RoomState {
     room_title: String,
+    owner_token: String,
     last_activity_at: Instant,
     game: GameState,
 }
@@ -360,7 +362,16 @@ fn generate_room_code(existing_codes: &HashSet<String>) -> Option<String> {
     None
 }
 
-fn room_from_template(template: &GameState, room_code: String, room_title: String) -> RoomState {
+fn new_owner_token() -> String {
+    Uuid::new_v4().to_string()
+}
+
+fn room_from_template(
+    template: &GameState,
+    room_code: String,
+    room_title: String,
+    owner_token: String,
+) -> RoomState {
     let mut game = template.clone();
     game.room_code = room_code;
     game.admin_passcode = DEFAULT_ADMIN_PASSCODE.to_string();
@@ -377,6 +388,7 @@ fn room_from_template(template: &GameState, room_code: String, room_title: Strin
 
     RoomState {
         room_title,
+        owner_token,
         last_activity_at: Instant::now(),
         game,
     }
@@ -397,6 +409,12 @@ struct CreateRoomRequest {
 #[derive(Deserialize)]
 struct CreateHostedRoomRequest {
     room_title: String,
+}
+
+#[derive(Deserialize)]
+struct ResumeRoomRequest {
+    room_code: String,
+    owner_token: String,
 }
 
 #[derive(Deserialize)]
@@ -525,13 +543,20 @@ async fn main() {
         DEFAULT_ROOM_CODE.to_string(),
         RoomState {
             room_title: "Quizter Legacy Room".to_string(),
+            owner_token: "legacy-default-room".to_string(),
             last_activity_at: Instant::now(),
             game: default_game,
         },
     );
+    let mut owner_index = HashMap::new();
+    owner_index.insert(
+        "legacy-default-room".to_string(),
+        DEFAULT_ROOM_CODE.to_string(),
+    );
 
     let state = AppState {
         rooms: Arc::new(Mutex::new(rooms)),
+        owner_index: Arc::new(Mutex::new(owner_index)),
         clients: Arc::new(Mutex::new(HashMap::new())),
         data_dir: Arc::new(data_dir),
         player_join_url: Arc::new(player_join_url),
@@ -550,6 +575,7 @@ async fn main() {
         .route("/api/server_info", get(server_info))
         .route("/api/qr.svg", get(qr_svg))
         .route("/api/rooms/create", post(create_hosted_room))
+        .route("/api/rooms/resume", post(resume_hosted_room))
         .route("/api/admin/create_room", post(create_room))
         .route("/api/admin/login", post(admin_login))
         .route("/api/join", post(join_room))
@@ -670,6 +696,10 @@ async fn room_code_for_join_request(state: &AppState, room_code: &str) -> Option
     with_room(state, room_code, |_| room_code.to_string()).await
 }
 
+async fn room_code_for_owner_token(state: &AppState, owner_token: &str) -> Option<String> {
+    state.owner_index.lock().await.get(owner_token).cloned()
+}
+
 async fn room_code_for_known_client(state: &AppState, client_id: &str) -> Option<String> {
     {
         let clients = state.clients.lock().await;
@@ -780,11 +810,22 @@ async fn create_hosted_room(
             .expect("default room missing")
             .game
             .clone();
-        let room = room_from_template(&template, room_code.clone(), room_title.to_string());
+        let owner_token = new_owner_token();
+        let room = room_from_template(
+            &template,
+            room_code.clone(),
+            room_title.to_string(),
+            owner_token.clone(),
+        );
         let available_questions = room.game.total_available_questions();
         rooms.insert(room_code.clone(), room);
-        (room_code, room_title.to_string(), available_questions)
+        (room_code, room_title.to_string(), available_questions, owner_token)
     };
+    state
+        .owner_index
+        .lock()
+        .await
+        .insert(room_info.3.clone(), room_info.0.clone());
 
     let player_url = format!("{}?room={}", state.player_join_url, room_info.0);
     (
@@ -793,9 +834,45 @@ async fn create_hosted_room(
             "room_code": room_info.0,
             "room_title": room_info.1,
             "available_questions": room_info.2,
+            "owner_token": room_info.3,
             "player_url": player_url
         })),
     )
+}
+
+async fn resume_hosted_room(
+    State(state): State<AppState>,
+    Json(req): Json<ResumeRoomRequest>,
+) -> impl IntoResponse {
+    let Some(owner_room_code) = room_code_for_owner_token(&state, &req.owner_token).await else {
+        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_owner_token"})));
+    };
+    if owner_room_code != req.room_code {
+        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_owner_token"})));
+    }
+
+    let Some(payload) = with_room_mut(&state, &owner_room_code, |room| {
+        if room.owner_token != req.owner_token {
+            return None;
+        }
+        room.last_activity_at = Instant::now();
+        Some(json!({
+            "room_code": room.game.room_code,
+            "room_title": room.room_title,
+            "status": room.game.status,
+            "available_questions": room.game.total_available_questions(),
+            "questions_in_play": room.game.questions.len(),
+            "player_url": format!("{}?room={}", state.player_join_url, room.game.room_code),
+        }))
+    })
+    .await else {
+        return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
+    };
+
+    match payload {
+        Some(payload) => (StatusCode::OK, Json(payload)),
+        None => (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_owner_token"}))),
+    }
 }
 
 async fn admin_login(

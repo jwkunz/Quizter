@@ -616,11 +616,15 @@
   - Moved manual question add/import and question-bank import APIs onto the
     admin's actual room so question-pool mutations no longer write only to the
     legacy default room.
+  - Added owner tokens and an owner-token index for hosted rooms.
+  - Updated hosted room creation to return an owner token and added
+    `POST /api/rooms/resume` so a hosted room can be resumed without relying on
+    the legacy admin passcode flow.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
-  - `cargo check` passes after room-scoping manual question and bank mutation
-    APIs.
+  - `cargo check` passes after adding owner-token room creation and resume
+    primitives.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.
