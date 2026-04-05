@@ -29,6 +29,8 @@ const DEFAULT_ADMIN_PASSCODE: &str = "quizter-admin";
 const DEFAULT_ROOM_CODE: &str = "QUIZTER";
 const ROOM_CODE_LENGTH: usize = 4;
 const ROOM_CODE_ALPHABET: &[u8] = b"ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+const ROOM_INACTIVITY_TIMEOUT_SECS: u64 = 30 * 60;
+const ROOM_CLEANUP_INTERVAL_SECS: u64 = 60;
 
 #[derive(Clone)]
 struct AppState {
@@ -597,7 +599,7 @@ async fn main() {
         .route("/api/state/:client_id", get(get_state))
         .route("/ws/:client_id", get(ws_handler))
         .nest_service("/assets", ServeDir::new(assets_dir))
-        .with_state(state);
+        .with_state(state.clone());
 
     tracing::info!("Quizter server listening on {}", addr);
     tracing::info!("Player join URL: http://{}:{}/player", detect_lan_ip().unwrap_or_else(|| "127.0.0.1".to_string()), port);
@@ -606,6 +608,7 @@ async fn main() {
         .await
         .expect("failed to bind listener");
 
+    spawn_room_cleanup_task(state.clone());
     maybe_open_admin_browser(port);
 
     axum::serve(listener, app)
@@ -705,6 +708,93 @@ async fn room_code_for_join_request(state: &AppState, room_code: &str) -> Option
 
 async fn room_code_for_owner_token(state: &AppState, owner_token: &str) -> Option<String> {
     state.owner_index.lock().await.get(owner_token).cloned()
+}
+
+async fn remove_room_and_clients(
+    state: &AppState,
+    room_code: &str,
+    owner_token: &str,
+    event_name: &str,
+) -> Option<String> {
+    if room_code == DEFAULT_ROOM_CODE {
+        return None;
+    }
+
+    let removed_room = {
+        let mut rooms = state.rooms.lock().await;
+        match rooms.get(room_code) {
+            Some(room) if room.owner_token == owner_token => {}
+            Some(_) => return None,
+            None => return None,
+        }
+        rooms.remove(room_code)
+    }?;
+
+    state.owner_index.lock().await.remove(owner_token);
+
+    let client_ids = {
+        let clients = state.clients.lock().await;
+        clients
+            .iter()
+            .filter_map(|(client_id, client)| {
+                if client.room_code == room_code {
+                    Some(client_id.clone())
+                } else {
+                    None
+                }
+            })
+            .collect::<Vec<_>>()
+    };
+
+    for client_id in &client_ids {
+        let _ = send_to_client(
+            state,
+            client_id,
+            json!({"event": event_name, "payload": {"room_code": room_code}}),
+        )
+        .await;
+    }
+
+    {
+        let mut clients = state.clients.lock().await;
+        for client_id in client_ids {
+            clients.remove(&client_id);
+        }
+    }
+
+    Some(removed_room.room_title)
+}
+
+fn spawn_room_cleanup_task(state: AppState) {
+    tokio::spawn(async move {
+        loop {
+            tokio::time::sleep(Duration::from_secs(ROOM_CLEANUP_INTERVAL_SECS)).await;
+
+            let expired_rooms = {
+                let rooms = state.rooms.lock().await;
+                let now = Instant::now();
+                rooms
+                    .iter()
+                    .filter_map(|(room_code, room)| {
+                        if room_code == DEFAULT_ROOM_CODE {
+                            return None;
+                        }
+                        if now.duration_since(room.last_activity_at).as_secs()
+                            >= ROOM_INACTIVITY_TIMEOUT_SECS
+                        {
+                            Some((room_code.clone(), room.owner_token.clone()))
+                        } else {
+                            None
+                        }
+                    })
+                    .collect::<Vec<_>>()
+            };
+
+            for (room_code, owner_token) in expired_rooms {
+                let _ = remove_room_and_clients(&state, &room_code, &owner_token, "room_expired").await;
+            }
+        }
+    });
 }
 
 async fn room_code_for_known_client(state: &AppState, client_id: &str) -> Option<String> {
@@ -897,62 +987,18 @@ async fn close_hosted_room(
         return (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_owner_token"})));
     }
 
-    let removed_room = {
-        let mut rooms = state.rooms.lock().await;
-        match rooms.get(&owner_room_code) {
-            Some(room) if room.owner_token == req.owner_token => {}
-            Some(_) => {
-                return (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_owner_token"})));
-            }
-            None => {
-                return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
-            }
-        }
-        rooms.remove(&owner_room_code)
-    };
-
-    let Some(room) = removed_room else {
+    let Some(room_title) =
+        remove_room_and_clients(&state, &owner_room_code, &req.owner_token, "room_closed").await
+    else {
         return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
     };
-
-    state.owner_index.lock().await.remove(&req.owner_token);
-
-    let client_ids = {
-        let clients = state.clients.lock().await;
-        clients
-            .iter()
-            .filter_map(|(client_id, client)| {
-                if client.room_code == owner_room_code {
-                    Some(client_id.clone())
-                } else {
-                    None
-                }
-            })
-            .collect::<Vec<_>>()
-    };
-
-    for client_id in &client_ids {
-        let _ = send_to_client(
-            &state,
-            client_id,
-            json!({"event": "room_closed", "payload": {"room_code": owner_room_code}}),
-        )
-        .await;
-    }
-
-    {
-        let mut clients = state.clients.lock().await;
-        for client_id in client_ids {
-            clients.remove(&client_id);
-        }
-    }
 
     (
         StatusCode::OK,
         Json(json!({
             "ok": true,
             "room_code": owner_room_code,
-            "room_title": room.room_title
+            "room_title": room_title
         })),
     )
 }

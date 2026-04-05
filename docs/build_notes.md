@@ -623,10 +623,16 @@
   - Added `POST /api/rooms/close` so a hosted room can be explicitly closed by
     owner token, with owner-index cleanup and room-scoped client disconnect
     cleanup.
+  - Added a background room cleanup task that expires non-legacy rooms after 30
+    minutes of inactivity using the tracked `last_activity_at` field.
+  - Unified explicit close and inactivity expiration through a shared room
+    removal helper that cleans room state, owner-token mappings, and
+    room-scoped clients.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
-  - `cargo check` passes after adding explicit hosted room closure.
+  - `cargo check` passes after adding inactivity expiration and shared room
+    cleanup logic.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.
