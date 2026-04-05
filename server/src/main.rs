@@ -1066,13 +1066,16 @@ async fn export_current_pack(
             "{\"error\":\"admin_required\"}".to_string(),
         );
     }
+    let Some(room_code) = room_code_for_known_client(&state, &query.admin_id).await else {
+        return (
+            StatusCode::UNAUTHORIZED,
+            [(header::CONTENT_TYPE, "application/json")],
+            "{\"error\":\"admin_required\"}".to_string(),
+        );
+    };
 
-    let payload = {
-        let rooms = state.rooms.lock().await;
-        let game = &rooms
-            .get(DEFAULT_ROOM_CODE)
-            .expect("default room missing")
-            .game;
+    let payload = with_room(&state, &room_code, |room| {
+        let game = &room.game;
         let categories: HashSet<String> = game.questions.iter().map(|q| q.category.clone()).collect();
         let category = if categories.len() == 1 {
             categories.into_iter().next()
@@ -1084,7 +1087,9 @@ async fn export_current_pack(
             questions: game.questions.clone(),
         };
         serde_json::to_string_pretty(&pack).unwrap_or_else(|_| "{\"questions\":[]}".to_string())
-    };
+    })
+    .await
+    .unwrap_or_else(|| "{\"questions\":[]}".to_string());
     (
         StatusCode::OK,
         [(header::CONTENT_TYPE, "application/json")],
@@ -1092,21 +1097,31 @@ async fn export_current_pack(
     )
 }
 
-async fn get_question_banks(State(state): State<AppState>) -> Json<Value> {
-    let rooms = state.rooms.lock().await;
-    let game = &rooms
-        .get(DEFAULT_ROOM_CODE)
-        .expect("default room missing")
-        .game;
-    let mut selected: Vec<String> = game.selected_bank_files.iter().cloned().collect();
-    selected.sort();
-    Json(json!({
-        "available_files": game.available_bank_files(),
-        "selected_files": selected,
-        "category_tree": game.question_bank_tree(),
-        "effective_question_count": game.questions.len(),
-        "available_question_count": game.total_available_questions(),
-    }))
+async fn get_question_banks(
+    State(state): State<AppState>,
+    Query(query): Query<ExportPackQuery>,
+) -> impl IntoResponse {
+    if !is_admin(&state, &query.admin_id).await {
+        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
+    }
+    let Some(room_code) = room_code_for_known_client(&state, &query.admin_id).await else {
+        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
+    };
+    let payload = with_room(&state, &room_code, |room| {
+        let game = &room.game;
+        let mut selected: Vec<String> = game.selected_bank_files.iter().cloned().collect();
+        selected.sort();
+        json!({
+            "available_files": game.available_bank_files(),
+            "selected_files": selected,
+            "category_tree": game.question_bank_tree(),
+            "effective_question_count": game.questions.len(),
+            "available_question_count": game.total_available_questions(),
+        })
+    })
+    .await
+    .unwrap_or_else(|| json!({"error": "invalid_room_code"}));
+    (StatusCode::OK, Json(payload))
 }
 
 async fn set_question_bank_selection(
@@ -1116,14 +1131,11 @@ async fn set_question_bank_selection(
     if !is_admin(&state, &req.admin_id).await {
         return (axum::http::StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
     }
+    let Some(room_code) = room_code_for_known_client(&state, &req.admin_id).await else {
+        return (axum::http::StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
+    };
 
-    let effective_count;
-    let available_count;
-    {
-        let mut rooms = state.rooms.lock().await;
-        let room = rooms
-            .get_mut(DEFAULT_ROOM_CODE)
-            .expect("default room missing");
+    let counts = with_room_mut(&state, &room_code, |room| {
         room.last_activity_at = Instant::now();
         let game = &mut room.game;
         let available: HashSet<String> = game.available_bank_files().into_iter().collect();
@@ -1136,11 +1148,15 @@ async fn set_question_bank_selection(
         save_selected_bank_files(&state.data_dir, &game.selected_bank_files);
         game.rebuild_effective_question_pool();
         game.reflow_future_rounds_after_pool_change();
-        effective_count = game.questions.len();
-        available_count = game.total_available_questions();
-    }
+        (game.questions.len(), game.total_available_questions())
+    })
+    .await;
 
-    broadcast_state(&state).await;
+    let Some((effective_count, available_count)) = counts else {
+        return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
+    };
+
+    broadcast_room_state(&state, &room_code).await;
     (
         axum::http::StatusCode::OK,
         Json(json!({

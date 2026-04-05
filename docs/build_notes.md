@@ -610,10 +610,14 @@
   - Updated `start_game` to resolve the admin's actual room membership so
     independently created rooms can run their own game loop instead of only the
     legacy default room being startable.
+  - Moved question-pack export, pack listing, and pack selection APIs onto the
+    admin's actual room so each created room can inspect and modify its own
+    effective content pool independently.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
-  - `cargo check` passes after room-scoping the game start path.
+  - `cargo check` passes after room-scoping question-bank inspection and
+    selection.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.
