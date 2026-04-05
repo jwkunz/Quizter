@@ -57,10 +57,11 @@ No separate player or admin app download is needed.
    - enter a room title
    - load and select question packs from the server
    - choose rounds and settings
-   - start the game
-8. Ask players to scan the QR code or enter the 4-character room code.
-9. Players open on phones and join with room code plus display name.
-10. When you are finished, use **End Game** to stop the current game or **Close Room** to fully release the room.
+   - click **Launch Room**
+   - ask players to scan the QR code or enter the 4-character room code
+   - click **Start Game** when players are ready
+8. Players open on phones and join with room code plus display name.
+9. When you are finished, use **End Game** to stop the current game or **Close Room** to fully release the room.
 
 ## Local Hosting Notes
 
@@ -93,10 +94,11 @@ After opening the homepage:
    - response time
    - automatic issue
    - automatic issue delay
-7. Click **Start Game**.
+7. Click **Launch Room** to make the player QR code and join link live.
 8. Let players join by QR code or room code.
-9. Monitor connected players, leaderboard, and blocked names from the homepage.
-10. Use **End Game** to stop the current game but keep the room open, or **Close Room** to invalidate the room and remove players.
+9. Click **Start Game** when the room is ready to begin.
+10. Monitor connected players, leaderboard, and blocked names from the homepage.
+11. Use **End Game** to stop the current game but keep the room open, or **Close Room** to invalidate the room and remove players.
 
 Game settings:
 

@@ -10,6 +10,7 @@ Use this checklist before tagging or sharing a release build.
 ## Functional Smoke Test
 - Start server: `cd server && cargo run --release`
 - Run hosted room smoke test: `scripts/smoke_hosted_flow.sh`
+- For hosted manual flow, confirm players cannot join before the host launches the room.
 - Open `/admin`, create room, login, add at least 2 questions manually.
 - Open `/player` from one or more browsers and join room.
 - Start game, answer questions, trigger power-ups, verify round results and leaderboard.

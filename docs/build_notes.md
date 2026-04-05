@@ -695,6 +695,8 @@
     owner launch step before player entry.
   - Polished the hosted homepage copy so setup, launch, and game-run steps read
     more like a guided flow instead of a flat dashboard.
+  - Updated the README and acceptance checklist to describe the new setup,
+    launch, then start sequence for hosted rooms.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
@@ -708,6 +710,7 @@
   - `cargo check` passes after hosted room-launch gating.
   - `scripts/smoke_hosted_flow.sh` passes after hosted room-launch gating.
   - `cargo check` passes after hosted setup-flow copy polish.
+  - `cargo check` passes after hosted launch-flow docs alignment.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.
