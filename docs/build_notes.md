@@ -681,11 +681,18 @@
   - Updated the hosted landing page so browser ownership state hides or shows
     the resume action and disables room creation proactively instead of only
     rejecting a duplicate create request after click.
+  - Added server-side validation for hosted room titles and player display names
+    so the public hosted APIs reject blank or oversized inputs consistently.
+  - Updated the hosted homepage and player page inputs to match those server
+    limits directly in the browser.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
   - `cargo check` passes after hosted owner-control validation polish.
   - `scripts/smoke_hosted_flow.sh` passes against a local localhost server run.
+  - `cargo check` passes after hosted input-validation hardening.
+  - `scripts/smoke_hosted_flow.sh` still passes after hosted input-validation
+    hardening.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.

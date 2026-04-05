@@ -29,6 +29,8 @@ const DEFAULT_ADMIN_PASSCODE: &str = "quizter-admin";
 const DEFAULT_ROOM_CODE: &str = "QUIZTER";
 const ROOM_CODE_LENGTH: usize = 4;
 const ROOM_CODE_ALPHABET: &[u8] = b"ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
+const ROOM_TITLE_MAX_CHARS: usize = 80;
+const PLAYER_NAME_MAX_CHARS: usize = 32;
 const ROOM_INACTIVITY_TIMEOUT_SECS: u64 = 30 * 60;
 const ROOM_CLEANUP_INTERVAL_SECS: u64 = 60;
 
@@ -367,6 +369,28 @@ fn generate_room_code(existing_codes: &HashSet<String>) -> Option<String> {
 
 fn new_owner_token() -> String {
     Uuid::new_v4().to_string()
+}
+
+fn normalize_room_title(raw: &str) -> Result<String, &'static str> {
+    let title = raw.trim();
+    if title.is_empty() {
+        return Err("room_title_required");
+    }
+    if title.chars().count() > ROOM_TITLE_MAX_CHARS {
+        return Err("room_title_too_long");
+    }
+    Ok(title.to_string())
+}
+
+fn normalize_player_name(raw: &str) -> Result<String, &'static str> {
+    let name = raw.trim();
+    if name.is_empty() {
+        return Err("display_name_required");
+    }
+    if name.chars().count() > PLAYER_NAME_MAX_CHARS {
+        return Err("display_name_too_long");
+    }
+    Ok(name.to_string())
 }
 
 fn room_from_template(
@@ -1007,13 +1031,10 @@ async fn create_hosted_room(
     State(state): State<AppState>,
     Json(req): Json<CreateHostedRoomRequest>,
 ) -> impl IntoResponse {
-    let room_title = req.room_title.trim();
-    if room_title.is_empty() {
-        return (
-            StatusCode::BAD_REQUEST,
-            Json(json!({"error": "room_title_required"})),
-        );
-    }
+    let room_title = match normalize_room_title(&req.room_title) {
+        Ok(title) => title,
+        Err(error) => return (StatusCode::BAD_REQUEST, Json(json!({"error": error}))),
+    };
 
     let room_info = {
         let mut rooms = state.rooms.lock().await;
@@ -1034,12 +1055,12 @@ async fn create_hosted_room(
         let room = room_from_template(
             &template,
             room_code.clone(),
-            room_title.to_string(),
+            room_title.clone(),
             owner_token.clone(),
         );
         let available_questions = room.game.total_available_questions();
         rooms.insert(room_code.clone(), room);
-        (room_code, room_title.to_string(), available_questions, owner_token)
+        (room_code, room_title, available_questions, owner_token)
     };
     state
         .owner_index
@@ -1448,6 +1469,15 @@ async fn admin_login(
 }
 
 async fn join_room(State(state): State<AppState>, Json(req): Json<JoinRequest>) -> impl IntoResponse {
+    let display_name = match normalize_player_name(&req.display_name) {
+        Ok(name) => name,
+        Err(error) => {
+            return (
+                axum::http::StatusCode::BAD_REQUEST,
+                Json(json!({"error": error})),
+            )
+        }
+    };
     let Some(room_code) = room_code_for_join_request(&state, &req.room_code).await else {
         return (
             axum::http::StatusCode::BAD_REQUEST,
@@ -1468,12 +1498,12 @@ async fn join_room(State(state): State<AppState>, Json(req): Json<JoinRequest>) 
             let existing = game
                 .players
                 .values_mut()
-                .find(|p| p.name.eq_ignore_ascii_case(req.display_name.trim()));
+                .find(|p| p.name.eq_ignore_ascii_case(&display_name));
 
             if room
                 .blocked_names
                 .iter()
-                .any(|name| name.eq_ignore_ascii_case(req.display_name.trim()))
+                .any(|name| name.eq_ignore_ascii_case(&display_name))
             {
                 return Err((
                     axum::http::StatusCode::BAD_REQUEST,
@@ -1490,7 +1520,7 @@ async fn join_room(State(state): State<AppState>, Json(req): Json<JoinRequest>) 
                     id.clone(),
                     PlayerState {
                         id: id.clone(),
-                        name: req.display_name.trim().to_string(),
+                        name: display_name.clone(),
                         score: 0.0,
                         last_score_delta: 0.0,
                         connected: true,

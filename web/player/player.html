@@ -272,7 +272,7 @@
       <div class="row">
         <input id="serverUrl" placeholder="Server URL" style="min-width:260px;" />
         <input id="roomCode" placeholder="Room Code" value="QUIZTER" />
-        <input id="displayName" placeholder="Display Name" />
+        <input id="displayName" placeholder="Display Name" maxlength="32" />
         <button id="joinBtn">Join Game</button>
       </div>
       <p class="status" id="joinStatus">Join with room code and your display name.</p>
@@ -744,7 +744,11 @@
         });
         const data = await res.json().catch(() => ({}));
         if (!res.ok) {
-          if (data?.error === "player_blocked") {
+          if (data?.error === "display_name_required") {
+            el("joinStatus").textContent = "Join failed: enter a display name.";
+          } else if (data?.error === "display_name_too_long") {
+            el("joinStatus").textContent = "Join failed: display name is too long.";
+          } else if (data?.error === "player_blocked") {
             el("joinStatus").textContent = "Join failed: this player name is blocked in the room.";
           } else if (data?.error === "invalid_room_code") {
             el("joinStatus").textContent = "Join failed: room code not found.";

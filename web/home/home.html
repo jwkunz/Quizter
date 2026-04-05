@@ -245,7 +245,7 @@
         <div class="stack">
           <label>
             Room Title
-            <input id="roomTitle" placeholder="Friday Trivia Night" />
+            <input id="roomTitle" placeholder="Friday Trivia Night" maxlength="80" />
           </label>
           <button id="createRoomBtn">Create Room</button>
           <div class="status" id="createStatus">Creates a hosted room and stores the owner token in this browser.</div>
@@ -825,7 +825,13 @@
       });
       const payload = await res.json();
       if (!res.ok) {
-        setStatus("createStatus", `Create failed: ${payload.error || res.status}`);
+        if (payload?.error === "room_title_required") {
+          setStatus("createStatus", "Create failed: enter a room title.");
+        } else if (payload?.error === "room_title_too_long") {
+          setStatus("createStatus", "Create failed: room title is too long.");
+        } else {
+          setStatus("createStatus", `Create failed: ${payload.error || res.status}`);
+        }
         return;
       }
       saveRoom({ room_code: payload.room_code, owner_token: payload.owner_token });
