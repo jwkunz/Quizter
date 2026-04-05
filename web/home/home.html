@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quizter</title>
+  <style>
+    :root {
+      --bg: #050505;
+      --panel: #111111;
+      --text: #eef7ff;
+      --muted: #9ab2c7;
+      --cyan: #00f6ff;
+      --gold: #ff8f00;
+      --pink: #ff2d95;
+      --line: #2b2b2b;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      color: var(--text);
+      font-family: "Trebuchet MS", Verdana, sans-serif;
+      background:
+        radial-gradient(circle at 12% 18%, #0b2a2d 0%, transparent 28%),
+        radial-gradient(circle at 85% 10%, #2a1500 0%, transparent 26%),
+        linear-gradient(180deg, #0a0a0a, var(--bg));
+      min-height: 100vh;
+      padding: 1rem;
+    }
+    .wrap {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+    .hero,
+    .panel {
+      background: rgba(17, 17, 17, 0.94);
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      padding: 1rem;
+      box-shadow: 0 0 24px #00f6ff14;
+      margin-bottom: 1rem;
+    }
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(280px, 380px) 1fr;
+      gap: 1rem;
+      align-items: center;
+    }
+    .logo {
+      width: min(360px, 70vw);
+      height: min(360px, 70vw);
+      object-fit: contain;
+      border-radius: 12px;
+      border: 1px solid #2c2c2c;
+      background: #090909;
+      padding: 0.25rem;
+      filter: drop-shadow(0 0 14px #00f6ff33);
+    }
+    h1 {
+      margin: 0 0 0.5rem;
+      color: var(--gold);
+    }
+    h2 {
+      margin: 0 0 0.75rem;
+      color: var(--cyan);
+    }
+    p, .status {
+      color: var(--muted);
+      line-height: 1.45;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 1rem;
+    }
+    .stack {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+    input, button {
+      border-radius: 10px;
+      border: 1px solid #333;
+      background: #0d0d0d;
+      color: var(--text);
+      padding: 0.7rem 0.8rem;
+      font-size: 0.95rem;
+    }
+    button {
+      cursor: pointer;
+      border-color: #00f6ff55;
+      box-shadow: 0 0 12px #00f6ff22;
+      font-weight: bold;
+    }
+    button.alt {
+      border-color: #ff8f0055;
+      box-shadow: 0 0 12px #ff8f0022;
+    }
+    button.warn {
+      border-color: #ff6b6b55;
+      box-shadow: 0 0 12px #ff6b6b22;
+    }
+    .room-card {
+      display: grid;
+      grid-template-columns: 1fr minmax(220px, 280px);
+      gap: 1rem;
+      align-items: start;
+    }
+    .room-code {
+      font-size: clamp(2rem, 8vw, 3.5rem);
+      line-height: 1;
+      letter-spacing: 0.08em;
+      color: var(--gold);
+      text-shadow: 0 0 14px #ff8f0066;
+      margin: 0.4rem 0;
+      font-weight: bold;
+    }
+    .mini {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+    .linkbox {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #0b0b0b;
+      padding: 0.8rem;
+      word-break: break-word;
+      color: #dffcff;
+      font-family: "Courier New", monospace;
+      font-size: 0.85rem;
+    }
+    .hidden { display: none; }
+    .qr {
+      width: min(280px, 100%);
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      background: #090909;
+      padding: 0.35rem;
+      justify-self: center;
+    }
+    .actions {
+      display: flex;
+      gap: 0.65rem;
+      flex-wrap: wrap;
+      margin-top: 0.75rem;
+    }
+    @media (max-width: 920px) {
+      .hero, .grid, .room-card {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div style="text-align:center;">
+        <img class="logo" src="/assets/images/Quizter_logo.png" alt="Quizter logo" />
+      </div>
+      <div>
+        <h1>Quizter Hosted</h1>
+        <p>Run a room from one shared public site. Create a room, resume your room on the same browser, or join with a room code.</p>
+        <p class="mini">This is the new hosted landing flow. The legacy admin and player pages still exist while the hosted UI is being built out.</p>
+      </div>
+    </section>
+
+    <section class="grid">
+      <div class="panel">
+        <h2>Create Room</h2>
+        <div class="stack">
+          <label>
+            Room Title
+            <input id="roomTitle" placeholder="Friday Trivia Night" />
+          </label>
+          <button id="createRoomBtn">Create Room</button>
+          <div class="status" id="createStatus">Creates a hosted room and stores the owner token in this browser.</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Resume Room</h2>
+        <div class="stack">
+          <button id="resumeRoomBtn" class="alt">Resume Saved Room</button>
+          <div class="status" id="resumeStatus">No saved hosted room yet.</div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>Join Room</h2>
+        <div class="stack">
+          <label>
+            Room Code
+            <input id="joinRoomCode" placeholder="AB12" maxlength="4" />
+          </label>
+          <button id="joinRoomBtn">Join As Player</button>
+          <div class="status" id="joinStatus">Redirects to the player page with the room code prefilled.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="roomPanel" class="panel hidden">
+      <h2>Hosted Room</h2>
+      <div class="room-card">
+        <div>
+          <div class="mini">Room Title</div>
+          <div id="activeRoomTitle" style="font-size:1.25rem; font-weight:bold;"></div>
+          <div class="mini" style="margin-top:0.75rem;">Room Code</div>
+          <div id="activeRoomCode" class="room-code"></div>
+          <div class="mini">Players can scan the QR code or open the player link.</div>
+          <div class="actions">
+            <button id="copyPlayerLinkBtn">Copy Player Link</button>
+            <button id="openPlayerBtn" class="alt">Open Player Page</button>
+            <button id="closeRoomBtn" class="warn">Close Room</button>
+          </div>
+          <div style="margin-top:0.85rem;">
+            <div class="mini">Player Link</div>
+            <div id="playerLinkBox" class="linkbox"></div>
+          </div>
+          <div class="status" id="roomStatus" style="margin-top:0.75rem;"></div>
+        </div>
+        <div style="text-align:center;">
+          <img id="joinQr" class="qr" alt="Join QR code" />
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const STORAGE_KEY = "quizter_hosted_owner_room";
+
+    function el(id) {
+      return document.getElementById(id);
+    }
+
+    function setStatus(id, text) {
+      el(id).textContent = text;
+    }
+
+    function loadSavedRoom() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        return raw ? JSON.parse(raw) : null;
+      } catch (_) {
+        return null;
+      }
+    }
+
+    function saveRoom(room) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(room));
+    }
+
+    function clearRoom() {
+      localStorage.removeItem(STORAGE_KEY);
+    }
+
+    function renderRoom(room) {
+      el("roomPanel").classList.remove("hidden");
+      el("activeRoomTitle").textContent = room.room_title || "";
+      el("activeRoomCode").textContent = room.room_code || "";
+      el("playerLinkBox").textContent = room.player_url || "";
+      el("joinQr").src = `/api/qr.svg?text=${encodeURIComponent(room.player_url || "")}`;
+      setStatus(
+        "roomStatus",
+        `Status: ${room.status || "room_ready"} | Questions available on server: ${room.available_questions ?? 0} | Questions currently in play: ${room.questions_in_play ?? 0}`
+      );
+    }
+
+    async function createRoom() {
+      const roomTitle = el("roomTitle").value.trim();
+      if (!roomTitle) {
+        setStatus("createStatus", "Enter a room title.");
+        return;
+      }
+      setStatus("createStatus", "Creating hosted room...");
+      const res = await fetch("/api/rooms/create", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ room_title: roomTitle })
+      });
+      const payload = await res.json();
+      if (!res.ok) {
+        setStatus("createStatus", `Create failed: ${payload.error || res.status}`);
+        return;
+      }
+      saveRoom({ room_code: payload.room_code, owner_token: payload.owner_token });
+      renderRoom(payload);
+      setStatus("createStatus", "Hosted room created and owner token saved in this browser.");
+      setStatus("resumeStatus", `Saved room ${payload.room_code} is available to resume.`);
+    }
+
+    async function resumeRoom() {
+      const saved = loadSavedRoom();
+      if (!saved?.room_code || !saved?.owner_token) {
+        setStatus("resumeStatus", "No saved hosted room found in this browser.");
+        return;
+      }
+      setStatus("resumeStatus", `Resuming room ${saved.room_code}...`);
+      const res = await fetch("/api/rooms/resume", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(saved)
+      });
+      const payload = await res.json();
+      if (!res.ok) {
+        clearRoom();
+        setStatus("resumeStatus", `Resume failed: ${payload.error || res.status}. Saved token was cleared.`);
+        el("roomPanel").classList.add("hidden");
+        return;
+      }
+      renderRoom(payload);
+      setStatus("resumeStatus", `Resumed room ${payload.room_code}.`);
+    }
+
+    async function closeRoom() {
+      const saved = loadSavedRoom();
+      if (!saved?.room_code || !saved?.owner_token) {
+        setStatus("roomStatus", "No saved hosted room to close.");
+        return;
+      }
+      const res = await fetch("/api/rooms/close", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(saved)
+      });
+      const payload = await res.json();
+      if (!res.ok) {
+        setStatus("roomStatus", `Close failed: ${payload.error || res.status}`);
+        return;
+      }
+      clearRoom();
+      el("roomPanel").classList.add("hidden");
+      setStatus("resumeStatus", `Closed room ${payload.room_code}.`);
+    }
+
+    async function copyPlayerLink() {
+      const text = el("playerLinkBox").textContent;
+      if (!text) {
+        return;
+      }
+      try {
+        await navigator.clipboard.writeText(text);
+        setStatus("roomStatus", "Player link copied.");
+      } catch (_) {
+        setStatus("roomStatus", "Copy failed in this browser.");
+      }
+    }
+
+    function joinRoom() {
+      const roomCode = el("joinRoomCode").value.trim().toUpperCase();
+      if (!roomCode) {
+        setStatus("joinStatus", "Enter a room code.");
+        return;
+      }
+      window.location.href = `/player?room=${encodeURIComponent(roomCode)}`;
+    }
+
+    function openPlayer() {
+      const text = el("playerLinkBox").textContent;
+      if (text) {
+        window.location.href = text;
+      }
+    }
+
+    el("createRoomBtn").onclick = createRoom;
+    el("resumeRoomBtn").onclick = resumeRoom;
+    el("joinRoomBtn").onclick = joinRoom;
+    el("copyPlayerLinkBtn").onclick = copyPlayerLink;
+    el("openPlayerBtn").onclick = openPlayer;
+    el("closeRoomBtn").onclick = closeRoom;
+
+    const saved = loadSavedRoom();
+    if (saved?.room_code) {
+      setStatus("resumeStatus", `Saved room ${saved.room_code} is ready to resume.`);
+    }
+  </script>
+</body>
+</html>

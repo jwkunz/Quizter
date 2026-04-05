@@ -380,6 +380,7 @@
     ];
 
     let ws;
+    const params = new URLSearchParams(window.location.search);
     let state = null;
     let serverUrl = window.location.origin || "http://localhost:8080";
     let playerId = null;
@@ -484,6 +485,10 @@
       const manual = el("serverUrl")?.value?.trim();
       serverUrl = manual || window.location.origin || serverUrl;
       el("serverUrl").value = serverUrl;
+      const roomFromQuery = params.get("room");
+      if (roomFromQuery) {
+        el("roomCode").value = roomFromQuery.toUpperCase();
+      }
     }
 
     function setPanelsJoined(isJoined) {

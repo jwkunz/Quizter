@@ -642,8 +642,8 @@ async fn main() {
         .expect("server execution failed");
 }
 
-async fn root() -> Json<Value> {
-    Json(json!({"service": "quizter-server", "version": env!("CARGO_PKG_VERSION")}))
+async fn root(State(state): State<AppState>) -> Html<String> {
+    Html(read_web_html(&state.runtime_root, "home"))
 }
 
 async fn player_page(State(state): State<AppState>) -> Html<String> {
