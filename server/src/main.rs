@@ -1092,9 +1092,13 @@ async fn create_hosted_room(
             .expect("default room missing")
             .game
             .clone();
+        let mut hosted_template = template;
+        hosted_template.manual_questions.clear();
+        hosted_template.file_question_banks = load_file_question_banks(&state.runtime_root);
+        hosted_template.selected_bank_files.clear();
         let owner_token = new_owner_token();
         let room = room_from_template(
-            &template,
+            &hosted_template,
             room_code.clone(),
             room_title.clone(),
             owner_token.clone(),

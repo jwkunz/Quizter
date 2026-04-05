@@ -715,6 +715,9 @@
   - Expanded the hosted smoke flow to verify both blocked-name retention modes:
     blocked by default across games, and optional automatic clearing when a new
     game starts.
+  - Updated hosted room creation so each new room snapshots the current
+    filesystem question-bank library at creation time instead of inheriting only
+    the server-start snapshot.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
@@ -743,6 +746,9 @@
     support.
   - `scripts/smoke_hosted_flow.sh` passes with explicit blocked-name retention
     mode assertions.
+  - `cargo test` passes after per-room question-bank snapshot refresh.
+  - `scripts/smoke_hosted_flow.sh` passes after per-room question-bank snapshot
+    refresh.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.
