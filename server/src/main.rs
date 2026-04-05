@@ -481,6 +481,12 @@ struct OwnerStartGameRequest {
 }
 
 #[derive(Deserialize)]
+struct OwnerEndGameRequest {
+    room_code: String,
+    owner_token: String,
+}
+
+#[derive(Deserialize)]
 struct SetBankSelectionRequest {
     admin_id: String,
     selected_files: Vec<String>,
@@ -605,9 +611,11 @@ async fn main() {
         .route("/api/rooms/create", post(create_hosted_room))
         .route("/api/rooms/resume", post(resume_hosted_room))
         .route("/api/rooms/close", post(close_hosted_room))
+        .route("/api/rooms/status", get(get_owner_room_status))
         .route("/api/rooms/question_banks", get(get_owner_question_banks))
         .route("/api/rooms/question_banks/selection", post(set_owner_question_bank_selection))
         .route("/api/rooms/start", post(start_owner_game))
+        .route("/api/rooms/end_game", post(end_owner_game))
         .route("/api/admin/create_room", post(create_room))
         .route("/api/admin/login", post(admin_login))
         .route("/api/join", post(join_room))
@@ -839,6 +847,23 @@ fn spawn_room_cleanup_task(state: AppState) {
     });
 }
 
+async fn owner_room_payload(state: &AppState, room_code: &str) -> Option<Value> {
+    with_room_mut(state, room_code, |room| {
+        room.last_activity_at = Instant::now();
+        json!({
+            "room_code": room.game.room_code,
+            "room_title": room.room_title,
+            "status": room.game.status,
+            "available_questions": room.game.total_available_questions(),
+            "questions_in_play": room.game.questions.len(),
+            "total_rounds": room.game.total_rounds,
+            "completed_rounds": room.game.completed_rounds,
+            "player_url": format!("{}?room={}", state.player_join_url, room.game.room_code),
+        })
+    })
+    .await
+}
+
 async fn room_code_for_known_client(state: &AppState, client_id: &str) -> Option<String> {
     {
         let clients = state.clients.lock().await;
@@ -990,28 +1015,17 @@ async fn resume_hosted_room(
         return (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_owner_token"})));
     }
 
-    let Some(payload) = with_room_mut(&state, &owner_room_code, |room| {
-        if room.owner_token != req.owner_token {
-            return None;
-        }
-        room.last_activity_at = Instant::now();
-        Some(json!({
-            "room_code": room.game.room_code,
-            "room_title": room.room_title,
-            "status": room.game.status,
-            "available_questions": room.game.total_available_questions(),
-            "questions_in_play": room.game.questions.len(),
-            "player_url": format!("{}?room={}", state.player_join_url, room.game.room_code),
-        }))
-    })
-    .await else {
+    let Some(valid_room_code) =
+        validate_owner_room_access(&state, &req.room_code, &req.owner_token).await
+    else {
+        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_owner_token"})));
+    };
+
+    let Some(payload) = owner_room_payload(&state, &valid_room_code).await else {
         return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
     };
 
-    match payload {
-        Some(payload) => (StatusCode::OK, Json(payload)),
-        None => (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_owner_token"}))),
-    }
+    (StatusCode::OK, Json(payload))
 }
 
 async fn close_hosted_room(
@@ -1043,6 +1057,21 @@ async fn close_hosted_room(
             "room_title": room_title
         })),
     )
+}
+
+async fn get_owner_room_status(
+    State(state): State<AppState>,
+    Query(query): Query<OwnerRoomQuery>,
+) -> impl IntoResponse {
+    let Some(room_code) =
+        validate_owner_room_access(&state, &query.room_code, &query.owner_token).await
+    else {
+        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_owner_token"})));
+    };
+    let Some(payload) = owner_room_payload(&state, &room_code).await else {
+        return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
+    };
+    (StatusCode::OK, Json(payload))
 }
 
 async fn get_owner_question_banks(
@@ -1162,6 +1191,42 @@ async fn start_owner_game(
 
     start_next_round_in_room(state.clone(), &room_code).await;
     (StatusCode::OK, Json(json!({"ok": true})))
+}
+
+async fn end_owner_game(
+    State(state): State<AppState>,
+    Json(req): Json<OwnerEndGameRequest>,
+) -> impl IntoResponse {
+    let Some(room_code) =
+        validate_owner_room_access(&state, &req.room_code, &req.owner_token).await
+    else {
+        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_owner_token"})));
+    };
+
+    let ended = with_room_mut(&state, &room_code, |room| {
+        room.last_activity_at = Instant::now();
+        let game = &mut room.game;
+        if game.status == GameStatus::Ended {
+            return false;
+        }
+        game.status = GameStatus::Ended;
+        game.current_round = None;
+        true
+    })
+    .await;
+
+    let Some(ended) = ended else {
+        return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
+    };
+
+    broadcast_room_state(&state, &room_code).await;
+    (
+        StatusCode::OK,
+        Json(json!({
+            "ok": true,
+            "ended": ended
+        })),
+    )
 }
 
 async fn admin_login(

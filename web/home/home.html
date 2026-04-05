@@ -251,6 +251,7 @@
           <div class="actions">
             <button id="copyPlayerLinkBtn">Copy Player Link</button>
             <button id="openPlayerBtn" class="alt">Open Player Page</button>
+            <button id="refreshRoomBtn" class="alt">Refresh Room</button>
             <button id="closeRoomBtn" class="warn">Close Room</button>
           </div>
           <div style="margin-top:0.85rem;">
@@ -284,6 +285,7 @@
               <input id="roundCount" type="number" min="1" max="200" value="10" />
             </label>
             <button id="startGameBtn">Start Game</button>
+            <button id="endGameBtn" class="warn">End Game</button>
             <div class="status" id="startStatus">Pick packs, set rounds, then start the room's game.</div>
           </div>
         </div>
@@ -377,6 +379,24 @@
       setStatus("bankStatus", "Question packs loaded.");
     }
 
+    async function refreshRoomStatus() {
+      const room = currentRoom();
+      if (!room?.room_code || !room?.owner_token) {
+        setStatus("roomStatus", "No saved room to refresh.");
+        return;
+      }
+      const url = new URL("/api/rooms/status", window.location.origin);
+      url.searchParams.set("room_code", room.room_code);
+      url.searchParams.set("owner_token", room.owner_token);
+      const res = await fetch(url);
+      const payload = await res.json();
+      if (!res.ok) {
+        setStatus("roomStatus", `Refresh failed: ${payload.error || res.status}`);
+        return;
+      }
+      renderRoom(payload);
+    }
+
     async function saveQuestionBanks() {
       const room = currentRoom();
       if (!room?.room_code || !room?.owner_token) {
@@ -428,7 +448,31 @@
         return;
       }
       setStatus("startStatus", `Game started for room ${room.room_code}. Players can now answer on the player page.`);
-      await resumeRoom();
+      await refreshRoomStatus();
+    }
+
+    async function endGame() {
+      const room = currentRoom();
+      if (!room?.room_code || !room?.owner_token) {
+        setStatus("startStatus", "No saved room to end.");
+        return;
+      }
+      setStatus("startStatus", "Ending game...");
+      const res = await fetch("/api/rooms/end_game", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          room_code: room.room_code,
+          owner_token: room.owner_token
+        })
+      });
+      const payload = await res.json();
+      if (!res.ok) {
+        setStatus("startStatus", `End game failed: ${payload.error || res.status}`);
+        return;
+      }
+      setStatus("startStatus", `Game ended for room ${room.room_code}.`);
+      await refreshRoomStatus();
     }
 
     function renderRoom(room) {
@@ -547,10 +591,12 @@
     el("joinRoomBtn").onclick = joinRoom;
     el("copyPlayerLinkBtn").onclick = copyPlayerLink;
     el("openPlayerBtn").onclick = openPlayer;
+    el("refreshRoomBtn").onclick = refreshRoomStatus;
     el("closeRoomBtn").onclick = closeRoom;
     el("refreshBanksBtn").onclick = loadQuestionBanks;
     el("saveBanksBtn").onclick = saveQuestionBanks;
     el("startGameBtn").onclick = startGame;
+    el("endGameBtn").onclick = endGame;
 
     const saved = loadSavedRoom();
     if (saved?.room_code) {

@@ -638,11 +638,13 @@
   - Extended the hosted landing page into an initial owner control surface that
     can load question packs, apply pack selection, choose rounds, and start a
     game through the owner-token room APIs.
+  - Added owner-token room status and end-game endpoints.
+  - Extended the hosted landing page so the host can refresh room state and end
+    a running game from the hosted control surface.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
-  - `cargo check` passes after adding hosted room pack and start controls to the
-    landing page.
+  - `cargo check` passes after adding hosted room status and end-game controls.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.
