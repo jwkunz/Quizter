@@ -268,6 +268,9 @@ For managed hosting or any public deployment behind a real domain, set:
 This makes Quizter generate the correct player join URLs and QR codes for the
 public hosted address instead of the detected LAN IP.
 
+See [docs/managed_hosting_checklist.md](/home/jwkunz/repos/Quizter/docs/managed_hosting_checklist.md)
+for the recommended hosted preflight and first-deploy smoke checks.
+
 ## For Developers
 
 Build and package locally:

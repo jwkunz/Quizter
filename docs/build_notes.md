@@ -729,6 +729,9 @@
   - Added `QUIZTER_PUBLIC_BASE_URL` support so hosted player links, QR codes,
     and server info can target a real public origin instead of always using the
     detected LAN IP.
+  - Added a managed-hosting checklist and updated the acceptance checklist so
+    release verification now reflects the hosted homepage flow instead of the
+    old admin-login path.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
@@ -764,9 +767,12 @@
   - `cargo test` passes after hosted wizard-state guidance polish.
   - `cargo test` passes after legacy admin-path de-emphasis.
   - `cargo test` passes after public-base-URL deployment support.
+- `cargo test` passes after hosted deployment checklist and acceptance-doc
+  alignment.
 - Known issues:
-  - Hosted architecture is still only partially implemented.
-  - Current routes and UI still operate through the legacy default room.
+  - Hosted deployment still relies on in-memory room state in a single running
+    server instance.
+  - `server/src/main.rs` still carries too much of the hosted lifecycle logic.
 - Next stage:
-  - Continue Phase 1 by introducing explicit room/game session types beyond the
-    legacy default room compatibility path.
+  - Continue hosted finish work with more UX polish, lifecycle coverage, and
+    server modularization.
