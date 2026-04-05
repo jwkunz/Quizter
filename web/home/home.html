@@ -185,6 +185,51 @@
       font-size: 0.9rem;
       line-height: 1.45;
     }
+    .wizard-progress {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.75rem;
+      margin: 1rem 0 0;
+    }
+    .step-card {
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 0.8rem;
+      background: #0b0b0b;
+    }
+    .step-label {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+    .step-value {
+      font-weight: bold;
+      color: var(--text);
+      margin-bottom: 0.35rem;
+    }
+    .step-state {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      border-radius: 999px;
+      padding: 0.2rem 0.55rem;
+      font-size: 0.78rem;
+      border: 1px solid #2b2b2b;
+      background: #101010;
+      color: var(--muted);
+    }
+    .step-state.ready {
+      color: #8effa3;
+      border-color: #285833;
+      background: #112016;
+    }
+    .step-state.pending {
+      color: #ffd88c;
+      border-color: #5a4520;
+      background: #1d1709;
+    }
     .monitor-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -300,6 +345,24 @@
         </div>
       </div>
 
+      <div class="wizard-progress">
+        <div class="step-card">
+          <div class="step-label">Step 1</div>
+          <div class="step-value">Choose Packs</div>
+          <div id="stepPacksState" class="step-state pending">Pending</div>
+        </div>
+        <div class="step-card">
+          <div class="step-label">Step 2</div>
+          <div class="step-value">Launch Room</div>
+          <div id="stepLaunchState" class="step-state pending">Pending</div>
+        </div>
+        <div class="step-card">
+          <div class="step-label">Step 3</div>
+          <div class="step-value">Run Game</div>
+          <div id="stepGameState" class="step-state pending">Waiting</div>
+        </div>
+      </div>
+
       <div class="control-grid">
         <div class="panel" style="margin:0;">
           <h2>Step 1: Question Packs</h2>
@@ -353,7 +416,7 @@
         </div>
       </div>
 
-      <div class="monitor-grid">
+      <div id="monitorGrid" class="monitor-grid hidden">
         <div class="panel" style="margin:0;">
           <h2>Players</h2>
           <div id="playerMonitor" class="monitor-list">
@@ -368,7 +431,7 @@
         </div>
       </div>
 
-      <div class="panel" style="margin-top:1rem;">
+      <div id="blockedPanel" class="panel hidden" style="margin-top:1rem;">
         <h2>Blocked Names</h2>
         <div id="blockedMonitor" class="monitor-list">
           <div class="mini">No blocked names.</div>
@@ -514,6 +577,33 @@
       el("responseSeconds").value = Number(room.response_seconds || 15);
       el("autoIssueEnabled").checked = Boolean(room.auto_issue_enabled);
       el("autoIssueDelay").value = Number(room.auto_issue_delay_secs || 15);
+    }
+
+    function setStepState(id, text, ready) {
+      const node = el(id);
+      node.textContent = text;
+      node.classList.toggle("ready", ready);
+      node.classList.toggle("pending", !ready);
+    }
+
+    function renderWizardState(room) {
+      const questionsInPlay = Number(room.questions_in_play || 0);
+      const launched = Boolean(room.launched);
+      const hasStarted = room.status === "in_round" || room.status === "round_result";
+      const hasEndedWithScore = room.status === "ended" && Number(room.completed_rounds || 0) > 0;
+
+      setStepState("stepPacksState", questionsInPlay > 0 ? `${questionsInPlay} ready` : "Pending", questionsInPlay > 0);
+      setStepState("stepLaunchState", launched ? "Live for joins" : "Pending", launched);
+      if (hasStarted) {
+        setStepState("stepGameState", "In progress", true);
+      } else if (hasEndedWithScore) {
+        setStepState("stepGameState", "Game complete", true);
+      } else {
+        setStepState("stepGameState", "Waiting", false);
+      }
+
+      el("monitorGrid").classList.toggle("hidden", !launched);
+      el("blockedPanel").classList.toggle("hidden", !launched);
     }
 
     function updateGameControls(room) {
@@ -850,6 +940,7 @@
       } else if (room.status === "ended") {
         setStatus("startStatus", "Game ended. Adjust packs or rounds, then start another game in this room.");
       }
+      renderWizardState(room);
       renderSettings(room);
       updateGameControls(room);
       renderPlayers(room);

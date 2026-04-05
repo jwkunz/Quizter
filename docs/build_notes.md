@@ -718,6 +718,9 @@
   - Updated hosted room creation so each new room snapshots the current
     filesystem question-bank library at creation time instead of inheriting only
     the server-start snapshot.
+  - Added visible step progress and smarter panel visibility to the hosted
+    homepage so the setup flow reads more clearly as choose packs, launch room,
+    then run game.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
@@ -749,6 +752,7 @@
   - `cargo test` passes after per-room question-bank snapshot refresh.
   - `scripts/smoke_hosted_flow.sh` passes after per-room question-bank snapshot
     refresh.
+  - `cargo test` passes after hosted wizard-progress UX polish.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.
