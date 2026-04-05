@@ -151,8 +151,42 @@
       flex-wrap: wrap;
       margin-top: 0.75rem;
     }
+    .control-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 1rem;
+      margin-top: 1rem;
+      align-items: start;
+    }
+    .bank-list {
+      max-height: 320px;
+      overflow: auto;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      background: #0b0b0b;
+      padding: 0.75rem;
+    }
+    .bank-item {
+      display: flex;
+      align-items: center;
+      gap: 0.55rem;
+      padding: 0.28rem 0;
+      border-bottom: 1px solid #1b1b1b;
+    }
+    .bank-item:last-child {
+      border-bottom: none;
+    }
+    .bank-meta {
+      color: var(--muted);
+      font-size: 0.82rem;
+    }
+    .statline {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.45;
+    }
     @media (max-width: 920px) {
-      .hero, .grid, .room-card {
+      .hero, .grid, .room-card, .control-grid {
         grid-template-columns: 1fr;
       }
     }
@@ -229,6 +263,31 @@
           <img id="joinQr" class="qr" alt="Join QR code" />
         </div>
       </div>
+
+      <div class="control-grid">
+        <div class="panel" style="margin:0;">
+          <h2>Question Packs</h2>
+          <div class="statline" id="packSummary">Load a room to inspect available packs.</div>
+          <div id="bankList" class="bank-list" style="margin-top:0.75rem;"></div>
+          <div class="actions">
+            <button id="refreshBanksBtn" class="alt">Refresh Packs</button>
+            <button id="saveBanksBtn">Apply Pack Selection</button>
+          </div>
+          <div class="status" id="bankStatus" style="margin-top:0.75rem;"></div>
+        </div>
+
+        <div class="panel" style="margin:0;">
+          <h2>Game Controls</h2>
+          <div class="stack">
+            <label>
+              Rounds
+              <input id="roundCount" type="number" min="1" max="200" value="10" />
+            </label>
+            <button id="startGameBtn">Start Game</button>
+            <div class="status" id="startStatus">Pick packs, set rounds, then start the room's game.</div>
+          </div>
+        </div>
+      </div>
     </section>
   </div>
 
@@ -258,6 +317,118 @@
 
     function clearRoom() {
       localStorage.removeItem(STORAGE_KEY);
+    }
+
+    function currentRoom() {
+      return loadSavedRoom();
+    }
+
+    function selectedPackFiles() {
+      return Array.from(document.querySelectorAll("[data-pack-file]:checked")).map((node) => node.getAttribute("data-pack-file"));
+    }
+
+    function renderBankList(payload) {
+      const wrap = el("bankList");
+      wrap.innerHTML = "";
+      const selected = new Set(payload.selected_files || []);
+      const available = payload.available_files || [];
+      if (!available.length) {
+        wrap.innerHTML = '<div class="mini">No question packs are currently available on the server.</div>';
+      } else {
+        available.forEach((file) => {
+          const line = document.createElement("label");
+          line.className = "bank-item";
+          line.innerHTML = `
+            <input type="checkbox" data-pack-file="${file}" ${selected.has(file) ? "checked" : ""} />
+            <span>
+              <span>${file}</span>
+              <span class="bank-meta">${selected.has(file) ? "selected" : "not selected"}</span>
+            </span>
+          `;
+          wrap.appendChild(line);
+        });
+      }
+      el("packSummary").textContent =
+        `Selected packs: ${(payload.selected_files || []).length} | Questions in play: ${payload.effective_question_count ?? 0} | Questions available on server: ${payload.available_question_count ?? 0}`;
+      const suggestedRounds = Math.max(1, Math.min(10, payload.effective_question_count || 1));
+      el("roundCount").max = Math.max(1, payload.effective_question_count || 1);
+      if (!(Number(el("roundCount").value) > 0)) {
+        el("roundCount").value = suggestedRounds;
+      }
+    }
+
+    async function loadQuestionBanks() {
+      const room = currentRoom();
+      if (!room?.room_code || !room?.owner_token) {
+        setStatus("bankStatus", "No saved room to inspect.");
+        return;
+      }
+      setStatus("bankStatus", "Loading question packs...");
+      const url = new URL("/api/rooms/question_banks", window.location.origin);
+      url.searchParams.set("room_code", room.room_code);
+      url.searchParams.set("owner_token", room.owner_token);
+      const res = await fetch(url);
+      const payload = await res.json();
+      if (!res.ok || payload.error) {
+        setStatus("bankStatus", `Load failed: ${payload.error || res.status}`);
+        return;
+      }
+      renderBankList(payload);
+      setStatus("bankStatus", "Question packs loaded.");
+    }
+
+    async function saveQuestionBanks() {
+      const room = currentRoom();
+      if (!room?.room_code || !room?.owner_token) {
+        setStatus("bankStatus", "No saved room to update.");
+        return;
+      }
+      setStatus("bankStatus", "Applying pack selection...");
+      const res = await fetch("/api/rooms/question_banks/selection", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          room_code: room.room_code,
+          owner_token: room.owner_token,
+          selected_files: selectedPackFiles()
+        })
+      });
+      const payload = await res.json();
+      if (!res.ok) {
+        setStatus("bankStatus", `Apply failed: ${payload.error || res.status}`);
+        return;
+      }
+      setStatus(
+        "bankStatus",
+        `Selection applied. Questions in play: ${payload.effective_question_count ?? 0}.`
+      );
+      await loadQuestionBanks();
+    }
+
+    async function startGame() {
+      const room = currentRoom();
+      if (!room?.room_code || !room?.owner_token) {
+        setStatus("startStatus", "No saved room to start.");
+        return;
+      }
+      const totalRounds = Math.max(1, Number(el("roundCount").value || "1"));
+      setStatus("startStatus", "Starting game...");
+      const res = await fetch("/api/rooms/start", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          room_code: room.room_code,
+          owner_token: room.owner_token,
+          total_rounds: totalRounds
+        })
+      });
+      const payload = await res.json();
+      if (!res.ok) {
+        setStatus("startStatus", `Start failed: ${payload.error || res.status}`);
+        return;
+      }
+      setStatus("startStatus", `Game started for room ${room.room_code}. Players can now answer on the player page.`);
+      await resumeRoom();
     }
 
     function renderRoom(room) {
@@ -291,6 +462,7 @@
       }
       saveRoom({ room_code: payload.room_code, owner_token: payload.owner_token });
       renderRoom(payload);
+      await loadQuestionBanks();
       setStatus("createStatus", "Hosted room created and owner token saved in this browser.");
       setStatus("resumeStatus", `Saved room ${payload.room_code} is available to resume.`);
     }
@@ -315,6 +487,7 @@
         return;
       }
       renderRoom(payload);
+      await loadQuestionBanks();
       setStatus("resumeStatus", `Resumed room ${payload.room_code}.`);
     }
 
@@ -336,6 +509,7 @@
       }
       clearRoom();
       el("roomPanel").classList.add("hidden");
+      el("bankList").innerHTML = "";
       setStatus("resumeStatus", `Closed room ${payload.room_code}.`);
     }
 
@@ -374,6 +548,9 @@
     el("copyPlayerLinkBtn").onclick = copyPlayerLink;
     el("openPlayerBtn").onclick = openPlayer;
     el("closeRoomBtn").onclick = closeRoom;
+    el("refreshBanksBtn").onclick = loadQuestionBanks;
+    el("saveBanksBtn").onclick = saveQuestionBanks;
+    el("startGameBtn").onclick = startGame;
 
     const saved = loadSavedRoom();
     if (saved?.room_code) {

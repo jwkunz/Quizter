@@ -635,10 +635,14 @@
     and `Join Room` flows backed by the owner-token room APIs.
   - Updated the player page to honor `?room=CODE` query parameters so hosted
     landing-page joins can prefill the room code automatically.
+  - Extended the hosted landing page into an initial owner control surface that
+    can load question packs, apply pack selection, choose rounds, and start a
+    game through the owner-token room APIs.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
-  - `cargo check` passes after serving the hosted landing page from `/`.
+  - `cargo check` passes after adding hosted room pack and start controls to the
+    landing page.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.
