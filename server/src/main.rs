@@ -593,6 +593,7 @@ struct HealthResponse {
 
 #[derive(Serialize)]
 struct ServerInfoResponse {
+    version: &'static str,
     host_ip: String,
     port: u16,
     home_url: String,
@@ -701,12 +702,14 @@ async fn health() -> Json<HealthResponse> {
 }
 
 async fn server_info(State(state): State<AppState>) -> Json<ServerInfoResponse> {
+    let version = env!("CARGO_PKG_VERSION");
     let home_url = state.public_base_url.as_ref().clone();
     let player_url = state.player_join_url.as_ref().clone();
     let host_ip = state.host_ip.as_ref().clone();
     let port = state.port;
 
     Json(ServerInfoResponse {
+        version,
         host_ip,
         port,
         home_url,
