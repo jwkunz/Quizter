@@ -693,6 +693,8 @@
     hide the player QR/link until the room is live.
   - Expanded the hosted smoke script to verify prelaunch join rejection and the
     owner launch step before player entry.
+  - Polished the hosted homepage copy so setup, launch, and game-run steps read
+    more like a guided flow instead of a flat dashboard.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
@@ -705,6 +707,7 @@
     assertions.
   - `cargo check` passes after hosted room-launch gating.
   - `scripts/smoke_hosted_flow.sh` passes after hosted room-launch gating.
+  - `cargo check` passes after hosted setup-flow copy polish.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.
