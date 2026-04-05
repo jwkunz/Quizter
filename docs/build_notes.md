@@ -594,10 +594,12 @@
   - Converted server broadcast and state snapshot plumbing to resolve room
     context from connected clients instead of relying only on one global app
     game handle.
+  - Added reusable room access helpers and explicit room-scoped broadcast
+    helpers to reduce direct default-room lock plumbing in server handlers.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
-  - `cargo check` passes after the initial room-registry scaffolding.
+  - `cargo check` passes after the room-helper and room-broadcast refactor.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.

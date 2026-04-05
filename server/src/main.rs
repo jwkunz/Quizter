@@ -594,6 +594,30 @@ async fn touch_default_room(state: &AppState) {
     touch_room(state, DEFAULT_ROOM_CODE).await;
 }
 
+async fn with_room_mut<T>(
+    state: &AppState,
+    room_code: &str,
+    f: impl FnOnce(&mut RoomState) -> T,
+) -> Option<T> {
+    let mut rooms = state.rooms.lock().await;
+    rooms.get_mut(room_code).map(f)
+}
+
+async fn with_room<T>(
+    state: &AppState,
+    room_code: &str,
+    f: impl FnOnce(&RoomState) -> T,
+) -> Option<T> {
+    let rooms = state.rooms.lock().await;
+    rooms.get(room_code).map(f)
+}
+
+async fn with_default_room_mut<T>(state: &AppState, f: impl FnOnce(&mut RoomState) -> T) -> T {
+    with_room_mut(state, DEFAULT_ROOM_CODE, f)
+        .await
+        .expect("default room missing")
+}
+
 async fn room_code_for_client(state: &AppState, client_id: &str) -> String {
     state
         .clients
@@ -608,56 +632,57 @@ async fn create_room(
     State(state): State<AppState>,
     Json(req): Json<CreateRoomRequest>,
 ) -> Json<Value> {
-    let mut rooms = state.rooms.lock().await;
-    let game = &mut rooms
-        .get_mut(DEFAULT_ROOM_CODE)
-        .expect("default room missing")
-        .game;
-    game.room_code = DEFAULT_ROOM_CODE.to_string();
-    if let Some(pass) = req.admin_passcode {
-        if !pass.trim().is_empty() {
-            game.admin_passcode = pass;
+    let payload = with_default_room_mut(&state, |room| {
+        let game = &mut room.game;
+        game.room_code = DEFAULT_ROOM_CODE.to_string();
+        if let Some(pass) = req.admin_passcode {
+            if !pass.trim().is_empty() {
+                game.admin_passcode = pass;
+            }
         }
-    }
-    if let Some(rounds) = req.total_rounds {
-        game.total_rounds = if game.questions.is_empty() {
-            0
-        } else {
-            rounds.max(1).min(game.questions.len())
-        };
-    }
-    if let Some(enabled) = req.speed_bonus_enabled {
-        game.speed_bonus_enabled = enabled;
-    }
-    if let Some(hidden) = req.hide_scores_until_end {
-        game.hide_scores_until_end = hidden;
-    }
-    if let Some(enabled) = req.powerups_enabled {
-        game.powerups_enabled = enabled;
-    }
-    if let Some(seconds) = req.response_seconds {
-        game.response_seconds = seconds.clamp(1, 300);
-    }
-    if let Some(enabled) = req.auto_issue_enabled {
-        game.auto_issue_enabled = enabled;
-    }
-    if let Some(delay) = req.auto_issue_delay_secs {
-        game.auto_issue_delay_secs = delay.clamp(1, 300);
-    }
+        if let Some(rounds) = req.total_rounds {
+            game.total_rounds = if game.questions.is_empty() {
+                0
+            } else {
+                rounds.max(1).min(game.questions.len())
+            };
+        }
+        if let Some(enabled) = req.speed_bonus_enabled {
+            game.speed_bonus_enabled = enabled;
+        }
+        if let Some(hidden) = req.hide_scores_until_end {
+            game.hide_scores_until_end = hidden;
+        }
+        if let Some(enabled) = req.powerups_enabled {
+            game.powerups_enabled = enabled;
+        }
+        if let Some(seconds) = req.response_seconds {
+            game.response_seconds = seconds.clamp(1, 300);
+        }
+        if let Some(enabled) = req.auto_issue_enabled {
+            game.auto_issue_enabled = enabled;
+        }
+        if let Some(delay) = req.auto_issue_delay_secs {
+            game.auto_issue_delay_secs = delay.clamp(1, 300);
+        }
 
-    Json(json!({
-        "room_code": game.room_code,
-        "total_rounds": game.total_rounds,
-        "questions_available": game.questions.len(),
-        "questions_in_play": game.questions.len(),
-        "available_questions": game.total_available_questions(),
-        "speed_bonus_enabled": game.speed_bonus_enabled,
-        "hide_scores_until_end": game.hide_scores_until_end,
-        "powerups_enabled": game.powerups_enabled,
-        "response_seconds": game.response_seconds,
-        "auto_issue_enabled": game.auto_issue_enabled,
-        "auto_issue_delay_secs": game.auto_issue_delay_secs
-    }))
+        json!({
+            "room_code": game.room_code,
+            "total_rounds": game.total_rounds,
+            "questions_available": game.questions.len(),
+            "questions_in_play": game.questions.len(),
+            "available_questions": game.total_available_questions(),
+            "speed_bonus_enabled": game.speed_bonus_enabled,
+            "hide_scores_until_end": game.hide_scores_until_end,
+            "powerups_enabled": game.powerups_enabled,
+            "response_seconds": game.response_seconds,
+            "auto_issue_enabled": game.auto_issue_enabled,
+            "auto_issue_delay_secs": game.auto_issue_delay_secs
+        })
+    })
+    .await;
+
+    Json(payload)
 }
 
 async fn admin_login(
@@ -665,17 +690,23 @@ async fn admin_login(
     Json(req): Json<AdminLoginRequest>,
 ) -> impl IntoResponse {
     let admin_id = {
-        let mut rooms = state.rooms.lock().await;
-        let game = &mut rooms
-            .get_mut(DEFAULT_ROOM_CODE)
-            .expect("default room missing")
-            .game;
-        if req.room_code != game.room_code || req.admin_passcode != game.admin_passcode {
-            return (axum::http::StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_credentials"})));
-        }
-        let admin_id = format!("admin-{}", Uuid::new_v4());
-        game.admin_id = Some(admin_id.clone());
-        admin_id
+        with_default_room_mut(&state, |room| {
+            let game = &mut room.game;
+            if req.room_code != game.room_code || req.admin_passcode != game.admin_passcode {
+                return Err((
+                    axum::http::StatusCode::UNAUTHORIZED,
+                    Json(json!({"error": "invalid_credentials"})),
+                ));
+            }
+            let admin_id = format!("admin-{}", Uuid::new_v4());
+            game.admin_id = Some(admin_id.clone());
+            Ok(admin_id)
+        })
+        .await
+    };
+    let admin_id = match admin_id {
+        Ok(admin_id) => admin_id,
+        Err(err) => return err,
     };
     broadcast_state(&state).await;
     (axum::http::StatusCode::OK, Json(json!({"admin_id": admin_id})))
@@ -683,41 +714,49 @@ async fn admin_login(
 
 async fn join_room(State(state): State<AppState>, Json(req): Json<JoinRequest>) -> impl IntoResponse {
     let player_id = {
-        let mut rooms = state.rooms.lock().await;
-        let room = rooms
-            .get_mut(DEFAULT_ROOM_CODE)
-            .expect("default room missing");
-        room.last_activity_at = Instant::now();
-        let game = &mut room.game;
-        if req.room_code != game.room_code {
-            return (axum::http::StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
-        }
+        with_default_room_mut(&state, |room| {
+            room.last_activity_at = Instant::now();
+            let game = &mut room.game;
+            if req.room_code != game.room_code {
+                return Err((
+                    axum::http::StatusCode::BAD_REQUEST,
+                    Json(json!({"error": "invalid_room_code"})),
+                ));
+            }
 
-        let existing = game
-            .players
-            .values_mut()
-            .find(|p| p.name.eq_ignore_ascii_case(req.display_name.trim()));
+            let existing = game
+                .players
+                .values_mut()
+                .find(|p| p.name.eq_ignore_ascii_case(req.display_name.trim()));
 
-        if let Some(player) = existing {
-            player.connected = true;
-            player.id.clone()
-        } else {
-            let id = format!("player-{}", Uuid::new_v4());
-            game.players.insert(
-                id.clone(),
-                PlayerState {
-                    id: id.clone(),
-                    name: req.display_name.trim().to_string(),
-                    score: 0.0,
-                    last_score_delta: 0.0,
-                    connected: true,
-                    used_powerups: HashSet::new(),
-                    pending_powerup: None,
-                    tutorial_seen: false,
-                },
-            );
-            id
-        }
+            let player_id = if let Some(player) = existing {
+                player.connected = true;
+                player.id.clone()
+            } else {
+                let id = format!("player-{}", Uuid::new_v4());
+                game.players.insert(
+                    id.clone(),
+                    PlayerState {
+                        id: id.clone(),
+                        name: req.display_name.trim().to_string(),
+                        score: 0.0,
+                        last_score_delta: 0.0,
+                        connected: true,
+                        used_powerups: HashSet::new(),
+                        pending_powerup: None,
+                        tutorial_seen: false,
+                    },
+                );
+                id
+            };
+
+            Ok(player_id)
+        })
+        .await
+    };
+    let player_id = match player_id {
+        Ok(player_id) => player_id,
+        Err(err) => return err,
     };
     broadcast_state(&state).await;
     (axum::http::StatusCode::OK, Json(json!({"player_id": player_id})))
@@ -1660,119 +1699,121 @@ async fn finalize_round(state: AppState) {
 
 async fn build_state_snapshot(state: &AppState, client_id: &str) -> Value {
     let room_code = room_code_for_client(state, client_id).await;
-    let rooms = state.rooms.lock().await;
-    let game = match rooms.get(&room_code) {
-        Some(room) => &room.game,
-        None => {
-            return json!({
-                "status": GameStatus::Ended,
-                "room_code": room_code,
-                "role": Role::Player
-            })
-        }
-    };
+    let snapshot = with_room(state, &room_code, |room| {
+        let game = &room.game;
     let mut visible_question = None;
 
-    if let Some(round) = &game.current_round {
-        let mut options: Vec<Value> = round
-            .option_order
-            .iter()
-            .filter_map(|idx| {
-                round
-                    .question
-                    .options
-                    .get(*idx)
-                    .map(|text| json!({"index": idx, "text": text}))
-            })
-            .collect();
+        if let Some(round) = &game.current_round {
+            let mut options: Vec<Value> = round
+                .option_order
+                .iter()
+                .filter_map(|idx| {
+                    round
+                        .question
+                        .options
+                        .get(*idx)
+                        .map(|text| json!({"index": idx, "text": text}))
+                })
+                .collect();
 
-        if let Some((correct, incorrect)) = round.super_spliter_targets.get(client_id) {
-            options.retain(|o| {
-                let idx = o.get("index").and_then(|v| v.as_u64()).unwrap_or(99) as usize;
-                idx == *correct || idx == *incorrect
-            });
+            if let Some((correct, incorrect)) = round.super_spliter_targets.get(client_id) {
+                options.retain(|o| {
+                    let idx = o.get("index").and_then(|v| v.as_u64()).unwrap_or(99) as usize;
+                    idx == *correct || idx == *incorrect
+                });
+            }
+
+            visible_question = Some(json!({
+                "id": round.question.id,
+                "category": round.question.category,
+                "prompt": round.question.prompt,
+                "image_url": round.question.image_url,
+                "points": round.question.points,
+                "options": options,
+                "round_number": round.round_number,
+                "total_rounds": game.total_rounds,
+                "seconds_left": round.deadline.saturating_duration_since(Instant::now()).as_secs(),
+                "speed_searcher_owner": round.speed_searcher_owner,
+                "mix_master_owner": round.mix_master_owner,
+            }));
         }
 
-        visible_question = Some(json!({
-            "id": round.question.id,
-            "category": round.question.category,
-            "prompt": round.question.prompt,
-            "image_url": round.question.image_url,
-            "points": round.question.points,
-            "options": options,
-            "round_number": round.round_number,
-            "total_rounds": game.total_rounds,
-            "seconds_left": round.deadline.saturating_duration_since(Instant::now()).as_secs(),
-            "speed_searcher_owner": round.speed_searcher_owner,
-            "mix_master_owner": round.mix_master_owner,
-        }));
-    }
-
-    let role = if game.admin_id.as_deref() == Some(client_id) {
-        Role::Admin
-    } else {
-        Role::Player
-    };
-    let scores_hidden = matches!(role, Role::Player) && game.hide_scores_until_end && game.status != GameStatus::Ended;
-
-    let your_state = game.players.get(client_id).map(|p| {
-        json!({
-            "id": p.id,
-            "name": p.name,
-            "score": (p.score * 100.0).round() / 100.0,
-            "used_powerups": p.used_powerups,
-            "pending_powerup": p.pending_powerup,
-            "tutorial_seen": p.tutorial_seen,
-        })
-    });
-
-    json!({
-        "status": game.status,
-        "room_code": game.room_code,
-        "role": role,
-        "total_rounds": game.total_rounds,
-        "completed_rounds": game.completed_rounds,
-        "speed_bonus_enabled": game.speed_bonus_enabled,
-        "hide_scores_until_end": game.hide_scores_until_end,
-        "powerups_enabled": game.powerups_enabled,
-        "response_seconds": game.response_seconds,
-        "auto_issue_enabled": game.auto_issue_enabled,
-        "auto_issue_delay_secs": game.auto_issue_delay_secs,
-        "scores_hidden": scores_hidden,
-        "questions_available": game.questions.len(),
-        "questions_in_play": game.questions.len(),
-        "available_questions": game.total_available_questions(),
-        "leaderboard": if scores_hidden {
-            game.leaderboard()
-                .into_iter()
-                .map(|entry| {
-                    json!({
-                        "player_id": entry.player_id,
-                        "name": entry.name,
-                        "score": 0.0,
-                        "last_delta": 0.0
-                    })
-                })
-                .collect::<Vec<_>>()
+        let role = if game.admin_id.as_deref() == Some(client_id) {
+            Role::Admin
         } else {
-            game.leaderboard()
-                .into_iter()
-                .map(|entry| serde_json::to_value(entry).unwrap_or_else(|_| json!({})))
-                .collect::<Vec<_>>()
-        },
-        "current_question": visible_question,
-        "you": your_state,
+            Role::Player
+        };
+        let scores_hidden =
+            matches!(role, Role::Player) && game.hide_scores_until_end && game.status != GameStatus::Ended;
+
+        let your_state = game.players.get(client_id).map(|p| {
+            json!({
+                "id": p.id,
+                "name": p.name,
+                "score": (p.score * 100.0).round() / 100.0,
+                "used_powerups": p.used_powerups,
+                "pending_powerup": p.pending_powerup,
+                "tutorial_seen": p.tutorial_seen,
+            })
+        });
+
+        json!({
+            "status": game.status,
+            "room_code": game.room_code,
+            "role": role,
+            "total_rounds": game.total_rounds,
+            "completed_rounds": game.completed_rounds,
+            "speed_bonus_enabled": game.speed_bonus_enabled,
+            "hide_scores_until_end": game.hide_scores_until_end,
+            "powerups_enabled": game.powerups_enabled,
+            "response_seconds": game.response_seconds,
+            "auto_issue_enabled": game.auto_issue_enabled,
+            "auto_issue_delay_secs": game.auto_issue_delay_secs,
+            "scores_hidden": scores_hidden,
+            "questions_available": game.questions.len(),
+            "questions_in_play": game.questions.len(),
+            "available_questions": game.total_available_questions(),
+            "leaderboard": if scores_hidden {
+                game.leaderboard()
+                    .into_iter()
+                    .map(|entry| {
+                        json!({
+                            "player_id": entry.player_id,
+                            "name": entry.name,
+                            "score": 0.0,
+                            "last_delta": 0.0
+                        })
+                    })
+                    .collect::<Vec<_>>()
+            } else {
+                game.leaderboard()
+                    .into_iter()
+                    .map(|entry| serde_json::to_value(entry).unwrap_or_else(|_| json!({})))
+                    .collect::<Vec<_>>()
+            },
+            "current_question": visible_question,
+            "you": your_state,
+        })
+    })
+    .await;
+
+    snapshot.unwrap_or_else(|| {
+        json!({
+            "status": GameStatus::Ended,
+            "room_code": room_code,
+            "role": Role::Player
+        })
     })
 }
 
-async fn broadcast_state(state: &AppState) {
+async fn broadcast_room_state(state: &AppState, room_code: &str) {
     let client_ids = state
         .clients
         .lock()
         .await
         .iter()
         .filter_map(|(id, client)| {
-            if client.room_code == DEFAULT_ROOM_CODE {
+            if client.room_code == room_code {
                 Some(id.clone())
             } else {
                 None
@@ -1785,6 +1826,10 @@ async fn broadcast_state(state: &AppState) {
     }
 }
 
+async fn broadcast_state(state: &AppState) {
+    broadcast_room_state(state, DEFAULT_ROOM_CODE).await;
+}
+
 async fn send_to_client(state: &AppState, client_id: &str, payload: Value) -> bool {
     let msg = Message::Text(payload.to_string());
     let clients = state.clients.lock().await;
@@ -1795,14 +1840,14 @@ async fn send_to_client(state: &AppState, client_id: &str, payload: Value) -> bo
     }
 }
 
-async fn broadcast_json(state: &AppState, payload: Value) {
+async fn broadcast_room_json(state: &AppState, room_code: &str, payload: Value) {
     let client_ids = state
         .clients
         .lock()
         .await
         .iter()
         .filter_map(|(id, client)| {
-            if client.room_code == DEFAULT_ROOM_CODE {
+            if client.room_code == room_code {
                 Some(id.clone())
             } else {
                 None
@@ -1812,6 +1857,10 @@ async fn broadcast_json(state: &AppState, payload: Value) {
     for id in client_ids {
         let _ = send_to_client(state, &id, payload.clone()).await;
     }
+}
+
+async fn broadcast_json(state: &AppState, payload: Value) {
+    broadcast_room_json(state, DEFAULT_ROOM_CODE, payload).await;
 }
 
 async fn is_admin(state: &AppState, client_id: &str) -> bool {
