@@ -747,6 +747,9 @@
   - Cleaned the remaining user-facing legacy-console guidance so the admin page
     now points people back to `/` as the normal host entry point even when they
     intentionally visit `/admin`.
+  - Consolidated duplicated start-game and end-game reset logic into shared
+    server helpers so hosted-owner and legacy-admin flows now use the same
+    game-lifecycle reset path.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
@@ -790,6 +793,7 @@
 - `scripts/smoke_hosted_flow.sh` passes with `QUIZTER_PUBLIC_BASE_URL` set to a
   public-origin test value.
 - `cargo test` passes after the final legacy-console copy cleanup.
+- `cargo test` passes with shared game-lifecycle helper coverage.
 - Known issues:
   - Hosted deployment still relies on in-memory room state in a single running
     server instance.

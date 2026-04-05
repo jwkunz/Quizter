@@ -355,6 +355,39 @@ impl GameState {
     }
 }
 
+fn reset_players_for_new_game(game: &mut GameState) {
+    for player in game.players.values_mut() {
+        player.score = 0.0;
+        player.last_score_delta = 0.0;
+        player.used_powerups.clear();
+        player.pending_powerup = None;
+    }
+}
+
+fn prepare_game_for_start(game: &mut GameState, total_rounds: usize) -> Result<(), &'static str> {
+    if game.questions.is_empty() {
+        return Err("no_questions");
+    }
+
+    game.total_rounds = total_rounds.max(1).min(game.questions.len());
+    game.completed_rounds = 0;
+    game.status = GameStatus::Lobby;
+    game.current_round = None;
+    reset_players_for_new_game(game);
+    game.shuffled_question_ids = game.questions.iter().map(|q| q.id.clone()).collect();
+    game.shuffled_question_ids.shuffle(&mut rand::thread_rng());
+    Ok(())
+}
+
+fn mark_game_ended(game: &mut GameState) -> bool {
+    if game.status == GameStatus::Ended {
+        return false;
+    }
+    game.status = GameStatus::Ended;
+    game.current_round = None;
+    true
+}
+
 fn generate_room_code(existing_codes: &HashSet<String>) -> Option<String> {
     let mut rng = rand::thread_rng();
     for _ in 0..512 {
@@ -1399,27 +1432,10 @@ async fn start_owner_game(
             return Err("room_not_open");
         }
         let game = &mut room.game;
-        if game.questions.is_empty() {
-            return Err("no_questions");
-        }
-
-        game.total_rounds = req.total_rounds.max(1).min(game.questions.len());
-        game.completed_rounds = 0;
-        game.status = GameStatus::Lobby;
-        game.current_round = None;
         if room.clear_blocked_names_on_new_game {
             room.blocked_names.clear();
         }
-        for player in game.players.values_mut() {
-            player.score = 0.0;
-            player.last_score_delta = 0.0;
-            player.used_powerups.clear();
-            player.pending_powerup = None;
-        }
-
-        game.shuffled_question_ids = game.questions.iter().map(|q| q.id.clone()).collect();
-        game.shuffled_question_ids.shuffle(&mut rand::thread_rng());
-        Ok(())
+        prepare_game_for_start(game, req.total_rounds)
     })
     .await;
 
@@ -1447,13 +1463,7 @@ async fn end_owner_game(
 
     let ended = with_room_mut(&state, &room_code, |room| {
         room.last_activity_at = Instant::now();
-        let game = &mut room.game;
-        if game.status == GameStatus::Ended {
-            return false;
-        }
-        game.status = GameStatus::Ended;
-        game.current_round = None;
-        true
+        mark_game_ended(&mut room.game)
     })
     .await;
 
@@ -1962,24 +1972,7 @@ async fn start_game(
     let startable = with_room_mut(&state, &room_code, |room| {
         room.last_activity_at = Instant::now();
         let game = &mut room.game;
-        if game.questions.is_empty() {
-            return false;
-        }
-
-        game.total_rounds = req.total_rounds.max(1).min(game.questions.len());
-        game.completed_rounds = 0;
-        game.status = GameStatus::Lobby;
-        game.current_round = None;
-        for player in game.players.values_mut() {
-            player.score = 0.0;
-            player.last_score_delta = 0.0;
-            player.used_powerups.clear();
-            player.pending_powerup = None;
-        }
-
-        game.shuffled_question_ids = game.questions.iter().map(|q| q.id.clone()).collect();
-        game.shuffled_question_ids.shuffle(&mut rand::thread_rng());
-        true
+        prepare_game_for_start(game, req.total_rounds).is_ok()
     })
     .await;
 
@@ -3188,10 +3181,11 @@ fn calculate_correct_score(
 mod tests {
     use super::{
         calculate_correct_score, eligible_from_round_for_new_player, host_label_from_base_url,
-        normalize_player_name, normalize_room_title, normalized_public_base_url,
-        player_can_participate_in_current_round, remove_room_and_clients, room_from_template,
-        should_show_player_leaderboard, validate_owner_room_access, AppState, ClientConnection,
-        GameState, GameStatus, PlayerState, RoomState, RoundState,
+        mark_game_ended, normalize_player_name, normalize_room_title,
+        normalized_public_base_url, player_can_participate_in_current_round,
+        prepare_game_for_start, remove_room_and_clients, room_from_template,
+        should_show_player_leaderboard, validate_owner_room_access, AppState,
+        ClientConnection, GameState, GameStatus, PlayerState, RoomState, RoundState,
     };
     use std::collections::{HashMap, HashSet};
     use std::path::PathBuf;
@@ -3387,6 +3381,98 @@ mod tests {
             "quizter.example.com"
         );
         assert_eq!(host_label_from_base_url("http://127.0.0.1:8080"), "127.0.0.1:8080");
+    }
+
+    #[test]
+    fn prepare_game_for_start_resets_scores_and_clamps_rounds() {
+        let mut game = GameState::new(Vec::new(), HashMap::new(), HashSet::new());
+        game.questions = vec![
+            super::Question {
+                id: "q-1".to_string(),
+                category: "Test".to_string(),
+                prompt: "One".to_string(),
+                options: vec!["A".to_string(), "B".to_string(), "C".to_string(), "D".to_string()],
+                correct_index: 0,
+                points: 100,
+                image_url: None,
+            },
+            super::Question {
+                id: "q-2".to_string(),
+                category: "Test".to_string(),
+                prompt: "Two".to_string(),
+                options: vec!["A".to_string(), "B".to_string(), "C".to_string(), "D".to_string()],
+                correct_index: 1,
+                points: 100,
+                image_url: None,
+            },
+        ];
+        game.players.insert(
+            "player-1".to_string(),
+            PlayerState {
+                id: "player-1".to_string(),
+                name: "Alice".to_string(),
+                score: 250.0,
+                last_score_delta: 50.0,
+                connected: true,
+                eligible_from_round: 1,
+                used_powerups: HashSet::from([super::PowerUp::MixMaster]),
+                pending_powerup: Some(super::PowerUp::DoubleDowner),
+                tutorial_seen: true,
+            },
+        );
+
+        prepare_game_for_start(&mut game, 99).unwrap();
+
+        assert_eq!(game.total_rounds, 2);
+        assert_eq!(game.completed_rounds, 0);
+        assert_eq!(game.status, GameStatus::Lobby);
+        assert!(game.current_round.is_none());
+        assert_eq!(game.shuffled_question_ids.len(), 2);
+        let player = game.players.get("player-1").unwrap();
+        assert_eq!(player.score, 0.0);
+        assert_eq!(player.last_score_delta, 0.0);
+        assert!(player.used_powerups.is_empty());
+        assert!(player.pending_powerup.is_none());
+    }
+
+    #[test]
+    fn prepare_game_for_start_rejects_empty_question_pool() {
+        let mut game = GameState::new(Vec::new(), HashMap::new(), HashSet::new());
+        assert_eq!(prepare_game_for_start(&mut game, 3), Err("no_questions"));
+    }
+
+    #[test]
+    fn mark_game_ended_only_transitions_once() {
+        let mut game = GameState::new(Vec::new(), HashMap::new(), HashSet::new());
+        game.status = GameStatus::InRound;
+        game.current_round = Some(RoundState {
+            round_number: 1,
+            question: super::Question {
+                id: "q-1".to_string(),
+                category: "Test".to_string(),
+                prompt: "Prompt".to_string(),
+                options: vec!["A".to_string(), "B".to_string(), "C".to_string(), "D".to_string()],
+                correct_index: 0,
+                points: 100,
+                image_url: None,
+            },
+            started_at: Instant::now(),
+            deadline: Instant::now() + Duration::from_secs(15),
+            answer_window_secs: 15,
+            answers: HashMap::new(),
+            speed_searcher_owner: None,
+            great_gambler_factor: None,
+            double_downers: HashSet::new(),
+            clone_commanders: HashSet::new(),
+            super_spliter_targets: HashMap::new(),
+            mix_master_owner: None,
+            option_order: vec![0, 1, 2, 3],
+        });
+
+        assert!(mark_game_ended(&mut game));
+        assert_eq!(game.status, GameStatus::Ended);
+        assert!(game.current_round.is_none());
+        assert!(!mark_game_ended(&mut game));
     }
 
     #[tokio::test]
