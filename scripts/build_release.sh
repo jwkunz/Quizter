@@ -83,9 +83,9 @@ TXT
   fi
 fi
 
-mkdir -p "$STAGE_DIR/server/web/player" "$STAGE_DIR/server/web/admin"
+mkdir -p "$STAGE_DIR/server/web/player" "$STAGE_DIR/server/web/home"
 cp web/player/player.html "$STAGE_DIR/server/web/player/player.html"
-cp web/admin/admin.html "$STAGE_DIR/server/web/admin/admin.html"
+cp web/home/home.html "$STAGE_DIR/server/web/home/home.html"
 mkdir -p "$STAGE_DIR/server/assets"
 cp -R assets/. "$STAGE_DIR/server/assets/" 2>/dev/null || true
 

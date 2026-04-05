@@ -753,6 +753,8 @@
   - Updated the server-info payload and browser auto-open helper naming so the
     hosted homepage is represented as the primary URL and the admin console is
     explicitly treated as a legacy fallback path.
+  - Removed the legacy `/admin` page, deleted the admin-only APIs and default
+    compatibility room, and converted packaging/docs to a hosted-only model.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
@@ -798,6 +800,8 @@
 - `cargo test` passes after the final legacy-console copy cleanup.
 - `cargo test` passes with shared game-lifecycle helper coverage.
 - `cargo test` passes after hosted-first server-info cleanup.
+- `cargo test` and `scripts/smoke_hosted_flow.sh` pass after the hosted-only
+  cutover that removed the legacy admin flow.
 - Known issues:
   - Hosted deployment still relies on in-memory room state in a single running
     server instance.

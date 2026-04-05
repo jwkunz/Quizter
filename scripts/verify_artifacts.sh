@@ -52,8 +52,8 @@ if "web/player/player.html" not in names:
     print("player html missing from server zip")
     sys.exit(1)
 
-if "web/admin/admin.html" not in names:
-    print("admin html missing from server zip")
+if "web/home/home.html" not in names:
+    print("home html missing from server zip")
     sys.exit(1)
 
 if not has_prefix("assets/questions/"):

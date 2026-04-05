@@ -78,7 +78,7 @@ After deployment:
 - Hosted room state is still in memory.
 - A server restart will remove active rooms.
 - Room expiration is currently inactivity-based.
-- Legacy `/admin` still exists, but the intended hosted entry point is `/`.
+- The hosted homepage at `/` is the only host entry point in the current app.
 - Managed hosting should expose the service over HTTPS before phone testing so
   browsers and QR joins follow the same origin you intend to ship.
 

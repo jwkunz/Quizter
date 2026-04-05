@@ -21,12 +21,10 @@ use std::{
     sync::Arc,
     time::{Duration, Instant},
 };
-use tokio::sync::{mpsc, oneshot, Mutex};
+use tokio::sync::{mpsc, Mutex};
 use tower_http::services::ServeDir;
 use uuid::Uuid;
 
-const DEFAULT_ADMIN_PASSCODE: &str = "quizter-admin";
-const DEFAULT_ROOM_CODE: &str = "QUIZTER";
 const ROOM_CODE_LENGTH: usize = 4;
 const ROOM_CODE_ALPHABET: &[u8] = b"ABCDEFGHJKLMNPQRSTUVWXYZ23456789";
 const ROOM_TITLE_MAX_CHARS: usize = 80;
@@ -45,7 +43,6 @@ struct AppState {
     host_ip: Arc<String>,
     port: u16,
     runtime_root: Arc<PathBuf>,
-    shutdown_tx: Arc<Mutex<Option<oneshot::Sender<()>>>>,
 }
 
 #[derive(Debug)]
@@ -173,8 +170,6 @@ struct RoundState {
 #[derive(Debug, Clone)]
 struct GameState {
     room_code: String,
-    admin_passcode: String,
-    admin_id: Option<String>,
     status: GameStatus,
     speed_bonus_enabled: bool,
     hide_scores_until_end: bool,
@@ -200,9 +195,7 @@ impl GameState {
         selected_bank_files: HashSet<String>,
     ) -> Self {
         let mut game = Self {
-            room_code: DEFAULT_ROOM_CODE.to_string(),
-            admin_passcode: DEFAULT_ADMIN_PASSCODE.to_string(),
-            admin_id: None,
+            room_code: String::new(),
             status: GameStatus::Lobby,
             speed_bonus_enabled: true,
             hide_scores_until_end: false,
@@ -480,8 +473,6 @@ fn room_from_template(
 ) -> RoomState {
     let mut game = template.clone();
     game.room_code = room_code;
-    game.admin_passcode = DEFAULT_ADMIN_PASSCODE.to_string();
-    game.admin_id = None;
     game.status = GameStatus::Lobby;
     game.players.clear();
     game.selected_bank_files.clear();
@@ -501,18 +492,6 @@ fn room_from_template(
         last_activity_at: Instant::now(),
         game,
     }
-}
-
-#[derive(Deserialize)]
-struct CreateRoomRequest {
-    admin_passcode: Option<String>,
-    total_rounds: Option<usize>,
-    speed_bonus_enabled: Option<bool>,
-    hide_scores_until_end: Option<bool>,
-    powerups_enabled: Option<bool>,
-    response_seconds: Option<u64>,
-    auto_issue_enabled: Option<bool>,
-    auto_issue_delay_secs: Option<u64>,
 }
 
 #[derive(Deserialize)]
@@ -542,42 +521,6 @@ struct OwnerRoomQuery {
 struct JoinRequest {
     room_code: String,
     display_name: String,
-}
-
-#[derive(Deserialize)]
-struct AdminLoginRequest {
-    room_code: String,
-    admin_passcode: String,
-}
-
-#[derive(Deserialize)]
-struct AddQuestionRequest {
-    admin_id: String,
-    prompt: String,
-    options: Vec<String>,
-    correct_index: usize,
-    points: u32,
-    image_url: Option<String>,
-}
-
-#[derive(Deserialize)]
-struct ImportQuestionsRequest {
-    admin_id: String,
-    questions: Vec<Question>,
-    merge: Option<bool>,
-}
-
-#[derive(Deserialize)]
-struct ImportPackAsBankRequest {
-    admin_id: String,
-    questions: Vec<Question>,
-    bank_name: Option<String>,
-}
-
-#[derive(Deserialize)]
-struct StartGameRequest {
-    admin_id: String,
-    total_rounds: usize,
 }
 
 #[derive(Deserialize)]
@@ -614,12 +557,6 @@ struct OwnerUnbanNameRequest {
 }
 
 #[derive(Deserialize)]
-struct SetBankSelectionRequest {
-    admin_id: String,
-    selected_files: Vec<String>,
-}
-
-#[derive(Deserialize)]
 struct OwnerSetBankSelectionRequest {
     room_code: String,
     owner_token: String,
@@ -640,22 +577,11 @@ struct OwnerUpdateSettingsRequest {
 }
 
 #[derive(Deserialize)]
-struct ShutdownRequest {
-    admin_id: String,
-}
-
-#[derive(Deserialize)]
 struct WsClientMessage {
     action: String,
     choice_index: Option<usize>,
     powerup: Option<PowerUp>,
     tutorial_seen: Option<bool>,
-    speed_bonus_enabled: Option<bool>,
-    hide_scores_until_end: Option<bool>,
-    powerups_enabled: Option<bool>,
-    response_seconds: Option<u64>,
-    auto_issue_enabled: Option<bool>,
-    auto_issue_delay_secs: Option<u64>,
 }
 
 #[derive(Serialize)]
@@ -671,17 +597,11 @@ struct ServerInfoResponse {
     port: u16,
     home_url: String,
     player_url: String,
-    legacy_admin_url: String,
 }
 
 #[derive(Deserialize)]
 struct QrQuery {
     text: String,
-}
-
-#[derive(Deserialize)]
-struct ExportPackQuery {
-    admin_id: String,
 }
 
 #[tokio::main]
@@ -712,35 +632,9 @@ async fn main() {
     let runtime_root = runtime_root_dir();
     let data_dir = runtime_root.join("data");
     let _ = fs::create_dir_all(&data_dir);
-    let manual_questions = load_manual_questions(&data_dir);
-    let file_question_banks = load_file_question_banks(&runtime_root);
-    let selected_bank_files = load_selected_bank_files(&data_dir);
-
-    let (shutdown_tx, shutdown_rx) = oneshot::channel::<()>();
-
-    let default_game = GameState::new(manual_questions, file_question_banks, selected_bank_files);
-    let mut rooms = HashMap::new();
-    rooms.insert(
-        DEFAULT_ROOM_CODE.to_string(),
-        RoomState {
-            room_title: "Quizter Legacy Room".to_string(),
-            owner_token: "legacy-default-room".to_string(),
-            launched: true,
-            clear_blocked_names_on_new_game: false,
-            blocked_names: HashSet::new(),
-            last_activity_at: Instant::now(),
-            game: default_game,
-        },
-    );
-    let mut owner_index = HashMap::new();
-    owner_index.insert(
-        "legacy-default-room".to_string(),
-        DEFAULT_ROOM_CODE.to_string(),
-    );
-
     let state = AppState {
-        rooms: Arc::new(Mutex::new(rooms)),
-        owner_index: Arc::new(Mutex::new(owner_index)),
+        rooms: Arc::new(Mutex::new(HashMap::new())),
+        owner_index: Arc::new(Mutex::new(HashMap::new())),
         clients: Arc::new(Mutex::new(HashMap::new())),
         data_dir: Arc::new(data_dir),
         public_base_url: Arc::new(public_base_url.clone()),
@@ -748,7 +642,6 @@ async fn main() {
         host_ip: Arc::new(host_ip),
         port,
         runtime_root: Arc::new(runtime_root.clone()),
-        shutdown_tx: Arc::new(Mutex::new(Some(shutdown_tx))),
     };
 
     let assets_dir = runtime_root.join("assets");
@@ -756,7 +649,6 @@ async fn main() {
         .route("/", get(root))
         .route("/health", get(health))
         .route("/player", get(player_page))
-        .route("/admin", get(admin_page))
         .route("/api/server_info", get(server_info))
         .route("/api/qr.svg", get(qr_svg))
         .route("/api/rooms/create", post(create_hosted_room))
@@ -771,17 +663,7 @@ async fn main() {
         .route("/api/rooms/end_game", post(end_owner_game))
         .route("/api/rooms/kick", post(kick_owner_player))
         .route("/api/rooms/unban", post(unban_owner_name))
-        .route("/api/admin/create_room", post(create_room))
-        .route("/api/admin/login", post(admin_login))
         .route("/api/join", post(join_room))
-        .route("/api/admin/questions/add", post(add_question))
-        .route("/api/admin/questions/import", post(import_questions))
-        .route("/api/admin/questions/import_bank", post(import_questions_as_bank))
-        .route("/api/admin/questions/current_pack", get(export_current_pack))
-        .route("/api/admin/question_banks", get(get_question_banks))
-        .route("/api/admin/question_banks/selection", post(set_question_bank_selection))
-        .route("/api/admin/start", post(start_game))
-        .route("/api/admin/shutdown", post(shutdown_server))
         .route("/api/state/:client_id", get(get_state))
         .route("/ws/:client_id", get(ws_handler))
         .nest_service("/assets", ServeDir::new(assets_dir))
@@ -798,9 +680,6 @@ async fn main() {
     maybe_open_home_browser(port);
 
     axum::serve(listener, app)
-        .with_graceful_shutdown(async move {
-            let _ = shutdown_rx.await;
-        })
         .await
         .expect("server execution failed");
 }
@@ -811,10 +690,6 @@ async fn root(State(state): State<AppState>) -> Html<String> {
 
 async fn player_page(State(state): State<AppState>) -> Html<String> {
     Html(read_web_html(&state.runtime_root, "player"))
-}
-
-async fn admin_page(State(state): State<AppState>) -> Html<String> {
-    Html(read_web_html(&state.runtime_root, "admin"))
 }
 
 async fn health() -> Json<HealthResponse> {
@@ -834,9 +709,8 @@ async fn server_info(State(state): State<AppState>) -> Json<ServerInfoResponse> 
     Json(ServerInfoResponse {
         host_ip,
         port,
-        home_url: home_url.clone(),
+        home_url,
         player_url,
-        legacy_admin_url: format!("{}/admin", home_url),
     })
 }
 
@@ -880,16 +754,6 @@ async fn with_room<T>(
     rooms.get(room_code).map(f)
 }
 
-async fn with_default_room_mut<T>(state: &AppState, f: impl FnOnce(&mut RoomState) -> T) -> T {
-    with_room_mut(state, DEFAULT_ROOM_CODE, f)
-        .await
-        .expect("default room missing")
-}
-
-async fn room_code_for_admin_login(state: &AppState, room_code: &str) -> Option<String> {
-    with_room(state, room_code, |_| room_code.to_string()).await
-}
-
 async fn room_code_for_join_request(state: &AppState, room_code: &str) -> Option<String> {
     with_room(state, room_code, |_| room_code.to_string()).await
 }
@@ -923,10 +787,6 @@ async fn remove_room_and_clients(
     owner_token: &str,
     event_name: &str,
 ) -> Option<String> {
-    if room_code == DEFAULT_ROOM_CODE {
-        return None;
-    }
-
     let removed_room = {
         let mut rooms = state.rooms.lock().await;
         match rooms.get(room_code) {
@@ -983,9 +843,6 @@ fn spawn_room_cleanup_task(state: AppState) {
                 rooms
                     .iter()
                     .filter_map(|(room_code, room)| {
-                        if room_code == DEFAULT_ROOM_CODE {
-                            return None;
-                        }
                         if now.duration_since(room.last_activity_at).as_secs()
                             >= ROOM_INACTIVITY_TIMEOUT_SECS
                         {
@@ -1061,77 +918,11 @@ async fn room_code_for_known_client(state: &AppState, client_id: &str) -> Option
 
     let rooms = state.rooms.lock().await;
     for (room_code, room) in rooms.iter() {
-        if room.game.admin_id.as_deref() == Some(client_id) {
-            return Some(room_code.clone());
-        }
         if room.game.players.contains_key(client_id) {
             return Some(room_code.clone());
         }
     }
     None
-}
-
-async fn room_code_for_client(state: &AppState, client_id: &str) -> String {
-    room_code_for_known_client(state, client_id)
-        .await
-        .unwrap_or_else(|| DEFAULT_ROOM_CODE.to_string())
-}
-
-async fn create_room(
-    State(state): State<AppState>,
-    Json(req): Json<CreateRoomRequest>,
-) -> Json<Value> {
-    let payload = with_default_room_mut(&state, |room| {
-        let game = &mut room.game;
-        game.room_code = DEFAULT_ROOM_CODE.to_string();
-        if let Some(pass) = req.admin_passcode {
-            if !pass.trim().is_empty() {
-                game.admin_passcode = pass;
-            }
-        }
-        if let Some(rounds) = req.total_rounds {
-            game.total_rounds = if game.questions.is_empty() {
-                0
-            } else {
-                rounds.max(1).min(game.questions.len())
-            };
-        }
-        if let Some(enabled) = req.speed_bonus_enabled {
-            game.speed_bonus_enabled = enabled;
-        }
-        if let Some(hidden) = req.hide_scores_until_end {
-            game.hide_scores_until_end = hidden;
-        }
-        if let Some(enabled) = req.powerups_enabled {
-            game.powerups_enabled = enabled;
-        }
-        if let Some(seconds) = req.response_seconds {
-            game.response_seconds = seconds.clamp(1, 300);
-        }
-        if let Some(enabled) = req.auto_issue_enabled {
-            game.auto_issue_enabled = enabled;
-        }
-        if let Some(delay) = req.auto_issue_delay_secs {
-            game.auto_issue_delay_secs = delay.clamp(1, 300);
-        }
-
-        json!({
-            "room_code": game.room_code,
-            "total_rounds": game.total_rounds,
-            "questions_available": game.questions.len(),
-            "questions_in_play": game.questions.len(),
-            "available_questions": game.total_available_questions(),
-            "speed_bonus_enabled": game.speed_bonus_enabled,
-            "hide_scores_until_end": game.hide_scores_until_end,
-            "powerups_enabled": game.powerups_enabled,
-            "response_seconds": game.response_seconds,
-            "auto_issue_enabled": game.auto_issue_enabled,
-            "auto_issue_delay_secs": game.auto_issue_delay_secs
-        })
-    })
-    .await;
-
-    Json(payload)
 }
 
 async fn create_hosted_room(
@@ -1153,15 +944,8 @@ async fn create_hosted_room(
             );
         };
 
-        let template = rooms
-            .get(DEFAULT_ROOM_CODE)
-            .expect("default room missing")
-            .game
-            .clone();
-        let mut hosted_template = template;
-        hosted_template.manual_questions.clear();
-        hosted_template.file_question_banks = load_file_question_banks(&state.runtime_root);
-        hosted_template.selected_bank_files.clear();
+        let hosted_template =
+            GameState::new(Vec::new(), load_file_question_banks(&state.runtime_root), HashSet::new());
         let owner_token = new_owner_token();
         let room = room_from_template(
             &hosted_template,
@@ -1217,10 +1001,6 @@ async fn close_hosted_room(
     State(state): State<AppState>,
     Json(req): Json<CloseRoomRequest>,
 ) -> impl IntoResponse {
-    if req.room_code == DEFAULT_ROOM_CODE {
-        return (StatusCode::BAD_REQUEST, Json(json!({"error": "cannot_close_legacy_room"})));
-    }
-
     let Some(owner_room_code) = room_code_for_owner_token(&state, &req.owner_token).await else {
         return (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_owner_token"})));
     };
@@ -1558,46 +1338,6 @@ async fn unban_owner_name(
     (StatusCode::OK, Json(json!({"ok": true, "player_name": unbanned_name})))
 }
 
-async fn admin_login(
-    State(state): State<AppState>,
-    Json(req): Json<AdminLoginRequest>,
-) -> impl IntoResponse {
-    let Some(room_code) = room_code_for_admin_login(&state, &req.room_code).await else {
-        return (
-            axum::http::StatusCode::UNAUTHORIZED,
-            Json(json!({"error": "invalid_credentials"})),
-        );
-    };
-    let admin_id = {
-        with_room_mut(&state, &room_code, |room| {
-            room.last_activity_at = Instant::now();
-            let game = &mut room.game;
-            if req.room_code != game.room_code || req.admin_passcode != game.admin_passcode {
-                return Err((
-                    axum::http::StatusCode::UNAUTHORIZED,
-                    Json(json!({"error": "invalid_credentials"})),
-                ));
-            }
-            let admin_id = format!("admin-{}", Uuid::new_v4());
-            game.admin_id = Some(admin_id.clone());
-            Ok(admin_id)
-        })
-        .await
-    };
-    let admin_id = match admin_id {
-        Some(Ok(admin_id)) => admin_id,
-        Some(Err(err)) => return err,
-        None => {
-            return (
-                axum::http::StatusCode::UNAUTHORIZED,
-                Json(json!({"error": "invalid_credentials"})),
-            )
-        }
-    };
-    broadcast_room_state(&state, &room_code).await;
-    (axum::http::StatusCode::OK, Json(json!({"admin_id": admin_id})))
-}
-
 async fn join_room(State(state): State<AppState>, Json(req): Json<JoinRequest>) -> impl IntoResponse {
     let display_name = match normalize_player_name(&req.display_name) {
         Ok(name) => name,
@@ -1687,337 +1427,6 @@ async fn join_room(State(state): State<AppState>, Json(req): Json<JoinRequest>) 
     (axum::http::StatusCode::OK, Json(json!({"player_id": player_id})))
 }
 
-async fn add_question(
-    State(state): State<AppState>,
-    Json(req): Json<AddQuestionRequest>,
-) -> impl IntoResponse {
-    if !is_admin(&state, &req.admin_id).await {
-        return (axum::http::StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
-    }
-    let Some(room_code) = room_code_for_known_client(&state, &req.admin_id).await else {
-        return (axum::http::StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
-    };
-    if req.options.len() != 4 || req.correct_index > 3 || req.points == 0 {
-        return (axum::http::StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_question"})));
-    }
-
-    let question = Question {
-        id: Uuid::new_v4().to_string(),
-        category: default_question_category(),
-        prompt: req.prompt,
-        options: req.options,
-        correct_index: req.correct_index,
-        points: req.points,
-        image_url: req.image_url,
-    };
-
-    let Some(()) = with_room_mut(&state, &room_code, |room| {
-        room.last_activity_at = Instant::now();
-        let game = &mut room.game;
-        game.manual_questions.push(question.clone());
-        save_manual_questions(&state.data_dir, &game.manual_questions);
-        game.rebuild_effective_question_pool();
-        game.reflow_future_rounds_after_pool_change();
-    })
-    .await else {
-        return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
-    };
-
-    broadcast_room_state(&state, &room_code).await;
-    (axum::http::StatusCode::OK, Json(json!({"ok": true, "question": question})))
-}
-
-async fn import_questions(
-    State(state): State<AppState>,
-    Json(req): Json<ImportQuestionsRequest>,
-) -> impl IntoResponse {
-    if !is_admin(&state, &req.admin_id).await {
-        return (axum::http::StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
-    }
-    let Some(room_code) = room_code_for_known_client(&state, &req.admin_id).await else {
-        return (axum::http::StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
-    };
-
-    if req.questions.is_empty() {
-        return (axum::http::StatusCode::BAD_REQUEST, Json(json!({"error": "no_questions"})));
-    }
-
-    for q in &req.questions {
-        if q.options.len() != 4 || q.correct_index > 3 || q.points == 0 {
-            return (axum::http::StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_question_in_pack"})));
-        }
-    }
-
-    let Some(()) = with_room_mut(&state, &room_code, |room| {
-        room.last_activity_at = Instant::now();
-        let game = &mut room.game;
-        let imported: Vec<Question> = req
-            .questions
-            .into_iter()
-            .map(|mut q| {
-                q.id = Uuid::new_v4().to_string();
-                if q.category.trim().is_empty() {
-                    q.category = default_question_category();
-                }
-                q
-            })
-            .collect();
-
-        if req.merge.unwrap_or(false) {
-            game.manual_questions.extend(imported);
-        } else {
-            game.manual_questions = imported;
-        }
-        save_manual_questions(&state.data_dir, &game.manual_questions);
-        game.rebuild_effective_question_pool();
-        game.reflow_future_rounds_after_pool_change();
-    })
-    .await else {
-        return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
-    };
-
-    broadcast_room_state(&state, &room_code).await;
-    (axum::http::StatusCode::OK, Json(json!({"ok": true})))
-}
-
-async fn import_questions_as_bank(
-    State(state): State<AppState>,
-    Json(req): Json<ImportPackAsBankRequest>,
-) -> impl IntoResponse {
-    if !is_admin(&state, &req.admin_id).await {
-        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
-    }
-    let Some(room_code) = room_code_for_known_client(&state, &req.admin_id).await else {
-        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
-    };
-    if req.questions.is_empty() {
-        return (StatusCode::BAD_REQUEST, Json(json!({"error": "no_questions"})));
-    }
-    for q in &req.questions {
-        if q.options.len() != 4 || q.correct_index > 3 || q.points == 0 {
-            return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_question_in_pack"})));
-        }
-    }
-
-    let bank_name = sanitized_bank_name(req.bank_name.as_deref());
-    let target_path = state.runtime_root.join("assets/questions").join(&bank_name);
-    let _ = fs::create_dir_all(state.runtime_root.join("assets/questions"));
-
-    let mut imported = Vec::with_capacity(req.questions.len());
-    for mut q in req.questions {
-        q.id = Uuid::new_v4().to_string();
-        if q.category.trim().is_empty() {
-            q.category = default_question_category();
-        }
-        imported.push(q);
-    }
-
-    let pack = QuestionPack {
-        category: imported
-            .first()
-            .map(|q| q.category.clone())
-            .filter(|category| !category.trim().is_empty()),
-        questions: imported.clone(),
-    };
-
-    let serialized = match serde_json::to_string_pretty(&pack) {
-        Ok(v) => v,
-        Err(_) => return (StatusCode::INTERNAL_SERVER_ERROR, Json(json!({"error": "serialize_failed"}))),
-    };
-    if fs::write(&target_path, serialized).is_err() {
-        return (StatusCode::INTERNAL_SERVER_ERROR, Json(json!({"error": "write_failed"})));
-    }
-
-    let Some(()) = with_room_mut(&state, &room_code, |room| {
-        room.last_activity_at = Instant::now();
-        let game = &mut room.game;
-        game.file_question_banks
-            .insert(bank_name.clone(), imported);
-        // Do not auto-select this bank; it becomes available in filter only.
-        game.rebuild_effective_question_pool();
-        game.reflow_future_rounds_after_pool_change();
-    })
-    .await else {
-        return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
-    };
-
-    broadcast_room_state(&state, &room_code).await;
-    (
-        StatusCode::OK,
-        Json(json!({"ok": true, "bank_file": bank_name})),
-    )
-}
-
-async fn export_current_pack(
-    State(state): State<AppState>,
-    Query(query): Query<ExportPackQuery>,
-) -> impl IntoResponse {
-    if !is_admin(&state, &query.admin_id).await {
-        return (
-            StatusCode::UNAUTHORIZED,
-            [(header::CONTENT_TYPE, "application/json")],
-            "{\"error\":\"admin_required\"}".to_string(),
-        );
-    }
-    let Some(room_code) = room_code_for_known_client(&state, &query.admin_id).await else {
-        return (
-            StatusCode::UNAUTHORIZED,
-            [(header::CONTENT_TYPE, "application/json")],
-            "{\"error\":\"admin_required\"}".to_string(),
-        );
-    };
-
-    let payload = with_room(&state, &room_code, |room| {
-        let game = &room.game;
-        let categories: HashSet<String> = game.questions.iter().map(|q| q.category.clone()).collect();
-        let category = if categories.len() == 1 {
-            categories.into_iter().next()
-        } else {
-            None
-        };
-        let pack = QuestionPack {
-            category,
-            questions: game.questions.clone(),
-        };
-        serde_json::to_string_pretty(&pack).unwrap_or_else(|_| "{\"questions\":[]}".to_string())
-    })
-    .await
-    .unwrap_or_else(|| "{\"questions\":[]}".to_string());
-    (
-        StatusCode::OK,
-        [(header::CONTENT_TYPE, "application/json")],
-        payload,
-    )
-}
-
-async fn get_question_banks(
-    State(state): State<AppState>,
-    Query(query): Query<ExportPackQuery>,
-) -> impl IntoResponse {
-    if !is_admin(&state, &query.admin_id).await {
-        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
-    }
-    let Some(room_code) = room_code_for_known_client(&state, &query.admin_id).await else {
-        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
-    };
-    let payload = with_room(&state, &room_code, |room| {
-        let game = &room.game;
-        let mut selected: Vec<String> = game.selected_bank_files.iter().cloned().collect();
-        selected.sort();
-        json!({
-            "available_files": game.available_bank_files(),
-            "selected_files": selected,
-            "category_tree": game.question_bank_tree(),
-            "effective_question_count": game.questions.len(),
-            "available_question_count": game.total_available_questions(),
-        })
-    })
-    .await
-    .unwrap_or_else(|| json!({"error": "invalid_room_code"}));
-    (StatusCode::OK, Json(payload))
-}
-
-async fn set_question_bank_selection(
-    State(state): State<AppState>,
-    Json(req): Json<SetBankSelectionRequest>,
-) -> impl IntoResponse {
-    if !is_admin(&state, &req.admin_id).await {
-        return (axum::http::StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
-    }
-    let Some(room_code) = room_code_for_known_client(&state, &req.admin_id).await else {
-        return (axum::http::StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
-    };
-
-    let counts = with_room_mut(&state, &room_code, |room| {
-        room.last_activity_at = Instant::now();
-        let game = &mut room.game;
-        let available: HashSet<String> = game.available_bank_files().into_iter().collect();
-        let selected: HashSet<String> = req
-            .selected_files
-            .into_iter()
-            .filter(|name| available.contains(name))
-            .collect();
-        game.selected_bank_files = selected;
-        save_selected_bank_files(&state.data_dir, &game.selected_bank_files);
-        game.rebuild_effective_question_pool();
-        game.reflow_future_rounds_after_pool_change();
-        (game.questions.len(), game.total_available_questions())
-    })
-    .await;
-
-    let Some((effective_count, available_count)) = counts else {
-        return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
-    };
-
-    broadcast_room_state(&state, &room_code).await;
-    (
-        axum::http::StatusCode::OK,
-        Json(json!({
-            "ok": true,
-            "effective_question_count": effective_count,
-            "available_question_count": available_count
-        })),
-    )
-}
-
-async fn start_game(
-    State(state): State<AppState>,
-    Json(req): Json<StartGameRequest>,
-) -> impl IntoResponse {
-    if !is_admin(&state, &req.admin_id).await {
-        return (axum::http::StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
-    }
-    let Some(room_code) = room_code_for_known_client(&state, &req.admin_id).await else {
-        return (axum::http::StatusCode::UNAUTHORIZED, Json(json!({"error": "admin_required"})));
-    };
-
-    let startable = with_room_mut(&state, &room_code, |room| {
-        room.last_activity_at = Instant::now();
-        let game = &mut room.game;
-        prepare_game_for_start(game, req.total_rounds).is_ok()
-    })
-    .await;
-
-    match startable {
-        Some(true) => {}
-        Some(false) => {
-            return (axum::http::StatusCode::BAD_REQUEST, Json(json!({"error": "no_questions"})));
-        }
-        None => {
-            return (axum::http::StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
-        }
-    }
-
-    start_next_round_in_room(state.clone(), &room_code).await;
-    (axum::http::StatusCode::OK, Json(json!({"ok": true})))
-}
-
-async fn shutdown_server(
-    State(state): State<AppState>,
-    Json(req): Json<ShutdownRequest>,
-) -> impl IntoResponse {
-    if !is_admin(&state, &req.admin_id).await {
-        return (
-            axum::http::StatusCode::UNAUTHORIZED,
-            Json(json!({"error": "admin_required"})),
-        );
-    }
-
-    let maybe_tx = state.shutdown_tx.lock().await.take();
-    if let Some(tx) = maybe_tx {
-        let _ = tx.send(());
-        (
-            axum::http::StatusCode::OK,
-            Json(json!({"ok": true, "status": "shutting_down"})),
-        )
-    } else {
-        (
-            axum::http::StatusCode::OK,
-            Json(json!({"ok": true, "status": "already_shutting_down"})),
-        )
-    }
-}
-
 async fn get_state(State(state): State<AppState>, AxPath(client_id): AxPath<String>) -> Json<Value> {
     Json(build_state_snapshot(&state, &client_id).await)
 }
@@ -2033,9 +1442,9 @@ async fn ws_handler(
 async fn handle_socket(stream: axum::extract::ws::WebSocket, state: AppState, client_id: String) {
     let (mut sender, mut receiver) = stream.split();
     let (tx, mut rx) = mpsc::unbounded_channel::<Message>();
-    let room_code = room_code_for_known_client(&state, &client_id)
-        .await
-        .unwrap_or_else(|| DEFAULT_ROOM_CODE.to_string());
+    let Some(room_code) = room_code_for_known_client(&state, &client_id).await else {
+        return;
+    };
 
     state.clients.lock().await.insert(
         client_id.clone(),
@@ -2095,8 +1504,10 @@ async fn handle_client_action(state: &AppState, client_id: &str, msg: WsClientMe
         }
         "tutorial_seen" => {
             if msg.tutorial_seen.unwrap_or(false) {
+                let Some(room_code) = room_code_for_known_client(state, client_id).await else {
+                    return;
+                };
                 {
-                    let room_code = room_code_for_client(state, client_id).await;
                     let mut rooms = state.rooms.lock().await;
                     let room = match rooms.get_mut(&room_code) {
                         Some(room) => room,
@@ -2108,45 +1519,7 @@ async fn handle_client_action(state: &AppState, client_id: &str, msg: WsClientMe
                         player.tutorial_seen = true;
                     }
                 }
-                broadcast_state(state).await;
-            }
-        }
-        "admin_next_round" => {
-            if is_admin(state, client_id).await {
-                start_next_round_in_room(state.clone(), DEFAULT_ROOM_CODE).await;
-            }
-        }
-        "admin_update_settings" => {
-            if is_admin(state, client_id).await {
-                {
-                    let room_code = room_code_for_client(state, client_id).await;
-                    let mut rooms = state.rooms.lock().await;
-                    let room = match rooms.get_mut(&room_code) {
-                        Some(room) => room,
-                        None => return,
-                    };
-                    room.last_activity_at = Instant::now();
-                    let game = &mut room.game;
-                    if let Some(enabled) = msg.speed_bonus_enabled {
-                        game.speed_bonus_enabled = enabled;
-                    }
-                    if let Some(hidden) = msg.hide_scores_until_end {
-                        game.hide_scores_until_end = hidden;
-                    }
-                    if let Some(enabled) = msg.powerups_enabled {
-                        game.powerups_enabled = enabled;
-                    }
-                    if let Some(seconds) = msg.response_seconds {
-                        game.response_seconds = seconds.clamp(1, 300);
-                    }
-                    if let Some(enabled) = msg.auto_issue_enabled {
-                        game.auto_issue_enabled = enabled;
-                    }
-                    if let Some(delay) = msg.auto_issue_delay_secs {
-                        game.auto_issue_delay_secs = delay.clamp(1, 300);
-                    }
-                }
-                broadcast_state(state).await;
+                broadcast_room_state(state, &room_code).await;
             }
         }
         _ => {}
@@ -2154,10 +1527,12 @@ async fn handle_client_action(state: &AppState, client_id: &str, msg: WsClientMe
 }
 
 async fn submit_answer(state: &AppState, client_id: &str, choice_index: usize) {
+    let Some(room_code) = room_code_for_known_client(state, client_id).await else {
+        return;
+    };
     let mut should_finalize = false;
 
     {
-        let room_code = room_code_for_client(state, client_id).await;
         let mut rooms = state.rooms.lock().await;
         let room = match rooms.get_mut(&room_code) {
             Some(room) => room,
@@ -2213,18 +1588,20 @@ async fn submit_answer(state: &AppState, client_id: &str, choice_index: usize) {
         }
     }
 
-    broadcast_state(state).await;
+    broadcast_room_state(state, &room_code).await;
     if should_finalize {
-        finalize_round_in_room(state.clone(), &room_code_for_client(state, client_id).await).await;
+        finalize_round_in_room(state.clone(), &room_code).await;
     }
 }
 
 async fn activate_powerup(state: &AppState, client_id: &str, powerup: PowerUp) {
+    let Some(room_code) = room_code_for_known_client(state, client_id).await else {
+        return;
+    };
     let mut activation_message = None;
     let mut queued = false;
 
     {
-        let room_code = room_code_for_client(state, client_id).await;
         let mut rooms = state.rooms.lock().await;
         let room = match rooms.get_mut(&room_code) {
             Some(room) => room,
@@ -2264,7 +1641,7 @@ async fn activate_powerup(state: &AppState, client_id: &str, powerup: PowerUp) {
     }
 
     if let Some(message) = activation_message {
-        broadcast_json(state, message).await;
+        broadcast_room_json(state, &room_code, message).await;
     }
 
     if queued {
@@ -2278,7 +1655,7 @@ async fn activate_powerup(state: &AppState, client_id: &str, powerup: PowerUp) {
         let _ = send_to_client(state, client_id, queued_notice).await;
     }
 
-    broadcast_state(state).await;
+    broadcast_room_state(state, &room_code).await;
 }
 
 fn apply_powerup_to_current_round(
@@ -2657,7 +2034,12 @@ async fn finalize_round_in_room(state: AppState, room_code: &str) {
 }
 
 async fn build_state_snapshot(state: &AppState, client_id: &str) -> Value {
-    let room_code = room_code_for_client(state, client_id).await;
+    let Some(room_code) = room_code_for_known_client(state, client_id).await else {
+        return json!({
+            "status": GameStatus::Ended,
+            "role": Role::Player
+        });
+    };
     let snapshot = with_room(state, &room_code, |room| {
         let game = &room.game;
         let mut visible_question = None;
@@ -2707,13 +2089,8 @@ async fn build_state_snapshot(state: &AppState, client_id: &str) -> Value {
             }
         }
 
-        let role = if game.admin_id.as_deref() == Some(client_id) {
-            Role::Admin
-        } else {
-            Role::Player
-        };
-        let scores_hidden =
-            matches!(role, Role::Player) && game.hide_scores_until_end && game.status != GameStatus::Ended;
+        let role = Role::Player;
+        let scores_hidden = game.hide_scores_until_end && game.status != GameStatus::Ended;
         let show_leaderboard = should_show_player_leaderboard(&game.status, game.completed_rounds);
 
         let your_state = game.players.get(client_id).map(|p| {
@@ -2800,10 +2177,6 @@ async fn broadcast_room_state(state: &AppState, room_code: &str) {
     }
 }
 
-async fn broadcast_state(state: &AppState) {
-    broadcast_room_state(state, DEFAULT_ROOM_CODE).await;
-}
-
 async fn send_to_client(state: &AppState, client_id: &str, payload: Value) -> bool {
     let msg = Message::Text(payload.to_string());
     let clients = state.clients.lock().await;
@@ -2831,30 +2204,6 @@ async fn broadcast_room_json(state: &AppState, room_code: &str, payload: Value) 
     for id in client_ids {
         let _ = send_to_client(state, &id, payload.clone()).await;
     }
-}
-
-async fn broadcast_json(state: &AppState, payload: Value) {
-    broadcast_room_json(state, DEFAULT_ROOM_CODE, payload).await;
-}
-
-async fn is_admin(state: &AppState, client_id: &str) -> bool {
-    let room_code = room_code_for_client(state, client_id).await;
-    let rooms = state.rooms.lock().await;
-    rooms
-        .get(&room_code)
-        .map(|room| room.game.admin_id.as_deref() == Some(client_id))
-        .unwrap_or(false)
-}
-
-fn load_manual_questions(data_dir: &PathBuf) -> Vec<Question> {
-    let file = data_dir.join("manual_questions.json");
-    if let Ok(raw) = fs::read_to_string(&file) {
-        if let Ok(mut questions) = serde_json::from_str::<Vec<Question>>(&raw) {
-            ensure_question_runtime_fields(&mut questions);
-            return questions;
-        }
-    }
-    Vec::new()
 }
 
 fn load_file_question_banks(runtime_root: &FsPath) -> HashMap<String, Vec<Question>> {
@@ -2930,47 +2279,6 @@ fn load_file_question_banks(runtime_root: &FsPath) -> HashMap<String, Vec<Questi
     bank_map
 }
 
-fn load_selected_bank_files(_data_dir: &PathBuf) -> HashSet<String> {
-    HashSet::new()
-}
-
-fn save_selected_bank_files(data_dir: &PathBuf, selected_files: &HashSet<String>) {
-    let path = data_dir.join("selected_bank_files.json");
-    if selected_files.is_empty() {
-        let _ = fs::remove_file(path);
-        return;
-    }
-    let _ = fs::create_dir_all(data_dir);
-    let mut files: Vec<String> = selected_files.iter().cloned().collect();
-    files.sort();
-    if let Ok(serialized) = serde_json::to_string_pretty(&files) {
-        let _ = fs::write(path, serialized);
-    }
-}
-
-fn save_manual_questions(data_dir: &PathBuf, questions: &[Question]) {
-    let _ = fs::create_dir_all(data_dir);
-    let path = data_dir.join("manual_questions.json");
-    if let Ok(serialized) = serde_json::to_string_pretty(questions) {
-        let _ = fs::write(path, serialized);
-    }
-}
-
-fn sanitized_bank_name(input: Option<&str>) -> String {
-    let raw = input.unwrap_or("imported_pack");
-    let mut slug = raw
-        .trim()
-        .to_lowercase()
-        .chars()
-        .map(|c| if c.is_ascii_alphanumeric() { c } else { '_' })
-        .collect::<String>();
-    slug = slug.trim_matches('_').to_string();
-    if slug.is_empty() {
-        slug = "imported_pack".to_string();
-    }
-    format!("{}.json", slug)
-}
-
 fn new_question_id() -> String {
     Uuid::new_v4().to_string()
 }
@@ -2978,18 +2286,6 @@ fn new_question_id() -> String {
 fn default_question_category() -> String {
     "Generic".to_string()
 }
-
-fn ensure_question_runtime_fields(questions: &mut [Question]) {
-    for question in questions {
-        if question.id.trim().is_empty() {
-            question.id = new_question_id();
-        }
-        if question.category.trim().is_empty() {
-            question.category = default_question_category();
-        }
-    }
-}
-
 
 fn append_history(data_dir: &PathBuf, entry: HistoryEntry) {
     let path = data_dir.join("history.json");
@@ -3187,13 +2483,13 @@ mod tests {
         normalized_public_base_url, player_can_participate_in_current_round,
         prepare_game_for_start, remove_room_and_clients, room_from_template,
         should_show_player_leaderboard, validate_owner_room_access, AppState,
-        ClientConnection, GameState, GameStatus, PlayerState, RoomState, RoundState,
+        ClientConnection, GameState, GameStatus, PlayerState, RoundState,
     };
     use std::collections::{HashMap, HashSet};
     use std::path::PathBuf;
     use std::sync::Arc;
     use std::time::{Duration, Instant};
-    use tokio::sync::{mpsc, oneshot, Mutex};
+    use tokio::sync::{mpsc, Mutex};
 
     fn build_test_state_with_hosted_room(room_code: &str, owner_token: &str) -> AppState {
         let template = GameState::new(Vec::new(), HashMap::new(), HashSet::new());
@@ -3203,24 +2499,12 @@ mod tests {
             "Hosted Test Room".to_string(),
             owner_token.to_string(),
         );
-        let default_room = RoomState {
-            room_title: "Legacy Default Room".to_string(),
-            owner_token: "legacy-default-room".to_string(),
-            launched: false,
-            clear_blocked_names_on_new_game: false,
-            blocked_names: HashSet::new(),
-            last_activity_at: Instant::now(),
-            game: template,
-        };
 
         let mut rooms = HashMap::new();
-        rooms.insert(super::DEFAULT_ROOM_CODE.to_string(), default_room);
         rooms.insert(room_code.to_string(), hosted_room);
 
         let mut owner_index = HashMap::new();
         owner_index.insert(owner_token.to_string(), room_code.to_string());
-
-        let (shutdown_tx, _shutdown_rx) = oneshot::channel();
 
         AppState {
             rooms: Arc::new(Mutex::new(rooms)),
@@ -3232,7 +2516,6 @@ mod tests {
             host_ip: Arc::new("127.0.0.1".to_string()),
             port: 8080,
             runtime_root: Arc::new(PathBuf::from(".")),
-            shutdown_tx: Arc::new(Mutex::new(Some(shutdown_tx))),
         }
     }
 
@@ -3514,6 +2797,6 @@ mod tests {
         assert!(state.rooms.lock().await.get("AB12").is_none());
         assert!(state.owner_index.lock().await.get("owner-123").is_none());
         assert!(state.clients.lock().await.get("player-1").is_none());
-        assert!(state.rooms.lock().await.get(super::DEFAULT_ROOM_CODE).is_some());
+        assert!(state.rooms.lock().await.is_empty());
     }
 }

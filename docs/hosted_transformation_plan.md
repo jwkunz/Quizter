@@ -482,6 +482,9 @@ To reduce risk, the next coding sequence should be:
 3. migrate APIs to room scope
 4. add owner token and resume
 5. replace homepage/admin flow
+Current status:
+- Completed. The hosted homepage at `/` is now the only supported host entry
+  point and the legacy `/admin` console has been removed.
 6. deploy hosted prototype
 
 ## Known Risks
