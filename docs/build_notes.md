@@ -646,10 +646,12 @@
   - Added basic hosted room monitoring to the landing page so the host can see
     connected players and the live leaderboard without falling back to the
     legacy admin page.
+  - Added automatic hosted room status polling on the landing page so the host
+    monitor refreshes without requiring manual reload actions.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
-  - `cargo check` passes after adding hosted room monitoring data and UI.
+  - `cargo check` passes after adding hosted room polling.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.

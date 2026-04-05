@@ -340,6 +340,8 @@
 
   <script>
     const STORAGE_KEY = "quizter_hosted_owner_room";
+    const ROOM_POLL_MS = 5000;
+    let roomPollTimer = null;
 
     function el(id) {
       return document.getElementById(id);
@@ -364,6 +366,25 @@
 
     function clearRoom() {
       localStorage.removeItem(STORAGE_KEY);
+    }
+
+    function stopRoomPolling() {
+      if (roomPollTimer) {
+        clearInterval(roomPollTimer);
+        roomPollTimer = null;
+      }
+    }
+
+    function startRoomPolling() {
+      stopRoomPolling();
+      roomPollTimer = setInterval(() => {
+        const room = currentRoom();
+        if (!room?.room_code || !room?.owner_token) {
+          stopRoomPolling();
+          return;
+        }
+        refreshRoomStatus(true);
+      }, ROOM_POLL_MS);
     }
 
     function currentRoom() {
@@ -454,10 +475,12 @@
       setStatus("bankStatus", "Question packs loaded.");
     }
 
-    async function refreshRoomStatus() {
+    async function refreshRoomStatus(silent = false) {
       const room = currentRoom();
       if (!room?.room_code || !room?.owner_token) {
-        setStatus("roomStatus", "No saved room to refresh.");
+        if (!silent) {
+          setStatus("roomStatus", "No saved room to refresh.");
+        }
         return;
       }
       const url = new URL("/api/rooms/status", window.location.origin);
@@ -466,7 +489,12 @@
       const res = await fetch(url);
       const payload = await res.json();
       if (!res.ok) {
-        setStatus("roomStatus", `Refresh failed: ${payload.error || res.status}`);
+        if (!silent) {
+          setStatus("roomStatus", `Refresh failed: ${payload.error || res.status}`);
+        }
+        if (res.status === 401 || res.status === 400) {
+          stopRoomPolling();
+        }
         return;
       }
       renderRoom(payload);
@@ -583,6 +611,7 @@
       }
       saveRoom({ room_code: payload.room_code, owner_token: payload.owner_token });
       renderRoom(payload);
+      startRoomPolling();
       await loadQuestionBanks();
       setStatus("createStatus", "Hosted room created and owner token saved in this browser.");
       setStatus("resumeStatus", `Saved room ${payload.room_code} is available to resume.`);
@@ -603,11 +632,13 @@
       const payload = await res.json();
       if (!res.ok) {
         clearRoom();
+        stopRoomPolling();
         setStatus("resumeStatus", `Resume failed: ${payload.error || res.status}. Saved token was cleared.`);
         el("roomPanel").classList.add("hidden");
         return;
       }
       renderRoom(payload);
+      startRoomPolling();
       await loadQuestionBanks();
       setStatus("resumeStatus", `Resumed room ${payload.room_code}.`);
     }
@@ -629,6 +660,7 @@
         return;
       }
       clearRoom();
+      stopRoomPolling();
       el("roomPanel").classList.add("hidden");
       el("bankList").innerHTML = "";
       el("playerMonitor").innerHTML = '<div class="mini">No players joined yet.</div>';
