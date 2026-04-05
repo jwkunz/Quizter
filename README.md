@@ -6,7 +6,7 @@ One person (the admin/host) runs the server on their computer. Everyone else joi
 
 ![Quizter Logo](assets/images/Quizter_logo.png)
 
-**Software Version:** `v3.1.0`
+**Software Version:** `v4.0.0`
 
 Copyright 2026 Numerius Engineering LLC.  
 Distributed under the terms of the MIT License  

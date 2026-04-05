@@ -579,3 +579,21 @@
   - Terminal relaunch depends on platform terminal availability and falls back to normal in-place launch if a supported terminal app is not found.
 - Next stage:
   - Monitor the `v3.1.0` GitHub Actions release build and confirm platform-specific shutdown behavior.
+
+## v4.0.0 - 2026-04-04
+- Completed:
+  - Defined the hosted-product transformation plan for moving Quizter from a
+    single-room LAN app to a multi-room public hosted service.
+  - Added a Phase 1 backend architecture checklist focused on replacing the
+    single global game model with a room registry.
+  - Bumped version markers to `v4.0.0` and aligned Cargo package versioning with
+    the published app version.
+- Build artifacts:
+  - Not run for this planning milestone.
+- Test status:
+  - Not run for this planning milestone.
+- Known issues:
+  - Hosted architecture has not been implemented yet.
+  - Current code still uses the legacy single-room model.
+- Next stage:
+  - Implement Phase 1 server architecture refactor.
