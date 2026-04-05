@@ -325,6 +325,32 @@
         </div>
       </div>
 
+      <div class="panel" style="margin-top:1rem;">
+        <h2>Game Settings</h2>
+        <div class="control-grid">
+          <div class="stack">
+            <label><span><input id="speedBonusEnabled" type="checkbox" /> Speed bonus enabled</span></label>
+            <label><span><input id="hideScoresUntilEnd" type="checkbox" /> Hide scores until end</span></label>
+            <label><span><input id="powerupsEnabled" type="checkbox" /> Powerups enabled</span></label>
+          </div>
+          <div class="stack">
+            <label>
+              Response Seconds
+              <input id="responseSeconds" type="number" min="1" max="300" value="15" />
+            </label>
+            <label>
+              <span><input id="autoIssueEnabled" type="checkbox" /> Auto issue enabled</span>
+            </label>
+            <label>
+              Auto Issue Delay Seconds
+              <input id="autoIssueDelay" type="number" min="1" max="300" value="15" />
+            </label>
+            <button id="saveSettingsBtn">Apply Settings</button>
+            <div class="status" id="settingsStatus">Room settings apply to this hosted room.</div>
+          </div>
+        </div>
+      </div>
+
       <div class="monitor-grid">
         <div class="panel" style="margin:0;">
           <h2>Players</h2>
@@ -434,6 +460,15 @@
       if (!(Number(el("roundCount").value) > 0)) {
         el("roundCount").value = suggestedRounds;
       }
+    }
+
+    function renderSettings(room) {
+      el("speedBonusEnabled").checked = Boolean(room.speed_bonus_enabled);
+      el("hideScoresUntilEnd").checked = Boolean(room.hide_scores_until_end);
+      el("powerupsEnabled").checked = Boolean(room.powerups_enabled);
+      el("responseSeconds").value = Number(room.response_seconds || 15);
+      el("autoIssueEnabled").checked = Boolean(room.auto_issue_enabled);
+      el("autoIssueDelay").value = Number(room.auto_issue_delay_secs || 15);
     }
 
     function renderPlayers(room) {
@@ -563,6 +598,36 @@
       await loadQuestionBanks();
     }
 
+    async function saveSettings() {
+      const room = currentRoom();
+      if (!room?.room_code || !room?.owner_token) {
+        setStatus("settingsStatus", "No saved room to update.");
+        return;
+      }
+      setStatus("settingsStatus", "Applying settings...");
+      const res = await fetch("/api/rooms/settings", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          room_code: room.room_code,
+          owner_token: room.owner_token,
+          speed_bonus_enabled: el("speedBonusEnabled").checked,
+          hide_scores_until_end: el("hideScoresUntilEnd").checked,
+          powerups_enabled: el("powerupsEnabled").checked,
+          response_seconds: Number(el("responseSeconds").value || "15"),
+          auto_issue_enabled: el("autoIssueEnabled").checked,
+          auto_issue_delay_secs: Number(el("autoIssueDelay").value || "15")
+        })
+      });
+      const payload = await res.json();
+      if (!res.ok) {
+        setStatus("settingsStatus", `Apply failed: ${payload.error || res.status}`);
+        return;
+      }
+      renderRoom(payload);
+      setStatus("settingsStatus", "Settings applied.");
+    }
+
     async function startGame() {
       const room = currentRoom();
       if (!room?.room_code || !room?.owner_token) {
@@ -673,6 +738,7 @@
         "roomStatus",
         `Status: ${room.status || "room_ready"} | Questions available on server: ${room.available_questions ?? 0} | Questions currently in play: ${room.questions_in_play ?? 0}`
       );
+      renderSettings(room);
       renderPlayers(room);
       renderLeaderboard(room);
       renderBlockedNames(room);
@@ -793,6 +859,7 @@
     el("closeRoomBtn").onclick = closeRoom;
     el("refreshBanksBtn").onclick = loadQuestionBanks;
     el("saveBanksBtn").onclick = saveQuestionBanks;
+    el("saveSettingsBtn").onclick = saveSettings;
     el("startGameBtn").onclick = startGame;
     el("endGameBtn").onclick = endGame;
 

@@ -516,6 +516,18 @@ struct OwnerSetBankSelectionRequest {
 }
 
 #[derive(Deserialize)]
+struct OwnerUpdateSettingsRequest {
+    room_code: String,
+    owner_token: String,
+    speed_bonus_enabled: Option<bool>,
+    hide_scores_until_end: Option<bool>,
+    powerups_enabled: Option<bool>,
+    response_seconds: Option<u64>,
+    auto_issue_enabled: Option<bool>,
+    auto_issue_delay_secs: Option<u64>,
+}
+
+#[derive(Deserialize)]
 struct ShutdownRequest {
     admin_id: String,
 }
@@ -631,6 +643,7 @@ async fn main() {
         .route("/api/rooms/status", get(get_owner_room_status))
         .route("/api/rooms/question_banks", get(get_owner_question_banks))
         .route("/api/rooms/question_banks/selection", post(set_owner_question_bank_selection))
+        .route("/api/rooms/settings", post(update_owner_room_settings))
         .route("/api/rooms/start", post(start_owner_game))
         .route("/api/rooms/end_game", post(end_owner_game))
         .route("/api/rooms/kick", post(kick_owner_player))
@@ -892,6 +905,12 @@ async fn owner_room_payload(state: &AppState, room_code: &str) -> Option<Value> 
             "questions_in_play": room.game.questions.len(),
             "total_rounds": room.game.total_rounds,
             "completed_rounds": room.game.completed_rounds,
+            "speed_bonus_enabled": room.game.speed_bonus_enabled,
+            "hide_scores_until_end": room.game.hide_scores_until_end,
+            "powerups_enabled": room.game.powerups_enabled,
+            "response_seconds": room.game.response_seconds,
+            "auto_issue_enabled": room.game.auto_issue_enabled,
+            "auto_issue_delay_secs": room.game.auto_issue_delay_secs,
             "players": players,
             "blocked_names": blocked_names,
             "leaderboard": room.game.leaderboard(),
@@ -1180,6 +1199,53 @@ async fn set_owner_question_bank_selection(
             "available_question_count": available_question_count
         })),
     )
+}
+
+async fn update_owner_room_settings(
+    State(state): State<AppState>,
+    Json(req): Json<OwnerUpdateSettingsRequest>,
+) -> impl IntoResponse {
+    let Some(room_code) =
+        validate_owner_room_access(&state, &req.room_code, &req.owner_token).await
+    else {
+        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_owner_token"})));
+    };
+
+    let updated = with_room_mut(&state, &room_code, |room| {
+        room.last_activity_at = Instant::now();
+        let game = &mut room.game;
+        if let Some(enabled) = req.speed_bonus_enabled {
+            game.speed_bonus_enabled = enabled;
+        }
+        if let Some(hidden) = req.hide_scores_until_end {
+            game.hide_scores_until_end = hidden;
+        }
+        if let Some(enabled) = req.powerups_enabled {
+            game.powerups_enabled = enabled;
+        }
+        if let Some(seconds) = req.response_seconds {
+            game.response_seconds = seconds.clamp(1, 300);
+        }
+        if let Some(enabled) = req.auto_issue_enabled {
+            game.auto_issue_enabled = enabled;
+        }
+        if let Some(delay) = req.auto_issue_delay_secs {
+            game.auto_issue_delay_secs = delay.clamp(1, 300);
+        }
+        true
+    })
+    .await;
+
+    if updated != Some(true) {
+        return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
+    }
+
+    let Some(payload) = owner_room_payload(&state, &room_code).await else {
+        return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
+    };
+
+    broadcast_room_state(&state, &room_code).await;
+    (StatusCode::OK, Json(payload))
 }
 
 async fn start_owner_game(

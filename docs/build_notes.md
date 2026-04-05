@@ -631,6 +631,8 @@
   - Added owner-token-authenticated hosted room control endpoints for question
     bank inspection, question bank selection, and game start so future hosted UI
     work does not need to depend on the legacy admin login flow.
+  - Added an owner-token room settings endpoint for response timing, score
+    visibility, powerups, and auto-issue behavior.
   - Added a new hosted landing page at `/` with `Create Room`, `Resume Room`,
     and `Join Room` flows backed by the owner-token room APIs.
   - Updated the player page to honor `?room=CODE` query parameters so hosted
@@ -652,10 +654,12 @@
     unban endpoints.
   - Extended the hosted landing page so the host can kick players and manage the
     blocked-name list from the hosted control surface.
+  - Extended the hosted landing page so the host can edit room settings from the
+    hosted control surface instead of depending on the legacy admin page.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
-  - `cargo check` passes after adding hosted moderation controls.
+  - `cargo check` passes after adding hosted settings controls.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.
