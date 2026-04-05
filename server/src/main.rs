@@ -139,6 +139,7 @@ struct PlayerState {
     score: f64,
     last_score_delta: f64,
     connected: bool,
+    eligible_from_round: usize,
     used_powerups: HashSet<PowerUp>,
     pending_powerup: Option<PowerUp>,
     tutorial_seen: bool,
@@ -1584,6 +1585,11 @@ async fn join_room(State(state): State<AppState>, Json(req): Json<JoinRequest>) 
                         score: 0.0,
                         last_score_delta: 0.0,
                         connected: true,
+                        eligible_from_round: game
+                            .current_round
+                            .as_ref()
+                            .map(|round| round.round_number + 1)
+                            .unwrap_or(game.completed_rounds + 1),
                         used_powerups: HashSet::new(),
                         pending_powerup: None,
                         tutorial_seen: false,
@@ -2109,6 +2115,20 @@ async fn submit_answer(state: &AppState, client_id: &str, choice_index: usize) {
             return;
         }
 
+        if game
+            .players
+            .get(client_id)
+            .map(|player| {
+                game.current_round
+                    .as_ref()
+                    .map(|round| player.eligible_from_round > round.round_number)
+                    .unwrap_or(false)
+            })
+            .unwrap_or(true)
+        {
+            return;
+        }
+
         let connected_players = game.players.values().filter(|p| p.connected).count();
         let round = match game.current_round.as_mut() {
             Some(r) => r,
@@ -2591,41 +2611,57 @@ async fn build_state_snapshot(state: &AppState, client_id: &str) -> Value {
     let room_code = room_code_for_client(state, client_id).await;
     let snapshot = with_room(state, &room_code, |room| {
         let game = &room.game;
-    let mut visible_question = None;
+        let mut visible_question = None;
+        let mut waiting_for_next_round = false;
+
+        let player_eligible_for_round = game
+            .players
+            .get(client_id)
+            .map(|player| {
+                game.current_round
+                    .as_ref()
+                    .map(|round| player.eligible_from_round <= round.round_number)
+                    .unwrap_or(true)
+            })
+            .unwrap_or(true);
 
         if let Some(round) = &game.current_round {
-            let mut options: Vec<Value> = round
-                .option_order
-                .iter()
-                .filter_map(|idx| {
-                    round
-                        .question
-                        .options
-                        .get(*idx)
-                        .map(|text| json!({"index": idx, "text": text}))
-                })
-                .collect();
+            if player_eligible_for_round {
+                let mut options: Vec<Value> = round
+                    .option_order
+                    .iter()
+                    .filter_map(|idx| {
+                        round
+                            .question
+                            .options
+                            .get(*idx)
+                            .map(|text| json!({"index": idx, "text": text}))
+                    })
+                    .collect();
 
-            if let Some((correct, incorrect)) = round.super_spliter_targets.get(client_id) {
-                options.retain(|o| {
-                    let idx = o.get("index").and_then(|v| v.as_u64()).unwrap_or(99) as usize;
-                    idx == *correct || idx == *incorrect
-                });
+                if let Some((correct, incorrect)) = round.super_spliter_targets.get(client_id) {
+                    options.retain(|o| {
+                        let idx = o.get("index").and_then(|v| v.as_u64()).unwrap_or(99) as usize;
+                        idx == *correct || idx == *incorrect
+                    });
+                }
+
+                visible_question = Some(json!({
+                    "id": round.question.id,
+                    "category": round.question.category,
+                    "prompt": round.question.prompt,
+                    "image_url": round.question.image_url,
+                    "points": round.question.points,
+                    "options": options,
+                    "round_number": round.round_number,
+                    "total_rounds": game.total_rounds,
+                    "seconds_left": round.deadline.saturating_duration_since(Instant::now()).as_secs(),
+                    "speed_searcher_owner": round.speed_searcher_owner,
+                    "mix_master_owner": round.mix_master_owner,
+                }));
+            } else {
+                waiting_for_next_round = true;
             }
-
-            visible_question = Some(json!({
-                "id": round.question.id,
-                "category": round.question.category,
-                "prompt": round.question.prompt,
-                "image_url": round.question.image_url,
-                "points": round.question.points,
-                "options": options,
-                "round_number": round.round_number,
-                "total_rounds": game.total_rounds,
-                "seconds_left": round.deadline.saturating_duration_since(Instant::now()).as_secs(),
-                "speed_searcher_owner": round.speed_searcher_owner,
-                "mix_master_owner": round.mix_master_owner,
-            }));
         }
 
         let role = if game.admin_id.as_deref() == Some(client_id) {
@@ -2635,12 +2671,15 @@ async fn build_state_snapshot(state: &AppState, client_id: &str) -> Value {
         };
         let scores_hidden =
             matches!(role, Role::Player) && game.hide_scores_until_end && game.status != GameStatus::Ended;
+        let show_leaderboard = matches!(game.status, GameStatus::InRound | GameStatus::RoundResult)
+            || (game.status == GameStatus::Ended && game.completed_rounds > 0);
 
         let your_state = game.players.get(client_id).map(|p| {
             json!({
                 "id": p.id,
                 "name": p.name,
                 "score": (p.score * 100.0).round() / 100.0,
+                "eligible_from_round": p.eligible_from_round,
                 "used_powerups": p.used_powerups,
                 "pending_powerup": p.pending_powerup,
                 "tutorial_seen": p.tutorial_seen,
@@ -2661,6 +2700,8 @@ async fn build_state_snapshot(state: &AppState, client_id: &str) -> Value {
             "auto_issue_enabled": game.auto_issue_enabled,
             "auto_issue_delay_secs": game.auto_issue_delay_secs,
             "scores_hidden": scores_hidden,
+            "show_leaderboard": show_leaderboard,
+            "waiting_for_next_round": waiting_for_next_round,
             "questions_available": game.questions.len(),
             "questions_in_play": game.questions.len(),
             "available_questions": game.total_available_questions(),

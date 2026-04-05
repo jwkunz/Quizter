@@ -31,6 +31,23 @@ json_has_player_name() {
   python3 -c 'import json,sys; payload=json.load(sys.stdin); target=sys.argv[1].lower(); print("yes" if any((player.get("name","").lower()==target) for player in payload.get("players", [])) else "no")' "${player_name}"
 }
 
+json_get_nested() {
+  local path="$1"
+  python3 -c 'import json,sys; data=json.load(sys.stdin); value=data
+for part in sys.argv[1].split("."):
+    if isinstance(value, dict):
+        value=value.get(part)
+    else:
+        value=None
+        break
+if isinstance(value, bool):
+    print("true" if value else "false")
+elif value is None:
+    print("")
+else:
+    print(value)' "${path}"
+}
+
 post_json() {
   local path="$1"
   local body="$2"
@@ -176,6 +193,16 @@ if [[ -z "${PLAYER_ID}" ]]; then
   exit 1
 fi
 
+echo "Verifying lobby state hides leaderboard before the game starts"
+lobby_state_result="$(get_json "/api/state/${PLAYER_ID}")"
+lobby_state_status="$(printf '%s' "${lobby_state_result}" | sed -n '1p')"
+lobby_state_body="$(printf '%s' "${lobby_state_result}" | sed -n '2p')"
+expect_status "${lobby_state_status}" "200" "lobby state"
+if [[ "$(printf '%s' "${lobby_state_body}" | json_get_nested show_leaderboard)" != "false" ]]; then
+  echo "FAIL: lobby state should hide leaderboard between games"
+  exit 1
+fi
+
 echo "Verifying player-name validation"
 long_player_name="$(python3 -c 'print("Y" * 33)')"
 long_name_join_result="$(post_json "/api/join" "{\"room_code\":\"${ROOM_CODE}\",\"display_name\":\"${long_player_name}\"}")"
@@ -227,6 +254,31 @@ echo "Starting hosted game"
 start_result="$(post_json "/api/rooms/start" "{\"room_code\":\"${ROOM_CODE}\",\"owner_token\":\"${OWNER_TOKEN}\",\"total_rounds\":1}")"
 start_status="$(printf '%s' "${start_result}" | sed -n '1p')"
 expect_status "${start_status}" "200" "start game"
+
+echo "Joining a late player during the active round"
+late_join_result="$(post_json "/api/join" "{\"room_code\":\"${ROOM_CODE}\",\"display_name\":\"LatePlayer\"}")"
+late_join_status="$(printf '%s' "${late_join_result}" | sed -n '1p')"
+late_join_body="$(printf '%s' "${late_join_result}" | sed -n '2p')"
+expect_status "${late_join_status}" "200" "late join"
+LATE_PLAYER_ID="$(printf '%s' "${late_join_body}" | json_get player_id)"
+if [[ -z "${LATE_PLAYER_ID}" ]]; then
+  echo "FAIL: late join did not return a player id"
+  exit 1
+fi
+
+echo "Verifying late join waits until the next round"
+late_state_result="$(get_json "/api/state/${LATE_PLAYER_ID}")"
+late_state_status="$(printf '%s' "${late_state_result}" | sed -n '1p')"
+late_state_body="$(printf '%s' "${late_state_result}" | sed -n '2p')"
+expect_status "${late_state_status}" "200" "late join state"
+if [[ "$(printf '%s' "${late_state_body}" | json_get_nested waiting_for_next_round)" != "true" ]]; then
+  echo "FAIL: late join state should mark waiting_for_next_round"
+  exit 1
+fi
+if [[ -n "$(printf '%s' "${late_state_body}" | json_get_nested current_question.id)" ]]; then
+  echo "FAIL: late join state should not expose the current question"
+  exit 1
+fi
 
 echo "Ending hosted game"
 end_result="$(post_json "/api/rooms/end_game" "{\"room_code\":\"${ROOM_CODE}\",\"owner_token\":\"${OWNER_TOKEN}\"}")"

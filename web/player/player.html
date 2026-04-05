@@ -496,7 +496,7 @@
       el("gamePanel").classList.toggle("hidden", !isJoined);
       el("roundCountdownPanel").classList.toggle("hidden", !isJoined);
       el("powerupPanel").classList.toggle("hidden", !isJoined || !state?.powerups_enabled);
-      el("leaderboardPanel").classList.toggle("hidden", !isJoined);
+      el("leaderboardPanel").classList.toggle("hidden", !isJoined || !state?.show_leaderboard);
       el("eventsPanel").classList.toggle("hidden", !isJoined);
       el("helpFooterWrap").classList.toggle("hidden", !isJoined);
     }
@@ -563,9 +563,19 @@
       const q = state?.current_question;
       el("progress").textContent = `Round ${state?.completed_rounds + (q ? 1 : 0)}/${state?.total_rounds || 0}`;
       if (!q) {
-        el("questionTitle").textContent = state?.status === "ended" ? "Game complete" : "Waiting for next round";
+        if (state?.waiting_for_next_round) {
+          el("questionTitle").textContent = "Waiting for next question";
+          el("questionPrompt").textContent = "You joined during an active round. You will be able to answer when the next question begins.";
+        } else if (state?.status === "ended") {
+          el("questionTitle").textContent = "Game complete";
+          el("questionPrompt").textContent = state?.completed_rounds > 0
+            ? "The game has ended."
+            : "The host ended the game before any scored rounds were completed.";
+        } else {
+          el("questionTitle").textContent = "Waiting for next round";
+          el("questionPrompt").textContent = "No active question.";
+        }
         el("questionCategory").classList.add("hidden");
-        el("questionPrompt").textContent = "No active question.";
         el("options").innerHTML = "";
         el("timer").textContent = "--";
         el("roundFeedback").classList.add("hidden");
@@ -607,6 +617,11 @@
     }
 
     function renderLeaderboard() {
+      el("leaderboardPanel").classList.toggle("hidden", !state?.show_leaderboard);
+      if (!state?.show_leaderboard) {
+        el("leaderboard").innerHTML = "";
+        return;
+      }
       const lb = el("leaderboard");
       lb.innerHTML = "";
       const scoresHidden = Boolean(state?.scores_hidden);
@@ -634,6 +649,7 @@
       if (state.status !== "round_result") {
         clearBetweenRoundCountdown();
       }
+      setPanelsJoined(true);
       renderQuestion();
       renderRoundCountdown();
       renderLeaderboard();

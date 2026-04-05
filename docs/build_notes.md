@@ -697,6 +697,13 @@
     more like a guided flow instead of a flat dashboard.
   - Updated the README and acceptance checklist to describe the new setup,
     launch, then start sequence for hosted rooms.
+  - Added late-join eligibility tracking so players who enter during an active
+    round wait until the next question instead of seeing or answering the
+    current one.
+  - Updated player-state rendering so the leaderboard is hidden between games
+    and only shown during active play or final scored end states.
+  - Expanded the hosted smoke script to assert lobby leaderboard hiding and the
+    late-join wait-until-next-round behavior through `/api/state`.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
@@ -711,6 +718,9 @@
   - `scripts/smoke_hosted_flow.sh` passes after hosted room-launch gating.
   - `cargo check` passes after hosted setup-flow copy polish.
   - `cargo check` passes after hosted launch-flow docs alignment.
+  - `cargo check` passes after late-join and between-game player-state fixes.
+  - `scripts/smoke_hosted_flow.sh` passes with state-level late-join and lobby
+    assertions.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.
