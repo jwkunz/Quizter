@@ -620,11 +620,13 @@
   - Updated hosted room creation to return an owner token and added
     `POST /api/rooms/resume` so a hosted room can be resumed without relying on
     the legacy admin passcode flow.
+  - Added `POST /api/rooms/close` so a hosted room can be explicitly closed by
+    owner token, with owner-index cleanup and room-scoped client disconnect
+    cleanup.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
-  - `cargo check` passes after adding owner-token room creation and resume
-    primitives.
+  - `cargo check` passes after adding explicit hosted room closure.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.

@@ -418,6 +418,12 @@ struct ResumeRoomRequest {
 }
 
 #[derive(Deserialize)]
+struct CloseRoomRequest {
+    room_code: String,
+    owner_token: String,
+}
+
+#[derive(Deserialize)]
 struct JoinRequest {
     room_code: String,
     display_name: String,
@@ -576,6 +582,7 @@ async fn main() {
         .route("/api/qr.svg", get(qr_svg))
         .route("/api/rooms/create", post(create_hosted_room))
         .route("/api/rooms/resume", post(resume_hosted_room))
+        .route("/api/rooms/close", post(close_hosted_room))
         .route("/api/admin/create_room", post(create_room))
         .route("/api/admin/login", post(admin_login))
         .route("/api/join", post(join_room))
@@ -873,6 +880,81 @@ async fn resume_hosted_room(
         Some(payload) => (StatusCode::OK, Json(payload)),
         None => (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_owner_token"}))),
     }
+}
+
+async fn close_hosted_room(
+    State(state): State<AppState>,
+    Json(req): Json<CloseRoomRequest>,
+) -> impl IntoResponse {
+    if req.room_code == DEFAULT_ROOM_CODE {
+        return (StatusCode::BAD_REQUEST, Json(json!({"error": "cannot_close_legacy_room"})));
+    }
+
+    let Some(owner_room_code) = room_code_for_owner_token(&state, &req.owner_token).await else {
+        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_owner_token"})));
+    };
+    if owner_room_code != req.room_code {
+        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_owner_token"})));
+    }
+
+    let removed_room = {
+        let mut rooms = state.rooms.lock().await;
+        match rooms.get(&owner_room_code) {
+            Some(room) if room.owner_token == req.owner_token => {}
+            Some(_) => {
+                return (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_owner_token"})));
+            }
+            None => {
+                return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
+            }
+        }
+        rooms.remove(&owner_room_code)
+    };
+
+    let Some(room) = removed_room else {
+        return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
+    };
+
+    state.owner_index.lock().await.remove(&req.owner_token);
+
+    let client_ids = {
+        let clients = state.clients.lock().await;
+        clients
+            .iter()
+            .filter_map(|(client_id, client)| {
+                if client.room_code == owner_room_code {
+                    Some(client_id.clone())
+                } else {
+                    None
+                }
+            })
+            .collect::<Vec<_>>()
+    };
+
+    for client_id in &client_ids {
+        let _ = send_to_client(
+            &state,
+            client_id,
+            json!({"event": "room_closed", "payload": {"room_code": owner_room_code}}),
+        )
+        .await;
+    }
+
+    {
+        let mut clients = state.clients.lock().await;
+        for client_id in client_ids {
+            clients.remove(&client_id);
+        }
+    }
+
+    (
+        StatusCode::OK,
+        Json(json!({
+            "ok": true,
+            "room_code": owner_room_code,
+            "room_title": room.room_title
+        })),
+    )
 }
 
 async fn admin_login(
