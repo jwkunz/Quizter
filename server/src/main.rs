@@ -850,6 +850,19 @@ fn spawn_room_cleanup_task(state: AppState) {
 async fn owner_room_payload(state: &AppState, room_code: &str) -> Option<Value> {
     with_room_mut(state, room_code, |room| {
         room.last_activity_at = Instant::now();
+        let players = room
+            .game
+            .players
+            .values()
+            .map(|player| {
+                json!({
+                    "id": player.id,
+                    "name": player.name,
+                    "score": (player.score * 100.0).round() / 100.0,
+                    "connected": player.connected,
+                })
+            })
+            .collect::<Vec<_>>();
         json!({
             "room_code": room.game.room_code,
             "room_title": room.room_title,
@@ -858,6 +871,8 @@ async fn owner_room_payload(state: &AppState, room_code: &str) -> Option<Value> 
             "questions_in_play": room.game.questions.len(),
             "total_rounds": room.game.total_rounds,
             "completed_rounds": room.game.completed_rounds,
+            "players": players,
+            "leaderboard": room.game.leaderboard(),
             "player_url": format!("{}?room={}", state.player_join_url, room.game.room_code),
         })
     })

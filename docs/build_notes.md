@@ -641,10 +641,15 @@
   - Added owner-token room status and end-game endpoints.
   - Extended the hosted landing page so the host can refresh room state and end
     a running game from the hosted control surface.
+  - Expanded the owner room status payload with player roster and leaderboard
+    data.
+  - Added basic hosted room monitoring to the landing page so the host can see
+    connected players and the live leaderboard without falling back to the
+    legacy admin page.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
-  - `cargo check` passes after adding hosted room status and end-game controls.
+  - `cargo check` passes after adding hosted room monitoring data and UI.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.
