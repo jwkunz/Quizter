@@ -628,11 +628,13 @@
   - Unified explicit close and inactivity expiration through a shared room
     removal helper that cleans room state, owner-token mappings, and
     room-scoped clients.
+  - Added owner-token-authenticated hosted room control endpoints for question
+    bank inspection, question bank selection, and game start so future hosted UI
+    work does not need to depend on the legacy admin login flow.
 - Build artifacts:
   - Not run for this planning milestone.
 - Test status:
-  - `cargo check` passes after adding inactivity expiration and shared room
-    cleanup logic.
+  - `cargo check` passes after adding owner-token room control endpoints.
 - Known issues:
   - Hosted architecture is still only partially implemented.
   - Current routes and UI still operate through the legacy default room.

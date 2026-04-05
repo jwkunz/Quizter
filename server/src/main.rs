@@ -426,6 +426,12 @@ struct CloseRoomRequest {
 }
 
 #[derive(Deserialize)]
+struct OwnerRoomQuery {
+    room_code: String,
+    owner_token: String,
+}
+
+#[derive(Deserialize)]
 struct JoinRequest {
     room_code: String,
     display_name: String,
@@ -468,8 +474,22 @@ struct StartGameRequest {
 }
 
 #[derive(Deserialize)]
+struct OwnerStartGameRequest {
+    room_code: String,
+    owner_token: String,
+    total_rounds: usize,
+}
+
+#[derive(Deserialize)]
 struct SetBankSelectionRequest {
     admin_id: String,
+    selected_files: Vec<String>,
+}
+
+#[derive(Deserialize)]
+struct OwnerSetBankSelectionRequest {
+    room_code: String,
+    owner_token: String,
     selected_files: Vec<String>,
 }
 
@@ -585,6 +605,9 @@ async fn main() {
         .route("/api/rooms/create", post(create_hosted_room))
         .route("/api/rooms/resume", post(resume_hosted_room))
         .route("/api/rooms/close", post(close_hosted_room))
+        .route("/api/rooms/question_banks", get(get_owner_question_banks))
+        .route("/api/rooms/question_banks/selection", post(set_owner_question_bank_selection))
+        .route("/api/rooms/start", post(start_owner_game))
         .route("/api/admin/create_room", post(create_room))
         .route("/api/admin/login", post(admin_login))
         .route("/api/join", post(join_room))
@@ -708,6 +731,25 @@ async fn room_code_for_join_request(state: &AppState, room_code: &str) -> Option
 
 async fn room_code_for_owner_token(state: &AppState, owner_token: &str) -> Option<String> {
     state.owner_index.lock().await.get(owner_token).cloned()
+}
+
+async fn validate_owner_room_access(
+    state: &AppState,
+    room_code: &str,
+    owner_token: &str,
+) -> Option<String> {
+    let owner_room_code = room_code_for_owner_token(state, owner_token).await?;
+    if owner_room_code != room_code {
+        return None;
+    }
+    let valid = with_room(state, room_code, |room| room.owner_token == owner_token)
+        .await
+        .unwrap_or(false);
+    if valid {
+        Some(room_code.to_string())
+    } else {
+        None
+    }
 }
 
 async fn remove_room_and_clients(
@@ -1001,6 +1043,125 @@ async fn close_hosted_room(
             "room_title": room_title
         })),
     )
+}
+
+async fn get_owner_question_banks(
+    State(state): State<AppState>,
+    Query(query): Query<OwnerRoomQuery>,
+) -> impl IntoResponse {
+    let Some(room_code) =
+        validate_owner_room_access(&state, &query.room_code, &query.owner_token).await
+    else {
+        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_owner_token"})));
+    };
+
+    let payload = with_room(&state, &room_code, |room| {
+        let game = &room.game;
+        let mut selected: Vec<String> = game.selected_bank_files.iter().cloned().collect();
+        selected.sort();
+        json!({
+            "room_code": room.game.room_code,
+            "room_title": room.room_title,
+            "available_files": game.available_bank_files(),
+            "selected_files": selected,
+            "category_tree": game.question_bank_tree(),
+            "effective_question_count": game.questions.len(),
+            "available_question_count": game.total_available_questions(),
+        })
+    })
+    .await
+    .unwrap_or_else(|| json!({"error": "invalid_room_code"}));
+
+    (StatusCode::OK, Json(payload))
+}
+
+async fn set_owner_question_bank_selection(
+    State(state): State<AppState>,
+    Json(req): Json<OwnerSetBankSelectionRequest>,
+) -> impl IntoResponse {
+    let Some(room_code) =
+        validate_owner_room_access(&state, &req.room_code, &req.owner_token).await
+    else {
+        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_owner_token"})));
+    };
+
+    let counts = with_room_mut(&state, &room_code, |room| {
+        room.last_activity_at = Instant::now();
+        let game = &mut room.game;
+        let available: HashSet<String> = game.available_bank_files().into_iter().collect();
+        let selected: HashSet<String> = req
+            .selected_files
+            .into_iter()
+            .filter(|name| available.contains(name))
+            .collect();
+        game.selected_bank_files = selected;
+        game.rebuild_effective_question_pool();
+        game.reflow_future_rounds_after_pool_change();
+        (game.questions.len(), game.total_available_questions())
+    })
+    .await;
+
+    let Some((effective_question_count, available_question_count)) = counts else {
+        return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
+    };
+
+    broadcast_room_state(&state, &room_code).await;
+    (
+        StatusCode::OK,
+        Json(json!({
+            "ok": true,
+            "effective_question_count": effective_question_count,
+            "available_question_count": available_question_count
+        })),
+    )
+}
+
+async fn start_owner_game(
+    State(state): State<AppState>,
+    Json(req): Json<OwnerStartGameRequest>,
+) -> impl IntoResponse {
+    let Some(room_code) =
+        validate_owner_room_access(&state, &req.room_code, &req.owner_token).await
+    else {
+        return (StatusCode::UNAUTHORIZED, Json(json!({"error": "invalid_owner_token"})));
+    };
+
+    let startable = with_room_mut(&state, &room_code, |room| {
+        room.last_activity_at = Instant::now();
+        let game = &mut room.game;
+        if game.questions.is_empty() {
+            return false;
+        }
+
+        game.total_rounds = req.total_rounds.max(1).min(game.questions.len());
+        game.completed_rounds = 0;
+        game.status = GameStatus::Lobby;
+        game.current_round = None;
+        for player in game.players.values_mut() {
+            player.score = 0.0;
+            player.last_score_delta = 0.0;
+            player.used_powerups.clear();
+            player.pending_powerup = None;
+        }
+
+        game.shuffled_question_ids = game.questions.iter().map(|q| q.id.clone()).collect();
+        game.shuffled_question_ids.shuffle(&mut rand::thread_rng());
+        true
+    })
+    .await;
+
+    match startable {
+        Some(true) => {}
+        Some(false) => {
+            return (StatusCode::BAD_REQUEST, Json(json!({"error": "no_questions"})));
+        }
+        None => {
+            return (StatusCode::BAD_REQUEST, Json(json!({"error": "invalid_room_code"})));
+        }
+    }
+
+    start_next_round_in_room(state.clone(), &room_code).await;
+    (StatusCode::OK, Json(json!({"ok": true})))
 }
 
 async fn admin_login(
