@@ -319,9 +319,9 @@
         <img class="logo" src="/assets/images/Quizster_logo.png" alt="Quizster logo" />
       </div>
       <div>
-        <h1>Quizster Hosted</h1>
-        <p>Run a room from one shared public site. Create a room, resume your room on the same browser, or join with a room code.</p>
-        <p class="mini">This is the primary hosted flow for creating, launching, and running a room from one public site.</p>
+        <h1>Run a live trivia game in minutes</h1>
+        <p>Quizster makes it easy to host a fast, phone-friendly quiz night. Create a room, pick your question packs, launch the game, and let everyone join from their own device.</p>
+        <p class="mini">Great for families, classes, youth groups, church activities, parties, and any gathering that needs an easy game everyone can jump into.</p>
       </div>
     </section>
 
@@ -360,31 +360,8 @@
     </section>
 
     <section id="roomPanel" class="panel hidden">
-      <h2>Hosted Room</h2>
-      <div class="room-card">
-        <div>
-          <div class="mini">Room Title</div>
-          <div id="activeRoomTitle" style="font-size:1.25rem; font-weight:bold;"></div>
-          <div class="mini" style="margin-top:0.75rem;">Room Code</div>
-          <div id="activeRoomCode" class="room-code"></div>
-          <div class="mini">Create the room, configure packs and settings, then launch it for players.</div>
-          <div class="actions">
-            <button id="launchRoomBtn">Launch Room</button>
-            <button id="copyPlayerLinkBtn">Copy Player Link</button>
-            <button id="openPlayerBtn" class="alt">Open Player Page</button>
-            <button id="refreshRoomBtn" class="alt">Refresh Room</button>
-            <button id="closeRoomBtn" class="warn">Close Room</button>
-          </div>
-          <div style="margin-top:0.85rem;">
-            <div class="mini">Player Link</div>
-            <div id="playerLinkBox" class="linkbox"></div>
-          </div>
-          <div class="status" id="roomStatus" style="margin-top:0.75rem;"></div>
-        </div>
-        <div style="text-align:center;">
-          <img id="joinQr" class="qr" alt="Join QR code" />
-        </div>
-      </div>
+      <h2>Room Setup</h2>
+      <div class="mini">Work through the steps below. The room code and QR code will appear after you launch the room for players.</div>
 
       <div class="wizard-progress">
         <div class="step-card">
@@ -516,6 +493,31 @@
           <div class="mini">No blocked names.</div>
         </div>
       </div>
+
+      <div class="room-card" style="margin-top:1rem;">
+        <div>
+          <div class="mini">Room Title</div>
+          <div id="activeRoomTitle" style="font-size:1.25rem; font-weight:bold;"></div>
+          <div id="roomCodeLabel" class="mini hidden" style="margin-top:0.75rem;">Room Code</div>
+          <div id="activeRoomCode" class="room-code hidden"></div>
+          <div class="mini">Launch the room when you are ready for players to join.</div>
+          <div class="actions">
+            <button id="launchRoomBtn">Launch Room</button>
+            <button id="copyPlayerLinkBtn">Copy Player Link</button>
+            <button id="openPlayerBtn" class="alt">Open Player Page</button>
+            <button id="refreshRoomBtn" class="alt">Refresh Room</button>
+            <button id="closeRoomBtn" class="warn">Close Room</button>
+          </div>
+          <div style="margin-top:0.85rem;">
+            <div class="mini">Player Link</div>
+            <div id="playerLinkBox" class="linkbox"></div>
+          </div>
+          <div class="status" id="roomStatus" style="margin-top:0.75rem;"></div>
+        </div>
+        <div style="text-align:center;">
+          <img id="joinQr" class="qr" alt="Join QR code" />
+        </div>
+      </div>
     </section>
   </div>
 
@@ -607,6 +609,8 @@
       stopRoomPolling();
       el("roomPanel").classList.add("hidden");
       el("activeRoomTitle").textContent = "";
+      el("roomCodeLabel").classList.add("hidden");
+      el("activeRoomCode").classList.add("hidden");
       el("activeRoomCode").textContent = "";
       el("playerLinkBox").textContent = "";
       el("joinQr").src = "";
@@ -1146,8 +1150,10 @@
       latestRoomStatus = room;
       el("roomPanel").classList.remove("hidden");
       el("activeRoomTitle").textContent = room.room_title || "";
-      el("activeRoomCode").textContent = room.room_code || "";
       const launched = Boolean(room.launched);
+      el("roomCodeLabel").classList.toggle("hidden", !launched);
+      el("activeRoomCode").classList.toggle("hidden", !launched);
+      el("activeRoomCode").textContent = launched ? (room.room_code || "") : "";
       el("playerLinkBox").textContent = launched ? (room.player_url || "") : "Available after room launch.";
       el("joinQr").src = launched ? `/api/qr.svg?text=${encodeURIComponent(room.player_url || "")}` : "";
       setStatus(
