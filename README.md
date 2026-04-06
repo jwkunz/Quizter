@@ -10,7 +10,7 @@ Current product status:
 - player entry: `/player`
 - legacy admin console removed
 
-![Quizster Logo](assets/images/Quizter_logo.png)
+![Quizster Logo](assets/images/Quizster_logo.png)
 
 **Software Version:** `v4.1.0`
 
