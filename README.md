@@ -12,7 +12,7 @@ Current product status:
 
 ![Quizter Logo](assets/images/Quizter_logo.png)
 
-**Software Version:** `v4.0.0`
+**Software Version:** `v4.1.0`
 
 Copyright 2026 Numerius Engineering LLC.  
 Distributed under the terms of the MIT License  
@@ -136,6 +136,23 @@ Players open the player page from QR/URL and can:
 - see the correct answer beneath the incorrect result graphic
 
 No install needed on player devices; modern mobile browsers are enough.
+
+## Power Ups
+
+Each player can use each power-up once per game when power-ups are enabled.
+
+- `Mix Master`
+  - Scrambles displayed answer text and order for other players during the round.
+- `Speed Searcher`
+  - Gives the activating player an exclusive 60-second answer window and locks out the other players for that round.
+- `Double Downer`
+  - Doubles the activating player's score for the round if they answer correctly.
+- `Clone Commander`
+  - Gives the activating player the top round score earned by any player that round.
+- `Super Spliter`
+  - Helps the activating player by reducing their visible choices to one correct and one incorrect answer.
+- `Great Gambler`
+  - Applies a random multiplier from `-1.0` to `3.0` to round scores.
 
 ## Question Banks
 
@@ -276,7 +293,7 @@ Quizter can also run inside a Docker container.
 Build the image from the repository root:
 
 ```bash
-docker build -t quizter:v4.0.0 .
+docker build -t quizter:v4.1.0 .
 ```
 
 Run it locally:
@@ -284,7 +301,7 @@ Run it locally:
 ```bash
 docker run --rm -p 8080:8080 \
   -e QUIZTER_PUBLIC_BASE_URL=http://localhost:8080 \
-  quizter:v4.0.0
+  quizter:v4.1.0
 ```
 
 Then open:
