@@ -32,6 +32,10 @@ const PLAYER_NAME_MAX_CHARS: usize = 32;
 const ROOM_INACTIVITY_TIMEOUT_SECS: u64 = 30 * 60;
 const ROOM_CLEANUP_INTERVAL_SECS: u64 = 60;
 
+fn env_var_compat(new_key: &str, old_key: &str) -> Option<String> {
+    env::var(new_key).ok().or_else(|| env::var(old_key).ok())
+}
+
 #[derive(Clone)]
 struct AppState {
     rooms: Arc<Mutex<HashMap<String, RoomState>>>,
@@ -626,9 +630,9 @@ async fn main() {
 
     tracing_subscriber::fmt().with_env_filter("info").init();
 
-    let host = env::var("QUIZTER_HOST").unwrap_or_else(|_| "0.0.0.0".to_string());
-    let port = env::var("QUIZTER_PORT")
-        .ok()
+    let host = env_var_compat("QUIZSTER_HOST", "QUIZTER_HOST")
+        .unwrap_or_else(|| "0.0.0.0".to_string());
+    let port = env_var_compat("QUIZSTER_PORT", "QUIZTER_PORT")
         .and_then(|v| v.parse::<u16>().ok())
         .unwrap_or(8080);
     let addr: SocketAddr = format!("{}:{}", host, port)
@@ -636,7 +640,7 @@ async fn main() {
         .unwrap_or_else(|_| SocketAddr::from(([0, 0, 0, 0], 8080)));
     let detected_lan_ip = detect_lan_ip().unwrap_or_else(|| "127.0.0.1".to_string());
     let public_base_url = normalized_public_base_url(
-        env::var("QUIZTER_PUBLIC_BASE_URL").ok(),
+        env_var_compat("QUIZSTER_PUBLIC_BASE_URL", "QUIZTER_PUBLIC_BASE_URL"),
         port,
         &detected_lan_ip,
     );
@@ -684,7 +688,7 @@ async fn main() {
         .nest_service("/assets", ServeDir::new(assets_dir))
         .with_state(state.clone());
 
-    tracing::info!("Quizter server listening on {}", addr);
+    tracing::info!("Quizster server listening on {}", addr);
     tracing::info!("Player join URL: {}/player", public_base_url);
 
     let listener = tokio::net::TcpListener::bind(addr)
@@ -710,7 +714,7 @@ async fn player_page(State(state): State<AppState>) -> Html<String> {
 async fn health() -> Json<HealthResponse> {
     Json(HealthResponse {
         status: "ok",
-        service: "quizter-server",
+        service: "quizster-server",
         timestamp: Utc::now().to_rfc3339(),
     })
 }
@@ -2391,7 +2395,7 @@ fn read_web_html(runtime_root: &FsPath, role: &str) -> String {
 }
 
 fn maybe_open_home_browser(port: u16) {
-    if env::var("QUIZTER_OPEN_BROWSER")
+    if env_var_compat("QUIZSTER_OPEN_BROWSER", "QUIZTER_OPEN_BROWSER")
         .map(|v| v == "0" || v.eq_ignore_ascii_case("false"))
         .unwrap_or(false)
     {
@@ -2404,14 +2408,14 @@ fn maybe_open_home_browser(port: u16) {
 fn maybe_relaunch_in_terminal() -> bool {
     use std::io::IsTerminal;
 
-    if env::var("QUIZTER_SPAWN_TERMINAL")
+    if env_var_compat("QUIZSTER_SPAWN_TERMINAL", "QUIZTER_SPAWN_TERMINAL")
         .map(|v| v == "0" || v.eq_ignore_ascii_case("false"))
         .unwrap_or(false)
     {
         return false;
     }
 
-    if env::var("QUIZTER_TERMINAL_LAUNCHED")
+    if env_var_compat("QUIZSTER_TERMINAL_LAUNCHED", "QUIZTER_TERMINAL_LAUNCHED")
         .map(|v| v == "1" || v.eq_ignore_ascii_case("true"))
         .unwrap_or(false)
     {
@@ -2441,12 +2445,12 @@ fn spawn_terminal_process(exe: &FsPath, cwd: Option<&FsPath>) -> bool {
         let mut cmd = Command::new("cmd");
         cmd.arg("/C")
             .arg("start")
-            .arg("Quizter Server")
+            .arg("Quizster Server")
             .arg(exe);
         if let Some(dir) = cwd {
             cmd.current_dir(dir);
         }
-        cmd.env("QUIZTER_TERMINAL_LAUNCHED", "1");
+        cmd.env("QUIZSTER_TERMINAL_LAUNCHED", "1");
         return cmd.spawn().is_ok();
     }
 
@@ -2455,7 +2459,7 @@ fn spawn_terminal_process(exe: &FsPath, cwd: Option<&FsPath>) -> bool {
         let escaped_exe = shell_escape(exe);
         let escaped_cwd = cwd.map(shell_escape).unwrap_or_else(|| ".".to_string());
         let script = format!(
-            "tell application \"Terminal\" to do script \"cd {} && QUIZTER_TERMINAL_LAUNCHED=1 {}\"",
+            "tell application \"Terminal\" to do script \"cd {} && QUIZSTER_TERMINAL_LAUNCHED=1 {}\"",
             escaped_cwd, escaped_exe
         );
         return Command::new("osascript").arg("-e").arg(script).spawn().is_ok();
@@ -2476,12 +2480,12 @@ fn spawn_terminal_process(exe: &FsPath, cwd: Option<&FsPath>) -> bool {
             if let Some(dir) = cwd {
                 cmd.current_dir(dir);
             }
-            cmd.env("QUIZTER_TERMINAL_LAUNCHED", "1");
+            cmd.env("QUIZSTER_TERMINAL_LAUNCHED", "1");
             for part in prefix {
                 cmd.arg(part);
             }
             if program == "xfce4-terminal" {
-                let launch = format!("QUIZTER_TERMINAL_LAUNCHED=1 {}", shell_escape(exe));
+                let launch = format!("QUIZSTER_TERMINAL_LAUNCHED=1 {}", shell_escape(exe));
                 cmd.arg(launch);
             } else {
                 cmd.arg(exe);
@@ -2707,16 +2711,16 @@ mod tests {
     #[test]
     fn public_base_url_uses_configured_origin_without_trailing_slash() {
         assert_eq!(
-            normalized_public_base_url(Some("https://quizter.example.com/".to_string()), 8080, "192.168.1.10"),
-            "https://quizter.example.com"
+            normalized_public_base_url(Some("https://quizster.example.com/".to_string()), 8080, "192.168.1.10"),
+            "https://quizster.example.com"
         );
     }
 
     #[test]
     fn host_label_is_extracted_from_public_base_url() {
         assert_eq!(
-            host_label_from_base_url("https://quizter.example.com/path"),
-            "quizter.example.com"
+            host_label_from_base_url("https://quizster.example.com/path"),
+            "quizster.example.com"
         );
         assert_eq!(host_label_from_base_url("http://127.0.0.1:8080"), "127.0.0.1:8080");
     }

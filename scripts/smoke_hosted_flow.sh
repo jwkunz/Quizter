@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 PORT="${1:-18080}"
 BASE_URL="http://127.0.0.1:${PORT}"
-PUBLIC_BASE_URL="${QUIZTER_PUBLIC_BASE_URL:-}"
+PUBLIC_BASE_URL="${QUIZSTER_PUBLIC_BASE_URL:-${QUIZTER_PUBLIC_BASE_URL:-}}"
 SERVER_LOG="$(mktemp)"
 SERVER_PID=""
 
@@ -84,10 +84,10 @@ expect_status() {
   fi
 }
 
-echo "Starting Quizter server on ${BASE_URL}"
+echo "Starting Quizster server on ${BASE_URL}"
 (
   cd "${ROOT_DIR}/server"
-  QUIZTER_PORT="${PORT}" QUIZTER_OPEN_BROWSER=0 QUIZTER_SPAWN_TERMINAL=0 cargo run >"${SERVER_LOG}" 2>&1
+  QUIZSTER_PORT="${PORT}" QUIZSTER_OPEN_BROWSER=0 QUIZSTER_SPAWN_TERMINAL=0 cargo run >"${SERVER_LOG}" 2>&1
 ) &
 SERVER_PID="$!"
 

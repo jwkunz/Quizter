@@ -21,18 +21,18 @@ RUN apt-get update \
     && apt-get install -y --no-install-recommends ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-COPY --from=builder /app/server/target/release/quizter-server /app/quizter-server
+COPY --from=builder /app/server/target/release/quizster-server /app/quizster-server
 COPY web /app/web
 COPY assets /app/assets
 
 RUN mkdir -p /app/data
 
-ENV QUIZTER_HOST=0.0.0.0
-ENV QUIZTER_PORT=8080
-ENV QUIZTER_PUBLIC_BASE_URL=https://quizster.live
-ENV QUIZTER_OPEN_BROWSER=0
-ENV QUIZTER_SPAWN_TERMINAL=0
+ENV QUIZSTER_HOST=0.0.0.0
+ENV QUIZSTER_PORT=8080
+ENV QUIZSTER_PUBLIC_BASE_URL=https://quizster.live
+ENV QUIZSTER_OPEN_BROWSER=0
+ENV QUIZSTER_SPAWN_TERMINAL=0
 
 EXPOSE 8080
 
-CMD ["./quizter-server"]
+CMD ["./quizster-server"]

@@ -20,7 +20,7 @@ if [[ -z "$PYTHON_BIN" ]]; then
   fi
 fi
 
-SERVER_ZIP="dist/quizter-server-${TARGET}-v${VERSION}.zip"
+SERVER_ZIP="dist/quizster-server-${TARGET}-v${VERSION}.zip"
 
 for f in "$SERVER_ZIP"; do
   if [[ ! -f "$f" ]]; then
@@ -44,7 +44,7 @@ def has_any(*candidates):
 def has_prefix(prefix):
     return any(name.startswith(prefix) for name in names)
 
-if not has_any("quizter-server", "quizter-server.exe", "README.txt"):
+if not has_any("quizster-server", "quizster-server.exe", "README.txt"):
     print("server executable/readme missing from server zip")
     sys.exit(1)
 

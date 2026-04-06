@@ -1,4 +1,4 @@
-# Quizter Hosted Phase 1 Checklist
+# Quizster Hosted Phase 1 Checklist
 
 Status:
 - Completed.

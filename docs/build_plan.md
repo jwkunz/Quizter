@@ -1,7 +1,7 @@
-# Quizter Build and Release Plan (Finalized Commit + Archive Rules)
+# Quizster Build and Release Plan (Finalized Commit + Archive Rules)
 
 ## Summary
-Implement Quizter in staged minor versions starting at `v0.0.0`, with one git commit per minor bump.
+Implement Quizster in staged minor versions starting at `v0.0.0`, with one git commit per minor bump.
 At every commit, run the build script, which must remove old archives and generate fresh versioned zip artifacts.
 
 ## Stage and Version Policy
@@ -24,9 +24,9 @@ At every commit, run the build script, which must remove old archives and genera
   - deletes previous archives before packaging,
   - builds and outputs fresh zips only for current version.
 - Produce separate zips:
-  - `quizter-server-<target>-vX.Y.Z.zip`
-  - `quizter-player-vX.Y.Z.zip`
-  - `quizter-admin-vX.Y.Z.zip`
+  - `quizster-server-<target>-vX.Y.Z.zip`
+  - `quizster-player-vX.Y.Z.zip`
+  - `quizster-admin-vX.Y.Z.zip`
 - Server targets built by GitHub workflow:
   - `x86_64-unknown-linux-gnu`
   - `x86_64-pc-windows-msvc`

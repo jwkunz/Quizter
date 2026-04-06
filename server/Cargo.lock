@@ -985,7 +985,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "quizter-server"
+name = "quizster-server"
 version = "4.1.0"
 dependencies = [
  "axum",

@@ -1,11 +1,11 @@
 # Managed Hosting Checklist
 
-Use this checklist when moving Quizter from local development to a managed
+Use this checklist when moving Quizster from local development to a managed
 hosting provider.
 
 ## Goal
 
-Run one hosted Quizter server on a public HTTPS domain so:
+Run one hosted Quizster server on a public HTTPS domain so:
 
 - the host uses `/`
 - players join through `/player`
@@ -19,7 +19,7 @@ Current app shape:
 
 ## Minimum Runtime Expectations
 
-Quizter needs:
+Quizster needs:
 
 - one long-running server process
 - HTTP and WebSocket support
@@ -31,25 +31,25 @@ Quizter needs:
 
 ## Required Environment Variables
 
-- `QUIZTER_PUBLIC_BASE_URL`
-  - example: `https://quizter.example.com`
+- `QUIZSTER_PUBLIC_BASE_URL`
+  - example: `https://quizster.example.com`
   - required for correct player join links and QR codes in hosted mode
-- `QUIZTER_OPEN_BROWSER=0`
+- `QUIZSTER_OPEN_BROWSER=0`
   - prevents local browser auto-open behavior on the server
-- `QUIZTER_SPAWN_TERMINAL=0`
+- `QUIZSTER_SPAWN_TERMINAL=0`
   - prevents local terminal relaunch behavior on the server
 
 Optional:
 
-- `QUIZTER_HOST=0.0.0.0`
-- `QUIZTER_PORT`
+- `QUIZSTER_HOST=0.0.0.0`
+- `QUIZSTER_PORT`
   - only if your platform requires a specific bind port
 
 ## Pre-Deploy Checks
 
 - Run `cargo test`
 - Run `scripts/smoke_hosted_flow.sh`
-- Run local manual verification with `QUIZTER_PUBLIC_BASE_URL` pointed at the
+- Run local manual verification with `QUIZSTER_PUBLIC_BASE_URL` pointed at the
   expected public origin if you want to confirm QR/link generation before
   deploying.
 - Confirm hosted homepage flow works locally:

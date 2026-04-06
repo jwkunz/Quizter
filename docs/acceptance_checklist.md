@@ -27,7 +27,7 @@ Use this checklist before tagging or sharing a release build.
 - Incorrect score = 0.
 - Each power-up is usable once per player per game.
 - Player tutorial wizard is accessible during join flow.
-- Hosted room links and QR codes use `QUIZTER_PUBLIC_BASE_URL` when configured.
+- Hosted room links and QR codes use `QUIZSTER_PUBLIC_BASE_URL` when configured.
 
 ## CI Matrix
 - GitHub workflow builds targets:

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Quizter</title>
+  <title>Quizster</title>
   <style>
     :root {
       --bg: #050505;
@@ -313,10 +313,10 @@
   <div class="wrap">
     <section class="hero">
       <div style="text-align:center;">
-        <img class="logo" src="/assets/images/Quizter_logo.png" alt="Quizter logo" />
+        <img class="logo" src="/assets/images/Quizter_logo.png" alt="Quizster logo" />
       </div>
       <div>
-        <h1>Quizter Hosted</h1>
+        <h1>Quizster Hosted</h1>
         <p>Run a room from one shared public site. Create a room, resume your room on the same browser, or join with a room code.</p>
         <p class="mini">This is the primary hosted flow for creating, launching, and running a room from one public site.</p>
       </div>
@@ -517,7 +517,8 @@
   </div>
 
   <script>
-    const STORAGE_KEY = "quizter_hosted_owner_room";
+    const STORAGE_KEY = "quizster_hosted_owner_room";
+    const LEGACY_STORAGE_KEY = "quizter_hosted_owner_room";
     const ROOM_POLL_MS = 5000;
     let roomPollTimer = null;
     let latestRoomStatus = null;
@@ -541,7 +542,7 @@
 
     function loadSavedRoom() {
       try {
-        const raw = localStorage.getItem(STORAGE_KEY);
+        const raw = localStorage.getItem(STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
         return raw ? JSON.parse(raw) : null;
       } catch (_) {
         return null;
@@ -550,11 +551,13 @@
 
     function saveRoom(room) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(room));
+      localStorage.removeItem(LEGACY_STORAGE_KEY);
       syncLandingActions();
     }
 
     function clearRoom() {
       localStorage.removeItem(STORAGE_KEY);
+      localStorage.removeItem(LEGACY_STORAGE_KEY);
       syncLandingActions();
     }
 

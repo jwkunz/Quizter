@@ -1,4 +1,4 @@
-name: quizter
+name: quizster
 region: nyc
 
 domains:
@@ -7,7 +7,7 @@ domains:
     minimum_tls_version: "1.2"
 
 services:
-  - name: quizter-web
+  - name: quizster-web
     github:
       repo: jwkunz/Quizter
       branch: main
@@ -25,23 +25,23 @@ services:
       success_threshold: 1
       failure_threshold: 3
     envs:
-      - key: QUIZTER_HOST
+      - key: QUIZSTER_HOST
         value: "0.0.0.0"
         scope: RUN_TIME
         type: GENERAL
-      - key: QUIZTER_PORT
+      - key: QUIZSTER_PORT
         value: "8080"
         scope: RUN_TIME
         type: GENERAL
-      - key: QUIZTER_PUBLIC_BASE_URL
+      - key: QUIZSTER_PUBLIC_BASE_URL
         value: https://quizster.live
         scope: RUN_TIME
         type: GENERAL
-      - key: QUIZTER_OPEN_BROWSER
+      - key: QUIZSTER_OPEN_BROWSER
         value: "0"
         scope: RUN_TIME
         type: GENERAL
-      - key: QUIZTER_SPAWN_TERMINAL
+      - key: QUIZSTER_SPAWN_TERMINAL
         value: "0"
         scope: RUN_TIME
         type: GENERAL

@@ -1,8 +1,8 @@
-# Quizter
+# Quizster
 
-Quizter is a browser-based multiplayer quiz game server.
+Quizster is a browser-based multiplayer quiz game server.
 
-One person runs the server, opens the Quizter homepage, creates a room, and lets players join from their phone or computer browser by room code or QR code.
+One person runs the server, opens the Quizster homepage, creates a room, and lets players join from their phone or computer browser by room code or QR code.
 
 Current product status:
 - hosted-only flow
@@ -10,7 +10,7 @@ Current product status:
 - player entry: `/player`
 - legacy admin console removed
 
-![Quizter Logo](assets/images/Quizter_logo.png)
+![Quizster Logo](assets/images/Quizter_logo.png)
 
 **Software Version:** `v4.1.0`
 
@@ -18,17 +18,17 @@ Copyright 2026 Numerius Engineering LLC.
 Distributed under the terms of the MIT License  
 Contact numerius.engineering@gmail.com for support
 
-## New to GitHub? How to Download Quizter
+## New to GitHub? How to Download Quizster
 
 If you have never used GitHub before, follow these exact steps:
 
-1. Go to the Quizter repository page in your browser.
+1. Go to the Quizster repository page in your browser.
 2. On the right side, find the **Releases** section and click the latest release version.
 3. Scroll to **Assets** and click to expand it.
 4. Download the zip that matches your computer:
-   - Windows: `quizter-server-x86_64-pc-windows-msvc-vX.Y.Z.zip`
-   - macOS (Apple Silicon): `quizter-server-aarch64-apple-darwin-vX.Y.Z.zip`
-   - Linux: `quizter-server-x86_64-unknown-linux-gnu-vX.Y.Z.zip`
+   - Windows: `quizster-server-x86_64-pc-windows-msvc-vX.Y.Z.zip`
+   - macOS (Apple Silicon): `quizster-server-aarch64-apple-darwin-vX.Y.Z.zip`
+   - Linux: `quizster-server-x86_64-unknown-linux-gnu-vX.Y.Z.zip`
 5. Wait for download to finish, then unzip/extract the file.
 6. Open the extracted folder and run the server executable inside.
 
@@ -36,7 +36,7 @@ If you have never used GitHub before, follow these exact steps:
 
 You only need **one zip file**:
 
-- `quizter-server-<your-platform>-vX.Y.Z.zip`
+- `quizster-server-<your-platform>-vX.Y.Z.zip`
 
 This server zip already includes:
 
@@ -50,13 +50,13 @@ No separate player or admin app download is needed.
 ## Quick Start (Non-Technical)
 
 1. Download the latest server zip from GitHub Releases.
-2. Extract/unzip it to a folder (for example: Desktop `Quizter`).
+2. Extract/unzip it to a folder (for example: Desktop `Quizster`).
 3. Open that folder.
 4. Run the server executable:
-   - Windows: double-click `quizter-server.exe`
-   - macOS/Linux: double-click `quizter-server` (or run from terminal)
-5. Quizter will try to launch in a visible terminal window so the server process is easy to see and stop.
-6. Your browser should open automatically to the Quizter homepage.
+   - Windows: double-click `quizster-server.exe`
+   - macOS/Linux: double-click `quizster-server` (or run from terminal)
+5. Quizster will try to launch in a visible terminal window so the server process is easy to see and stop.
+6. Your browser should open automatically to the Quizster homepage.
 7. On the homepage:
    - click **Create Room**
    - enter a room title
@@ -70,7 +70,7 @@ No separate player or admin app download is needed.
 
 ## Local Hosting Notes
 
-If you are running Quizter from your own computer for a local gathering:
+If you are running Quizster from your own computer for a local gathering:
 
 - Host computer and player devices must be on the same Wi-Fi/LAN.
 - If prompted by firewall, **allow** the server on private/local networks.
@@ -187,7 +187,7 @@ Question pack format:
 Notes:
 
 - The root `category` field is optional.
-- If the root `category` is missing, Quizter assigns the pack to `Generic`.
+- If the root `category` is missing, Quizster assigns the pack to `Generic`.
 - The root `category` applies to every question in that pack.
 
 Easy question generation with an LLM:
@@ -235,7 +235,7 @@ Open the hosted homepage manually on the host machine:
 
 Then create a room and use the generated QR code to let players join.
 
-If Quizter could not relaunch itself into a separate terminal window on your platform, keep the original terminal window open while you host the game.
+If Quizster could not relaunch itself into a separate terminal window on your platform, keep the original terminal window open while you host the game.
 
 ## Gameplay Notes
 
@@ -256,9 +256,9 @@ If Quizter could not relaunch itself into a separate terminal window on your pla
 
 ### Server keeps running after browser closes
 
-- Closing only the browser may leave the Quizter server running.
+- Closing only the browser may leave the Quizster server running.
 - Stop the running server process when you are done hosting.
-- If needed, close the terminal window that launched Quizter or stop the `quizter-server` process manually.
+- If needed, close the terminal window that launched Quizster or stop the `quizster-server` process manually.
 
 ### Admin page says missing files
 
@@ -269,8 +269,8 @@ If Quizter could not relaunch itself into a separate terminal window on your pla
 
 Run with a different port:
 
-- `QUIZTER_PORT=9090 ./quizter-server` (macOS/Linux)
-- `set QUIZTER_PORT=9090 && quizter-server.exe` (Windows cmd)
+- `QUIZSTER_PORT=9090 ./quizster-server` (macOS/Linux)
+- `set QUIZSTER_PORT=9090 && quizster-server.exe` (Windows cmd)
 
 Then open `http://127.0.0.1:9090/`.
 
@@ -278,9 +278,9 @@ Then open `http://127.0.0.1:9090/`.
 
 For managed hosting or any public deployment behind a real domain, set:
 
-- `QUIZTER_PUBLIC_BASE_URL=https://your-domain.example`
+- `QUIZSTER_PUBLIC_BASE_URL=https://your-domain.example`
 
-This makes Quizter generate the correct player join URLs and QR codes for the
+This makes Quizster generate the correct player join URLs and QR codes for the
 public hosted address instead of the detected LAN IP.
 
 See [docs/managed_hosting_checklist.md](/home/jwkunz/repos/Quizter/docs/managed_hosting_checklist.md)
@@ -288,20 +288,20 @@ for the recommended hosted preflight and first-deploy smoke checks.
 
 ### Docker
 
-Quizter can also run inside a Docker container.
+Quizster can also run inside a Docker container.
 
 Build the image from the repository root:
 
 ```bash
-docker build -t quizter:v4.1.0 .
+docker build -t quizster:v4.1.0 .
 ```
 
 Run it locally:
 
 ```bash
 docker run --rm -p 8080:8080 \
-  -e QUIZTER_PUBLIC_BASE_URL=http://localhost:8080 \
-  quizter:v4.1.0
+  -e QUIZSTER_PUBLIC_BASE_URL=http://localhost:8080 \
+  quizster:v4.1.0
 ```
 
 Then open:
@@ -312,10 +312,10 @@ Then open:
 Notes:
 
 - The container already disables browser auto-open and terminal relaunch.
-- For a real hosted deployment, set `QUIZTER_PUBLIC_BASE_URL` to your public
+- For a real hosted deployment, set `QUIZSTER_PUBLIC_BASE_URL` to your public
   HTTPS domain.
 - The image includes the server binary plus the runtime `web/` and `assets/`
-  directories required by Quizter.
+  directories required by Quizster.
 
 ## For Developers
 

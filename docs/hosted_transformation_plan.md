@@ -1,4 +1,4 @@
-# Quizter Hosted Transformation Plan
+# Quizster Hosted Transformation Plan
 
 Status:
 - Completed for the first hosted-only release target.
@@ -7,7 +7,7 @@ Status:
 
 ## Purpose
 
-This document captures the agreed plan for transforming Quizter from a
+This document captures the agreed plan for transforming Quizster from a
 single-room LAN-hosted app into a simple public hosted service that can be run
 from a managed platform.
 
@@ -17,7 +17,7 @@ avoids accounts, databases, public question authoring, and horizontal scaling.
 
 ## Product Direction
 
-Quizter will move from:
+Quizster will move from:
 
 - one local server process
 - one global room
