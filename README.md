@@ -12,7 +12,7 @@ Current product status:
 
 ![Quizster Logo](assets/images/Quizster_logo.png)
 
-**Software Version:** `v4.3.0`
+**Software Version:** `v4.4.0`
 
 Copyright 2026 Numerius Engineering LLC.  
 Distributed under the terms of the MIT License  
@@ -304,7 +304,7 @@ Quizster can also run inside a Docker container.
 Build the image from the repository root:
 
 ```bash
-docker build -t quizster:v4.3.0 .
+docker build -t quizster:v4.4.0 .
 ```
 
 Run it locally:
@@ -312,7 +312,7 @@ Run it locally:
 ```bash
 docker run --rm -p 8080:8080 \
   -e QUIZSTER_PUBLIC_BASE_URL=http://localhost:8080 \
-  quizster:v4.3.0
+  quizster:v4.4.0
 ```
 
 Then open:
